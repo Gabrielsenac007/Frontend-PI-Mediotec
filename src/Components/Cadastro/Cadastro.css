@@ -1,0 +1,116 @@
+.container {
+    width: 450px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.253);
+    margin: 20px;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #0A0A0A;
+}
+
+.container .input-field {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px auto;
+}
+
+.input-field input {
+    width: 100%;
+    height: 100%;
+    background: rgba(240, 240, 240, 0.8);
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #0A0A0A;
+    padding: 20px 45px 20px 25px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.input-field input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.input-field input:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.input-field .icon {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #0A0A0A;
+}
+
+.input-field select {
+    width: 100%;
+    padding: 10px; /* Espaço interno */
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 5px; /* Cantos arredondados */
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 16px; /* Tamanho da fonte */
+    color: #333; /* Cor do texto */
+    appearance: none; /* Remove o estilo padrão do select */
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray"><path d="M4 6l4 4 4-4z"/></svg>'); /* Adiciona um ícone de seta */
+    background-repeat: no-repeat; /* Não repetir a imagem de fundo */
+    background-position: right 10px center; /* Posiciona a seta */
+    background-size: 12px; /* Tamanho da seta */
+    cursor: pointer; /* Muda o cursor */
+}
+
+.input-field select:focus {
+    outline: none; /* Remove o contorno padrão */
+    border-color: #007BFF; /* Cor da borda ao focar */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra ao focar */
+}
+
+.input-field select option {
+    padding: 10px; /* Espaço interno nas opções (pode não funcionar em todos os navegadores) */
+}
+
+.container button {
+    width: 100%;
+    height: 45px;
+    background: #0056b3;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: background-color 0.4s ease;
+}
+
+.container button:hover{
+    background:  #ec8938;
+}
+
+.container .login-link {
+    font-size: 14.5px;
+    text-align: center;
+    margin: 20px 0 15px;
+}
+
+.login-link p a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.login-link p a:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
