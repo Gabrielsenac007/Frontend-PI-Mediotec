@@ -8,6 +8,7 @@ import Equipe from './Components/Equipe/Equipe.jsx';
 import Cadastro from './Components/Cadastro/Cadastro.jsx';
 import DataDisplay from './Components/Alunos/Alunos.jsx'
 import EditUsuario from './Components/EditUser/EditUsuario.jsx';
+import Home from './Components/Home/Home.jsx'
 
 const router = createBrowserRouter([
   {
@@ -29,11 +30,14 @@ const router = createBrowserRouter([
       {
         path: 'alunos',
         element:<DataDisplay/>
-      }
-      ,
+      },
       {
         path: 'edit',
         element:<EditUsuario/>
+      },
+      {
+        path: 'home',
+        element:<Home/>
       }
     ]
   }

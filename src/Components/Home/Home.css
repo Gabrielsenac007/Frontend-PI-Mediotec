@@ -1,0 +1,37 @@
+.home-container {
+    text-align: center;
+    padding: 50px; /* Aumentar o preenchimento */
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9; /* Cor de fundo */
+}
+
+.card-container {
+    display: flex;
+    justify-content: space-around; /* Espaça os cards */
+    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha se não houver espaço suficiente */
+    margin-top: 30px; /* Aumentar a margem superior */
+}
+
+.card {
+    background: #0056b3; /* Cor de fundo azul */
+    color: white; /* Texto branco */
+    border-radius: 10px;
+    padding: 30px; /* Aumentar o preenchimento interno dos cards */
+    text-decoration: none; /* Remove o sublinhado */
+    width: 250px; /* Largura do card */
+    height: 150px; /* Altura do card */
+    transition: transform 0.3s; /* Animação de transformação */
+    margin: 20px; /* Aumentar a margem ao redor de cada card */
+    text-align: center;
+}
+
+
+
+.card:hover {
+    transform: scale(1.05); /* Efeito de aumento no hover */
+}
+
+.card h2 {
+    margin: 0; /* Remove margem padrão */
+    font-size: 22px; /* Tamanho da fonte */
+}

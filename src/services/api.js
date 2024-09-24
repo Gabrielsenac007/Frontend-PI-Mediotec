@@ -51,3 +51,16 @@ export const deleteAluno = async (id) => {
         throw new Error(error.message);
     }
 };
+
+// Função para autenticar usuário
+export const autenticarUsuario = async (username, password) => {
+    try {
+        const response = await axios.post(`${API_URL}/login`, {
+            email: username,
+            senha: password,
+        });
+        return response.data; // Retorna os dados do usuário autenticado
+    } catch (error) {
+        throw new Error('Erro ao autenticar: ' + error.response?.data?.message || error.message);
+    }
+};
