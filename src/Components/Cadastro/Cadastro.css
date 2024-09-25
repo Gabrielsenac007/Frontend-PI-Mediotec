@@ -5,8 +5,8 @@
     border: 2px solid rgba(255, 255, 255, 0.5);
     border-radius: 10px;
     padding: 40px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.253);
-    margin: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    margin: 20px auto;
 }
 
 .container h1 {
@@ -19,7 +19,7 @@
     position: relative;
     width: 100%;
     height: 50px;
-    margin: 30px auto;
+    margin: 30px 0;
 }
 
 .input-field input {
@@ -31,7 +31,7 @@
     border-radius: 40px;
     font-size: 16px;
     color: #0A0A0A;
-    padding: 20px 45px 20px 25px;
+    padding: 10px 45px 10px 25px;
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 
@@ -52,33 +52,35 @@
     color: #0A0A0A;
 }
 
+
 .input-field select {
-    width: 100%;
-    padding: 10px; /* Espaço interno */
-    border: 1px solid #ccc; /* Borda padrão */
-    border-radius: 5px; /* Cantos arredondados */
-    background-color: rgba(255, 255, 255, 0.7);
-    font-size: 16px; /* Tamanho da fonte */
-    color: #333; /* Cor do texto */
+    width: 100%; /* Largura total do campo */
+    height: 100%; /* Altura total do campo */
+    background: rgba(240, 240, 240, 0.8); /* Cor de fundo igual ao input */
+    outline: none; /* Remove a borda de foco padrão */
+    border: 2px solid rgba(0, 0, 0, 0.2); /* Borda igual ao input */
+    border-radius: 40px; /* Bordas arredondadas iguais ao input */
+    font-size: 16px; /* Tamanho da fonte igual ao input */
+    color: #0A0A0A; /* Cor do texto igual ao input */
+    padding: 10px 45px 10px 25px; /* Padding igual ao input */
+    transition: color 0.3s ease, background-color 0.3s ease; /* Transições igual ao input */
+    -webkit-appearance: none; /* Remove o estilo padrão do select no Safari */
+    -moz-appearance: none; /* Remove o estilo padrão do select no Firefox */
     appearance: none; /* Remove o estilo padrão do select */
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="gray"><path d="M4 6l4 4 4-4z"/></svg>'); /* Adiciona um ícone de seta */
-    background-repeat: no-repeat; /* Não repetir a imagem de fundo */
-    background-position: right 10px center; /* Posiciona a seta */
-    background-size: 12px; /* Tamanho da seta */
-    cursor: pointer; /* Muda o cursor */
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"%3E%3Cpath d="M7 10l5 5 5-5H7z" fill="%230A0A0A"/%3E%3C/svg%3E'); /* Adiciona um ícone de seta para o select */
+    background-repeat: no-repeat; /* Impede a repetição da imagem de fundo */
+    background-position: right 20px center; /* Posiciona a seta à direita */
+    background-size: 20px; /* Tamanho do ícone da seta */
 }
 
-.input-field select:focus {
-    outline: none; /* Remove o contorno padrão */
-    border-color: #007BFF; /* Cor da borda ao focar */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Sombra ao focar */
+/* Estilo para quando o select é hovered */
+.input-field select:hover {
+    background-color: rgba(255, 255, 255, 0.7); /* Cor de fundo ao passar o mouse */
 }
 
-.input-field select option {
-    padding: 10px; /* Espaço interno nas opções (pode não funcionar em todos os navegadores) */
-}
 
-.container button {
+/* Corrigir inconsistência */
+.cadastro-bnt {
     width: 100%;
     height: 45px;
     background: #0056b3;
@@ -94,9 +96,25 @@
     transition: background-color 0.4s ease;
 }
 
-.container button:hover{
-    background:  #ec8938;
+.cadastro-bnt:hover {
+    background: #ec8938;
 }
+
+.add-materia-button {
+    display: inline-block;
+    background-color: transparent;
+    border: none;
+    color: #0056b3;
+    cursor: pointer;
+    font-size: 1.5rem;
+    margin-left: 10px;
+    margin-top: 10px; /* Aumenta a distância vertical entre o campo de matéria e o botão */
+}
+
+.add-materia-button:hover {
+    color: #003d80;
+}
+
 
 .container .login-link {
     font-size: 14.5px;

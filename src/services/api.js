@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:3000/alunos';
+const API_URL_PROF = '';
 
 // Função para buscar todos os alunos
 export const fetchAlunos = async () => {
@@ -32,6 +33,18 @@ export const cadastrarAluno = async (alunoData) => {
         throw new Error(error.message);
     }
 };
+
+
+// Cadastrar Professor
+export const cadastrarProfessor= async (alunoData) => {
+    try {
+        const response = await axios.post(API_URL_PROF, alunoData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 
 // Função para editar um aluno
 export const editarUsuario = async (id, newName) => {

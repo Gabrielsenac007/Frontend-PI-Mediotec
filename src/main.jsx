@@ -6,9 +6,11 @@ import App from './App.jsx'; // Importando o App
 import Login from './Components/Login/Login.jsx';
 import Equipe from './Components/Equipe/Equipe.jsx';
 import Cadastro from './Components/Cadastro/Cadastro.jsx';
-import DataDisplay from './Components/Alunos/Alunos.jsx'
+import CadastroProfessor from './Components/Cadastro/CadastroProfessor.jsx';
+import DataDisplay from './Components/Usuarios/Alunos.jsx'
 import EditUsuario from './Components/EditUser/EditUsuario.jsx';
 import Home from './Components/Home/Home.jsx'
+import HomeProf from './Components/Home/HomeProf.jsx'
 
 const router = createBrowserRouter([
   {
@@ -38,7 +40,16 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element:<Home/>
+      },
+      {
+        path: 'cadastroProfessor',
+        element:<CadastroProfessor/>
+      },
+      {
+        path: 'homeProf',
+        element:<HomeProf/>
       }
+      
     ]
   }
 ]);

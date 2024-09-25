@@ -34,7 +34,7 @@ const Cadastro = () => {
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
-                <h1>Cadastro de Usuário</h1>
+                <h1>Cadastro de Aluno</h1>
                 {error && <p className="error">{error}</p>}
                 <div className='input-field'>
                     <input
@@ -77,7 +77,7 @@ const Cadastro = () => {
                         <option value="coordenador">Coordenador</option>
                     </select>
                 </div>
-                <button type="submit">Cadastrar</button>
+                <button type="submit" >Cadastrar</button>
                 <div className="signup-link">
                     <p>Já tem uma conta? <Link to="/">Login</Link></p>
                 </div>

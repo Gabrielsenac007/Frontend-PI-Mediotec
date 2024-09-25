@@ -58,7 +58,7 @@ const Login = () => {
                     <a href="#">Esqueceu a senha?</a>
                 </div>
 
-                <Link to="/alunos">
+                <Link to="/home">
                     <button>Entrar</button>
                 </Link>
 
