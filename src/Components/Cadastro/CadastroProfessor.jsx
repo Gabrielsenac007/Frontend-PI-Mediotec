@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaPlus, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
-import { cadastrarAluno, cadastrarProfessor } from '../../services/api';
+
 
 const Cadastro = () => {
     const [cpf, setCpf] = useState(""); 

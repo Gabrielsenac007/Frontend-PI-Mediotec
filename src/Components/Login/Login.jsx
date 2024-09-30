@@ -13,22 +13,16 @@ const Login = () => {
     event.preventDefault(); // Previne o comportamento padrão de recarregar a página
 
     try {
-      // Faz uma requisição POST para o endpoint de login com CPF e senha no cabeçalho
+      // Faz uma requisição POST para o endpoint de login com CPF e senha no corpo
       const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-<<<<<<< HEAD
-          'CPF': cpf, // Envia o CPF no cabeçalho
-          'Password': password // Envia a senha no cabeçalho
-        }
-=======
         },
         body: JSON.stringify({
           cpf: cpf,
-          password: password
-        })
->>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
+          password: password,
+        }),
       });
 
       // Verifica se a resposta é bem-sucedida (status 200)
@@ -82,15 +76,6 @@ const Login = () => {
           <FaLock className="icon" />
         </div>
 
-        {/* Checkbox "Lembre de mim" e link para recuperação de senha 
-        <div className="recall-forget">
-          <label>
-            <input type="checkbox" />
-            Lembre de mim
-          </label>
-          <a href="#">Esqueceu a senha?</a>
-        </div>
-          */}
         {/* Botão de submissão do formulário */}
         <button type="submit">Entrar</button>
       </form>

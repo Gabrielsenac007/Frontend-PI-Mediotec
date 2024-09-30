@@ -29,7 +29,7 @@ export const cadastrarAluno = async (alunoData) => {
     try {
         const response = await axios.post(`${API_URL}/users/register/student`, alunoData);
         return response.data;
-        console.log(response.data)
+        
     } catch (error) {
         throw new Error(error.message);
     }
@@ -89,4 +89,3 @@ export const cadastrarCoordenador = async (dados) => {
         throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
     }
 };
-    

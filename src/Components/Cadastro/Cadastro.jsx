@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
 import { cadastrarAluno } from '../../services/api'; // Importe sua função de cadastro
@@ -8,12 +8,7 @@ const Cadastro = () => {
     const [cpf, setCpf] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-<<<<<<< HEAD
-    const [senha, setSenha] = useState("");
-    
-=======
-    const [password, setPassword] = useState("");
->>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
+    const [password, setPassword] = useState(""); // Mantenha 'password'
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Para redirecionar após o cadastro
 
@@ -24,12 +19,7 @@ const Cadastro = () => {
             cpf,
             name,
             email,
-<<<<<<< HEAD
-            senha,
-            
-=======
-            password
->>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
+            password // Utilize 'password'
         };
 
         try {
@@ -86,15 +76,7 @@ const Cadastro = () => {
                     />
                     <FaLock className='icon' />
                 </div>
-<<<<<<< HEAD
-            
-=======
-
->>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
-                <button type="submit" >Cadastrar</button>
-                <div className="signup-link">
-                    
-                </div>
+                <button type="submit">Cadastrar</button>
             </form>
         </div>
     );
