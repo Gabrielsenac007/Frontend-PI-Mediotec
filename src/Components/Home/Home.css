@@ -35,3 +35,11 @@
     margin: 0; /* Remove margem padrão */
     font-size: 22px; /* Tamanho da fonte */
 }
+
+@media (max-width: 768px) {
+
+    .home-container{
+        margin-top: 50px;
+    }
+
+}

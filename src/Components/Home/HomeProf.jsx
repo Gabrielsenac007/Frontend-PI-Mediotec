@@ -15,7 +15,7 @@ const Home = () => {
                     <FaRegClipboard size={48} /> {/* Ícone de Gerenciar Presenças */}
                     <h2>Gerenciar Presenças</h2>
                 </Link>
-                <Link to="/send-notice" className="card">
+                <Link to="/comunicados" className="card">
                     <FaPaperPlane size={48} /> {/* Ícone de Enviar Comunicado */}
                     <h2>Enviar Comunicado</h2>
                 </Link>

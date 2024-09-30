@@ -11,6 +11,7 @@ import DataDisplay from './Components/Usuarios/Alunos.jsx'
 import EditUsuario from './Components/EditUser/EditUsuario.jsx';
 import Home from './Components/Home/Home.jsx'
 import HomeProf from './Components/Home/HomeProf.jsx'
+import Comunicados from './Components/Comunicados/Comunicados.jsx';
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: 'homeProf',
         element:<HomeProf/>
+      },
+      {
+        path: 'comunicados',
+        element:<Comunicados/>
       }
       
     ]

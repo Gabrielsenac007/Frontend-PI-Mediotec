@@ -1,0 +1,106 @@
+/* Notices.css */
+.notices-container {
+    width: 60%;
+    margin: 0 auto; /* Centraliza horizontalmente */
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    top: 20%; /* Ajusta a distância do topo */
+    position: fixed; /* Define posição relativa para evitar sobreposição */
+    right: 20%;
+}
+
+.notices-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+.notice-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Alinha verticalmente o botão e o input */
+    margin-bottom: 20px;
+    flex-wrap: wrap; /* Permite quebra de linha caso a tela seja menor */
+}
+
+.input-notice {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    box-sizing: border-box; /* Evita problemas de largura */
+}
+
+.btn-add-notice {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-notice:hover {
+    background-color: #0056b3;
+}
+
+.notice-list {
+    margin-top: 20px;
+}
+
+.notice-item {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Permite que os elementos dentro do item quebrem linha */
+}
+
+.notice-item p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    flex: 1; /* Expande para ocupar mais espaço */
+}
+
+.notice-item span {
+    font-size: 14px;
+    color: #999;
+    margin-right: 10px; /* Espaçamento à direita */
+}
+
+.btn-delete-notice {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Alinha no final do elemento */
+    width: 20%;
+}
+
+.btn-delete-notice:hover {
+    background: #c82333;
+}
+
+.no-notices {
+    text-align: center;
+    color: #777;
+    font-size: 18px;
+    padding: 20px 0;
+}
