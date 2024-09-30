@@ -6,10 +6,14 @@ import { cadastrarAluno } from '../../services/api'; // Importe sua função de 
 
 const Cadastro = () => {
     const [cpf, setCpf] = useState("");
-    const [nome, setNome] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+<<<<<<< HEAD
     const [senha, setSenha] = useState("");
     
+=======
+    const [password, setPassword] = useState("");
+>>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Para redirecionar após o cadastro
 
@@ -18,10 +22,14 @@ const Cadastro = () => {
 
         const usuarioData = {
             cpf,
-            nome,
+            name,
             email,
+<<<<<<< HEAD
             senha,
             
+=======
+            password
+>>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
         };
 
         try {
@@ -52,8 +60,8 @@ const Cadastro = () => {
                     <input
                         type="text"
                         placeholder='Nome'
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                     />
                     <FaUser className='icon' />
@@ -72,13 +80,17 @@ const Cadastro = () => {
                     <input
                         type="password"
                         placeholder='Senha'
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <FaLock className='icon' />
                 </div>
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> ea739407eaf6b6fd51ae7f2fcb9b9b09d617d0be
                 <button type="submit" >Cadastrar</button>
                 <div className="signup-link">
                     

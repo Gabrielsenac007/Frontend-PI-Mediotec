@@ -1,13 +1,13 @@
 // api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://localhost:8080/api';
 const API_URL_PROF = '';
 
 // Função para buscar todos os alunos
 export const fetchAlunos = async () => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(`${API_URL}/users/allStudents`);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -27,8 +27,9 @@ export const fetchUsuario = async (id) => {
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
-        const response = await axios.post(API_URL, alunoData);
+        const response = await axios.post(`${API_URL}/users/register/student`, alunoData);
         return response.data;
+        console.log(response.data)
     } catch (error) {
         throw new Error(error.message);
     }
@@ -49,7 +50,7 @@ export const cadastrarProfessor= async (alunoData) => {
 // Função para editar um aluno
 export const editarUsuario = async (id, newName) => {
     try {
-        const response = await axios.put(`${API_URL}/${id}`, { nome: newName });
+        const response = await axios.put(`${API_URL}/usuers/update/student/${id}`, { nome: newName });
         return response.data;
     } catch (error) {
         throw new Error(error.message);

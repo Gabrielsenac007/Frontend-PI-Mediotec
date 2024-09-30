@@ -1,59 +1,74 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaPlus, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
-import { cadastrarAluno } from '../../services/api';
+import { cadastrarAluno, cadastrarProfessor } from '../../services/api';
 
 const Cadastro = () => {
-    const [cpf, setCpf] = useState(""); // Estado para CPF
-    const [nome, setNome] = useState("");
+    const [cpf, setCpf] = useState(""); 
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [materias, setMaterias] = useState([""]);
+    const [password, setPassword] = useState("");
+    const [materias, setMaterias] = useState([{ disciplinaId: "" }]);
+    const [opcoesMaterias, setOpcoesMaterias] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+
+    const fetchDisciplinas = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/api/disciplines/getAll'); 
+            const data = await response.json();
+            setOpcoesMaterias(data); 
+        } catch (error) {
+            setError('Erro ao carregar disciplinas: ' + error.message);
+        }
+    };
+
+    useEffect(() => {
+        fetchDisciplinas();
+    }, []);
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const usuarioData = {
-            cpf, // Adiciona CPF ao objeto de dados
-            nome,
-            email,
-            senha,
-            materias,
+        const professorData = {
+            professor: {
+                cpf : cpf, 
+                name: name,
+                email: email,
+                password: password
+            },
+            disciplina: materias.map(materia => ({ disciplinaId: materia.disciplinaId })) 
         };
 
         try {
-            await cadastrarAluno(usuarioData); // Enviar dados para a API
+            const response = await fetch('http://localhost:8080/api/users/register/professor', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(professorData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar o professor');
+            }
+
             alert('Cadastro realizado com sucesso!');
-            navigate('/usuarios'); // Redireciona para a página de usuários
+            navigate('/usuarios'); 
+
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);
         }
     };
 
-    // Função para adicionar uma nova matéria
     const addMateria = () => {
-        setMaterias([...materias, ""]);
+        setMaterias([...materias, { disciplinaId: "" }]); 
     };
 
-    // Lista de opções de matérias (pode ser ajustada conforme necessário)
-    const opcoesMaterias = [
-        'Matemática',
-        'Português',
-        'História',
-        'Geografia',
-        'Biologia',
-        'Inglês',
-        'Educação Física',
-        'TI',
-        'Projeto de vida',
-        'Química',
-        'Física',
-        'Filosofia',
-        'Sociologia',
-    ];
+
 
     return (
         <div className="container">
@@ -77,8 +92,8 @@ const Cadastro = () => {
                     <input
                         type="text"
                         placeholder='Nome'
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                     />
                     <FaUser className='icon' />
@@ -99,8 +114,8 @@ const Cadastro = () => {
                     <input
                         type="password"
                         placeholder='Senha'
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <FaLock className='icon' />
@@ -110,18 +125,18 @@ const Cadastro = () => {
                 {materias.map((materia, index) => (
                     <div className='input-field' key={index}>
                         <select
-                            value={materia}
+                            value={materia.disciplinaId}
                             onChange={(e) => {
                                 const newMaterias = [...materias];
-                                newMaterias[index] = e.target.value;
+                                newMaterias[index].disciplinaId = e.target.value;
                                 setMaterias(newMaterias);
                             }}
                             required
                         >
                             <option value="">Selecione uma matéria</option>
-                            {opcoesMaterias.map((opcao, i) => (
-                                <option key={i} value={opcao}>
-                                    {opcao}
+                            {opcoesMaterias.map((disciplina) => (
+                                <option key={disciplina.id} value={disciplina.id}>
+                                    {disciplina.disciplineName}
                                 </option>
                             ))}
                         </select>
@@ -130,8 +145,8 @@ const Cadastro = () => {
                                 href="#"
                                 className="add-materia-button"
                                 onClick={(e) => {
-                                    e.preventDefault(); // Previne o comportamento padrão de navegação do link
-                                    addMateria(); // Função para adicionar uma nova matéria
+                                    e.preventDefault();
+                                    addMateria();
                                 }}
                             >
                                 <FaPlus />

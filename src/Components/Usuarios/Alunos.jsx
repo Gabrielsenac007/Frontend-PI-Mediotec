@@ -27,7 +27,7 @@ const DataDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-usuario/${id}`); // Redireciona para a tela de edição
+        navigate(`/edit/${id}`); // Redireciona para a tela de edição
     };
 
 
