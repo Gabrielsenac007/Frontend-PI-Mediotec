@@ -16,7 +16,7 @@ export const fetchAlunos = async () => {
 
 // Função para buscar um aluno específico pelo ID
 export const fetchUsuario = async (id) => {
-    try {
+    try {   
         const response = await axios.get(`${API_URL}/${id}`);
         return response.data;
     } catch (error) {

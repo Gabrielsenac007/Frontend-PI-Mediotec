@@ -79,7 +79,7 @@
     .nav-links {
         position: absolute;
         top: 8vh;
-        right: -10%;
+        right: 0;
         width: 50vw;
         height: 92vh;
         background-color: #0056b3;
@@ -91,9 +91,12 @@
     }
 
     .header{
-        right: 0%;
+        right: 0;
         top: 10px;
         position: fixed;
+        left: 0;
+        width: 100%;
+        margin-bottom: 30px;
     }
 
     .nav-links.active {
