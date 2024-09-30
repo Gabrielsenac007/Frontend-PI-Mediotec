@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <Outlet /> {/* Aqui renderiza o conteúdo da rota correspondente */}
+        <Outlet /> 
       </main>
     </div>
   );
