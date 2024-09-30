@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/alunos';
+const API_URL = 'http://localhost:8080/api/';
 const API_URL_PROF = '';
 
 // Função para buscar todos os alunos
@@ -66,10 +66,10 @@ export const deleteAluno = async (id) => {
 };
 
 // Função para autenticar usuário
-export const autenticarUsuario = async (username, password) => {
+export const autenticarUsuario = async (cpf, password) => {
     try {
-        const response = await axios.post(`${API_URL}/login`, {
-            email: username,
+        const response = await axios.post(`${API_URL}/auth/login`, {
+            email: cpf,
             senha: password,
         });
         return response.data; // Retorna os dados do usuário autenticado
