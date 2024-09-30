@@ -12,6 +12,7 @@ import EditUsuario from './Components/EditUser/EditUsuario.jsx';
 import Home from './Components/Home/Home.jsx'
 import HomeProf from './Components/Home/HomeProf.jsx'
 import Comunicados from './Components/Comunicados/Comunicados.jsx';
+import CadastroCoordenador from './Components/Cadastro/CadastroCoordenador.jsx';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: 'comunicados',
         element:<Comunicados/>
+      },
+      {
+        path: 'cadastroCoordenador',
+        element:<CadastroCoordenador/>
       }
       
     ]

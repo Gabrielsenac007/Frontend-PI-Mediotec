@@ -15,7 +15,7 @@ const Home = () => {
                     <FaChalkboardTeacher size={48} />
                     <h2>Adicionar Professor</h2>
                 </Link>
-                <Link to="/add-coordinator" className="card">
+                <Link to="/cadastroCoordenador" className="card">
                     <FaUserTie size={48} />
                     <h2>Adicionar Coordenador</h2>
                 </Link>

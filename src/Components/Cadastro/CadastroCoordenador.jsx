@@ -1,33 +1,34 @@
 import { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa'; // Adicionado FaIdCard para CPF
 import './Cadastro.css';
-import { cadastrarAluno } from '../../services/api'; // Importe sua função de cadastro
+import { cadastrarCoordenador } from '../../services/api'; // Importação da função de cadastro de coordenador
 
-const Cadastro = () => {
-    const [cpf, setCpf] = useState("");
+const CadastroCoordenador = () => {
+    // Estados para os campos de cadastro
+    const [cpf, setCpf] = useState(""); // Novo campo CPF
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    
-    const [error, setError] = useState("");
-    const navigate = useNavigate(); // Para redirecionar após o cadastro
+    const [error, setError] = useState(""); // Estado para gerenciar erros
+    const navigate = useNavigate(); // Hook de navegação para redirecionamento
 
+    // Função de envio do formulário
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const usuarioData = {
-            cpf,
+        // Dados do coordenador a serem enviados
+        const coordenadorData = {
+            cpf,   // CPF do coordenador
             nome,
             email,
             senha,
-            
         };
 
         try {
-            await cadastrarAluno(usuarioData); // Enviar dados para a API
+            await cadastrarCoordenador(coordenadorData); // Enviar dados para a API
             alert('Cadastro realizado com sucesso!');
-            navigate('/usuarios'); // Redireciona para a página de usuários
+            navigate('/coordenadores'); // Redireciona para a página de coordenadores cadastrados
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);
         }
@@ -36,8 +37,10 @@ const Cadastro = () => {
     return (
         <div className="container">
             <form onSubmit={handleSubmit}>
-                <h1>Cadastro de Aluno</h1>
+                <h1>Cadastro de Coordenador</h1>
                 {error && <p className="error">{error}</p>}
+                
+                {/* Campo de CPF */}
                 <div className='input-field'>
                     <input
                         type="text"
@@ -46,8 +49,10 @@ const Cadastro = () => {
                         onChange={(e) => setCpf(e.target.value)}
                         required
                     />
-                    <FaIdCard className='icon' /> 
+                    <FaIdCard className='icon' />
                 </div>
+                
+                {/* Campo de Nome */}
                 <div className='input-field'>
                     <input
                         type="text"
@@ -58,6 +63,8 @@ const Cadastro = () => {
                     />
                     <FaUser className='icon' />
                 </div>
+                
+                {/* Campo de Email */}
                 <div className='input-field'>
                     <input
                         type="email"
@@ -68,6 +75,8 @@ const Cadastro = () => {
                     />
                     <FaEnvelope className='icon' />
                 </div>
+                
+                {/* Campo de Senha */}
                 <div className='input-field'>
                     <input
                         type="password"
@@ -78,14 +87,12 @@ const Cadastro = () => {
                     />
                     <FaLock className='icon' />
                 </div>
-            
-                <button type="submit" >Cadastrar</button>
-                <div className="signup-link">
-                    
-                </div>
+
+                {/* Botão de Cadastro */}
+                <button type="submit" className='cadastro-bnt'>Cadastrar</button>
             </form>
         </div>
     );
 };
 
-export default Cadastro;
+export default CadastroCoordenador;

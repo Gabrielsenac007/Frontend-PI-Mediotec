@@ -6,20 +6,20 @@ import './Login.css';
 const Login = () => {
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   // Função para submeter o formulário e fazer a autenticação
   const handleSubmit = async (event) => {
     event.preventDefault(); // Previne o comportamento padrão de recarregar a página
 
     try {
-      // Faz uma requisição POST para o endpoint de login
+      // Faz uma requisição POST para o endpoint de login com CPF e senha no cabeçalho
       const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'CPF': cpf, // Adiciona o CPF no cabeçalho
-          'Password': password, // Adiciona a senha no cabeçalho
+          'CPF': cpf, // Envia o CPF no cabeçalho
+          'Password': password // Envia a senha no cabeçalho
         }
       });
 
@@ -28,17 +28,19 @@ const Login = () => {
         const data = await response.json();
         console.log('Login bem-sucedido:', data);
 
+        // Armazena o token no localStorage (ou sessionStorage)
+        localStorage.setItem('authToken', data.token);
+
         // Navega para a rota '/alunos' após login bem-sucedido
         navigate('/alunos');
       } else {
         // Lida com falhas na autenticação
-        throw new Error(response.statusText);
+        throw new Error('Falha na autenticação: ' + response.statusText);
       }
     } catch (error) {
       console.error('Erro:', error);
       alert('Erro ao autenticar: ' + error.message); // Alerta ao usuário em caso de erro
     }
-    console.log(password, cpf);
   };
 
   return (

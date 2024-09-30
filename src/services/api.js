@@ -77,3 +77,15 @@ export const autenticarUsuario = async (cpf, password) => {
         throw new Error('Erro ao autenticar: ' + error.response?.data?.message || error.message);
     }
 };
+
+
+// Função para cadastrar coordenador
+export const cadastrarCoordenador = async (dados) => {
+    try {
+        const response = await axios.post('URL_DA_API/coordenadores', dados); // Ajuste a URL conforme necessário
+        return response.data;
+    } catch (error) {
+        throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
+    }
+};
+    
