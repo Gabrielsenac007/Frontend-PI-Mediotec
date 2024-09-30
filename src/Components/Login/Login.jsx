@@ -18,9 +18,11 @@ const Login = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'CPF': cpf, // Adiciona o CPF no cabeçalho
-          'Password': password, // Adiciona a senha no cabeçalho
-        }
+        },
+        body: JSON.stringify({
+          cpf: cpf,
+          password: password
+        })
       });
 
       // Verifica se a resposta é bem-sucedida (status 200)
@@ -72,7 +74,7 @@ const Login = () => {
           <FaLock className="icon" />
         </div>
 
-        {/* Checkbox "Lembre de mim" e link para recuperação de senha */}
+        {/* Checkbox "Lembre de mim" e link para recuperação de senha 
         <div className="recall-forget">
           <label>
             <input type="checkbox" />
@@ -80,7 +82,7 @@ const Login = () => {
           </label>
           <a href="#">Esqueceu a senha?</a>
         </div>
-
+          */}
         {/* Botão de submissão do formulário */}
         <button type="submit">Entrar</button>
       </form>

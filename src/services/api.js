@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api/';
+const API_URL = 'http://localhost:8080/api';
 const API_URL_PROF = '';
 
 // Função para buscar todos os alunos
@@ -27,8 +27,9 @@ export const fetchUsuario = async (id) => {
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
-        const response = await axios.post(API_URL, alunoData);
+        const response = await axios.post(`${API_URL}/users/register/student`, alunoData);
         return response.data;
+        console.log(response.data)
     } catch (error) {
         throw new Error(error.message);
     }
