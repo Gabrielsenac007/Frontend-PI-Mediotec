@@ -6,10 +6,9 @@ import { cadastrarAluno } from '../../services/api'; // Importe sua função de 
 
 const Cadastro = () => {
     const [cpf, setCpf] = useState("");
-    const [nome, setNome] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
-    const [tipoUsuario, setTipoUsuario] = useState("aluno"); // Valor padrão
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate(); // Para redirecionar após o cadastro
 
@@ -18,10 +17,9 @@ const Cadastro = () => {
 
         const usuarioData = {
             cpf,
-            nome,
+            name,
             email,
-            senha,
-            tipo_usuario: tipoUsuario,
+            password
         };
 
         try {
@@ -52,8 +50,8 @@ const Cadastro = () => {
                     <input
                         type="text"
                         placeholder='Nome'
-                        value={nome}
-                        onChange={(e) => setNome(e.target.value)}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                         required
                     />
                     <FaUser className='icon' />
@@ -72,23 +70,13 @@ const Cadastro = () => {
                     <input
                         type="password"
                         placeholder='Senha'
-                        value={senha}
-                        onChange={(e) => setSenha(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <FaLock className='icon' />
                 </div>
-                <div className='input-field'>
-                    <select
-                        value={tipoUsuario}
-                        onChange={(e) => setTipoUsuario(e.target.value)}
-                        required
-                    >
-                        <option value="aluno">Aluno</option>
-                        <option value="professor">Professor</option>
-                        <option value="coordenador">Coordenador</option>
-                    </select>
-                </div>
+
                 <button type="submit" >Cadastrar</button>
                 <div className="signup-link">
                     
