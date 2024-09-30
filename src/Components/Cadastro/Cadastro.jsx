@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock  } from 'react-icons/fa';
+import {  useNavigate } from 'react-router-dom';
+import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
 import { cadastrarAluno } from '../../services/api'; // Importe sua função de cadastro
 
 const Cadastro = () => {
+    const [cpf, setCpf] = useState("");
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
@@ -16,6 +17,7 @@ const Cadastro = () => {
         event.preventDefault();
 
         const usuarioData = {
+            cpf,
             nome,
             email,
             senha,
@@ -36,6 +38,16 @@ const Cadastro = () => {
             <form onSubmit={handleSubmit}>
                 <h1>Cadastro de Aluno</h1>
                 {error && <p className="error">{error}</p>}
+                <div className='input-field'>
+                    <input
+                        type="text"
+                        placeholder='CPF'
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                        required
+                    />
+                    <FaIdCard className='icon' /> 
+                </div>
                 <div className='input-field'>
                     <input
                         type="text"
@@ -79,7 +91,7 @@ const Cadastro = () => {
                 </div>
                 <button type="submit" >Cadastrar</button>
                 <div className="signup-link">
-                    <p>Já tem uma conta? <Link to="/">Login</Link></p>
+                    
                 </div>
             </form>
         </div>

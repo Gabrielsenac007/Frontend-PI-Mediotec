@@ -70,7 +70,7 @@ export const deleteAluno = async (id) => {
 export const autenticarUsuario = async (cpf, password) => {
     try {
         const response = await axios.post(`${API_URL}/auth/login`, {
-            email: cpf,
+            cpf: cpf,
             senha: password,
         });
         return response.data; // Retorna os dados do usuário autenticado

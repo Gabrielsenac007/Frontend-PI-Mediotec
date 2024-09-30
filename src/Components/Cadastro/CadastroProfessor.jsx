@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaPlus } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaPlus, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
-import { cadastrarAluno } from '../../services/api'; // Importe sua função de cadastro
+import { cadastrarAluno } from '../../services/api';
 
 const Cadastro = () => {
+    const [cpf, setCpf] = useState(""); // Estado para CPF
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const [materias, setMaterias] = useState([""]); // Estado para matérias
+    const [materias, setMaterias] = useState([""]);
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Para redirecionar após o cadastro
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         const usuarioData = {
+            cpf, // Adiciona CPF ao objeto de dados
             nome,
             email,
             senha,
@@ -47,7 +49,7 @@ const Cadastro = () => {
         'Educação Física',
         'TI',
         'Projeto de vida',
-        'Quimíca',
+        'Química',
         'Física',
         'Filosofia',
         'Sociologia',
@@ -58,6 +60,19 @@ const Cadastro = () => {
             <form onSubmit={handleSubmit}>
                 <h1>Cadastro de Professor</h1>
                 {error && <p className="error">{error}</p>}
+
+                {/* Campo de CPF antes do Nome */}
+                <div className='input-field'>
+                    <input
+                        type="text"
+                        placeholder='CPF'
+                        value={cpf}
+                        onChange={(e) => setCpf(e.target.value)}
+                        required
+                    />
+                    <FaIdCard className='icon' /> {/* Ícone de CPF */}
+                </div>
+
                 <div className='input-field'>
                     <input
                         type="text"
@@ -68,6 +83,7 @@ const Cadastro = () => {
                     />
                     <FaUser className='icon' />
                 </div>
+
                 <div className='input-field'>
                     <input
                         type="email"
@@ -78,6 +94,7 @@ const Cadastro = () => {
                     />
                     <FaEnvelope className='icon' />
                 </div>
+
                 <div className='input-field'>
                     <input
                         type="password"
@@ -124,7 +141,6 @@ const Cadastro = () => {
                 ))}
 
                 <button type="submit" className='cadastro-bnt'>Cadastrar</button>
-
             </form>
         </div>
     );
