@@ -9,7 +9,7 @@ const CadastroCoordenador = () => {
     const [cpf, setCpf] = useState(""); // Novo campo CPF
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
-    const [senha, setSenha] = useState("");
+    const [password, setSenha] = useState("");
     const [error, setError] = useState(""); // Estado para gerenciar erros
     const navigate = useNavigate(); // Hook de navegação para redirecionamento
 
@@ -22,7 +22,7 @@ const CadastroCoordenador = () => {
             cpf,   // CPF do coordenador
             nome,
             email,
-            senha,
+            password,
         };
 
         try {
@@ -81,7 +81,7 @@ const CadastroCoordenador = () => {
                     <input
                         type="password"
                         placeholder='Senha'
-                        value={senha}
+                        value={password}
                         onChange={(e) => setSenha(e.target.value)}
                         required
                     />

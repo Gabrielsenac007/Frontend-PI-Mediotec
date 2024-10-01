@@ -95,7 +95,7 @@ export const autenticarUsuario = async (cpf, password) => {
 // Função para cadastrar coordenador
 export const cadastrarCoordenador = async (dados) => {
     try {
-        const response = await api.post('URL_DA_API/coordenadores', dados); // Ajuste a URL conforme necessário
+        const response = await api.post('http://localhost:8080/api/users/register/coordinator', dados); 
         return response.data;
     } catch (error) {
         throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
