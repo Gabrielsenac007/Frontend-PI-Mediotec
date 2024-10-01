@@ -31,8 +31,11 @@ const Login = () => {
         console.log('Login bem-sucedido:', data);
 
         // Armazena o token no localStorage (ou sessionStorage)
-        const token = localStorage.setItem('authToken', data.token);
-        alert(token)
+        localStorage.setItem('authToken', data.token);
+
+        // Recupera o token armazenado e exibe o valor
+        const token = localStorage.getItem('authToken');
+        alert(token);
 
         // Navega para a rota '/alunos' após login bem-sucedido
         navigate('/alunos');
@@ -80,7 +83,7 @@ const Login = () => {
         {/* Botão de submissão do formulário */}
         <button type="submit">Entrar</button>
       </form>
-      
+
     </div>
   );
 };
