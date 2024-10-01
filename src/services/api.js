@@ -43,12 +43,18 @@ export const fetchUsuario = async (id) => {
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
-        const response = await api.post('/users/register/student', alunoData); // Usa a instância do Axios
+        const response = await api.post('http://localhost:8080/api/users/register/student', alunoData, { // Adicione a vírgula aqui
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
+                'Content-Type': 'application/json' // Opcional
+            }
+        }); // Usa a instância do Axios
         return response.data;
     } catch (error) {
         throw new Error(error.message);
     }
 };
+
 
 // Cadastrar Professor
 export const cadastrarProfessor = async (alunoData) => {
