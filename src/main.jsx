@@ -13,6 +13,9 @@ import Home from './Components/Home/Home.jsx'
 import HomeProf from './Components/Home/HomeProf.jsx'
 import Comunicados from './Components/Comunicados/Comunicados.jsx';
 import CadastroCoordenador from './Components/Cadastro/CadastroCoordenador.jsx';
+import CadastroDisciplina from './Components/Cadastro/CadastroMateria.jsx';
+import CadastroTurma from './Components/Cadastro/CadastroTurma.jsx';
+import TurmasDisplay from './Components/Usuarios/Turmas.jsx';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,18 @@ const router = createBrowserRouter([
       {
         path: 'cadastroCoordenador',
         element:<CadastroCoordenador/>
+      },
+      {
+        path: 'cadastroDisciplina',
+        element:<CadastroDisciplina/>
+      },
+      {
+        path: 'cadastroTurma',
+        element:<CadastroTurma/>
+      },
+      {
+        path: 'turma',
+        element:<TurmasDisplay/>
       }
       
     ]

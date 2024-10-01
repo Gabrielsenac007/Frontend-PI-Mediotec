@@ -7,11 +7,11 @@ const Home = () => {
         <div className="home-container">
             <h1>Bem-vindo ao Sistema de Gestão</h1>
             <div className="card-container">
-                <Link to="/cadastro" className="card">
+                <Link to="/notas" className="card">
                     <FaRegFileAlt size={48} /> {/* Ícone de Gerenciar Notas */}
                     <h2>Gerenciar Notas</h2>
                 </Link>
-                <Link to="/cadastroProfessor" className="card">
+                <Link to="/presencas" className="card">
                     <FaRegClipboard size={48} /> {/* Ícone de Gerenciar Presenças */}
                     <h2>Gerenciar Presenças</h2>
                 </Link>
