@@ -129,7 +129,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}` // Adiciona o token ao cabeçalho
+            'Authorization': `${localStorage.getItem('authToken')}` // Adiciona o token ao cabeçalho
         },
         body: JSON.stringify(disciplinaData),
     });
