@@ -20,7 +20,7 @@ const CadastroCoordenador = () => {
         // Dados do coordenador a serem enviados
         const coordenadorData = {
             cpf,   // CPF do coordenador
-            nome,
+            name : nome ,
             email,
             password,
         };

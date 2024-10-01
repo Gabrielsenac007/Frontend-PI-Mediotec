@@ -95,12 +95,19 @@ export const autenticarUsuario = async (cpf, password) => {
 // Função para cadastrar coordenador
 export const cadastrarCoordenador = async (dados) => {
     try {
-        const response = await api.post('http://localhost:8080/api/users/register/coordinator', dados); 
+        const response = await api.post('http://localhost:8080/api/users/register/coordinator', dados, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
+                'Content-Type': 'application/json' // Opcional
+            }
+        }); 
         return response.data;
     } catch (error) {
+        console.error('Erro ao cadastrar coordenador:', error); // Log detalhado do erro
         throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
     }
 };
+
 
 // função cadastrarDisciplina
 export const cadastrarDisciplina = async (disciplinaData) => {
