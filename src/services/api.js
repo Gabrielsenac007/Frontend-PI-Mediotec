@@ -115,18 +115,25 @@ export const cadastrarCoordenador = async (dados) => {
 };
 
 
-// função cadastrarDisciplina
+// Função cadastrarDisciplina
 export const cadastrarDisciplina = async (disciplinaData) => {
-    const response = await fetch('URL_API_ENDPOINT/disciplina', {
+    const token = localStorage.getItem('authToken'); // Obter o token do localStorage
+
+    const response = await fetch('http://localhost:8080/api/disciplines/insertDiscipline', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Adiciona o token ao cabeçalho
+        },
         body: JSON.stringify(disciplinaData),
     });
+
     if (!response.ok) {
         throw new Error('Erro ao cadastrar a disciplina');
     }
     return response.json();
 };
+
 
 // Função para cadastrar Turma
 export const cadastrarTurma = async (turmaData) => {
