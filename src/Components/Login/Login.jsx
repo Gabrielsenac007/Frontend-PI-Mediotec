@@ -38,7 +38,7 @@ const Login = () => {
         alert(token);
 
         // Navega para a rota '/alunos' após login bem-sucedido
-        navigate('/alunos');
+        navigate('/home');
       } else {
         // Lida com falhas na autenticação
         throw new Error('Falha na autenticação: ' + response.statusText);
