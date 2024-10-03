@@ -32,7 +32,7 @@ export const fetchAlunos = async () => {
 // Função para buscar todos os professores
 export const fetchProfessores = async () => {
     try {
-        const response = await api.get('/users/allTeachers'); // Usa a instância do Axios e o endpoint correto
+        const response = await api.get('http://localhost:8080/api/users/allProfessor'); // Usa a instância do Axios e o endpoint correto
         return response.data;
     } catch (error) {
         throw new Error(error.message);
