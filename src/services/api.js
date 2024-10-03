@@ -135,7 +135,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
     }
 
     // Faz a requisição para cadastrar a disciplina
-    const response = await fetch('http://localhost:8080/api/disciplines/insertDiscipline', {
+    const response = await fetch('http://localhost:8080/api/classes/classRegister', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
