@@ -135,7 +135,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
     }
 
     // Faz a requisição para cadastrar a disciplina
-    const response = await fetch('http://localhost:8080/api/classes/classRegister', {
+    const response = await fetch('http://localhost:8080/api/disciplines/insertDiscipline', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -155,11 +155,9 @@ export const cadastrarDisciplina = async (disciplinaData) => {
 };
 
 
-
-
 // Função para cadastrar Turma
 export const cadastrarTurma = async (turmaData) => {
-    const response = await fetch('SUA_API_ENDPOINT/turma', {
+    const response = await fetch('http://localhost:8080/api/classes/classRegister', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(turmaData),
