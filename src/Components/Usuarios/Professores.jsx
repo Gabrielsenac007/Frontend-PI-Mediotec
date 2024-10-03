@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchAlunos, deleteAluno } from '../../services/api';
+import { fetchProfessores, deleteProfessor } from '../../services/api';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import './Alunos.css';
+import './Alumo.css'; // Certifique-se de que o arquivo CSS está nomeado corretamente
 
-const DataDisplay = () => {
+const ProfessorDisplay = () => {
     const navigate = useNavigate(); // Hook para navegação
 
     const [data, setData] = useState([]);
@@ -12,10 +12,10 @@ const DataDisplay = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getAlunos = async () => {
+        const getProfessores = async () => {
             try {
-                const alunos = await fetchAlunos();
-                setData(alunos);
+                const professores = await fetchProfessores();
+                setData(professores);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -23,18 +23,17 @@ const DataDisplay = () => {
             }
         };
 
-        getAlunos();
+        getProfessores();
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-usuario/${id}`); // Redireciona para a tela de edição
+        navigate(`/editar-professor/${id}`); // Redireciona para a tela de edição do professor
     };
 
-
     const handleDelete = async (id) => {
-        if (window.confirm("Tem certeza que deseja deletar este aluno?")) {
+        if (window.confirm("Tem certeza que deseja deletar este professor?")) {
             try {
-                await deleteAluno(id);
+                await deleteProfessor(id);
                 setData(data.filter(item => item.id !== id));
             } catch (err) {
                 setError(err.message);
@@ -43,15 +42,15 @@ const DataDisplay = () => {
     };
 
     const handleRedirect = () => {
-        navigate('/cadastro'); // Redireciona para a página de cadastro
+        navigate('/cadastro-professor'); // Redireciona para a página de cadastro de professor
     };
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
     return (
-        <div className="data-display">
-            <h1>Dados Recebidos</h1>
+        <div className="professor-display">
+            <h1>Lista de Professores</h1>
             <ul className="data-list">
                 {data.map(item => (
                     <li key={item.id} className="data-item">
@@ -68,9 +67,9 @@ const DataDisplay = () => {
                     </li>
                 ))}
             </ul>
-            <button onClick={handleRedirect}>Cadastrar Aluno</button>
+            <button onClick={handleRedirect}>Cadastrar Professor</button>
         </div>
     );
 };
 
-export default DataDisplay;
+export default ProfessorDisplay;
