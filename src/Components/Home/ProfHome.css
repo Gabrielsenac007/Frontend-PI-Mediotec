@@ -1,0 +1,73 @@
+/* Estilo da container principal da home dos professores */
+.home-prof-container {
+    text-align: center;
+    padding: 50px; /* Preenchimento */
+    font-family: 'Arial', sans-serif; /* Fonte da página */
+    background-color: #f9f9f9; /* Cor de fundo da página */
+}
+
+/* Estilo do container que abriga os cards dos professores */
+.card-prof-container {
+    display: flex;
+    justify-content: center; /* Centraliza os cards horizontalmente */
+    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha se necessário */
+    margin-top: 30px; /* Margem superior */
+}
+
+/* Estilo de cada card dos professores */
+.card-prof {
+    background: #0056b3; /* Cor de fundo azul */
+    color: white; /* Texto branco */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 30px; /* Preenchimento interno */
+    text-decoration: none; /* Remove o sublinhado */
+    width: 260px; /* Aumentando a largura para 250px */
+    height: 150px; /* Altura do card */
+    transition: transform 0.3s, box-shadow 0.3s; /* Animação suave */
+    margin: 25px; /* Margem ao redor de cada card */
+    text-align: center; /* Alinhamento central do texto */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+}
+
+/* Efeito de hover nos cards dos professores */
+.card-prof:hover {
+    transform: scale(1.05); /* Aumenta o card ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
+}
+
+/* Estilo do título dentro do card dos professores */
+.card-prof h2 {
+    margin: 10px 0 0 0; /* Margens para o título */
+    font-size: 18px; /* Tamanho da fonte */
+}
+
+/* Responsividade para telas médias */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .card-prof-container {
+        justify-content: space-between; /* Espaçamento entre os cards */
+    }
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 767px) {
+    .card-prof-container {
+        justify-content: center; /* Centraliza os cards horizontalmente */
+    }
+    .card-prof {
+        width: calc(45% - 20px); /* 2 cards por linha */
+    }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+    .card-prof {
+        width: calc(100% - 20px); /* 1 card por linha */
+    }
+}
+
+/* Ajuste adicional para a home-prof-container em telas pequenas */
+@media (max-width: 768px) {
+    .home-prof-container {
+        margin-top: 50px; /* Margem superior em telas pequenas */
+    }
+}

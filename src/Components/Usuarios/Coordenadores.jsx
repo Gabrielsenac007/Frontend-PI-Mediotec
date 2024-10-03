@@ -1,20 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchProfessores, deleteProfessor } from '../../services/api';
+import { fetchCoordenadores, deleteCoordenador } from '../../services/api'; // Supondo que você tenha essas funções
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import './Alunos.css'; // Use o CSS fornecido no arquivo Alunos.css, aplicando as classes corretamente
+import './Coordenadores.css'; // Estilos específicos para a tela de coordenadores
 
-const ProfessorDisplay = () => {
+const CoordenadoresDisplay = () => {
     const navigate = useNavigate(); // Hook para navegação
+
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getProfessores = async () => {
+        const getCoordenadores = async () => {
             try {
-                const professores = await fetchProfessores();
-                setData(professores);
+                const coordenadores = await fetchCoordenadores();
+                setData(coordenadores);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -22,17 +23,17 @@ const ProfessorDisplay = () => {
             }
         };
 
-        getProfessores();
+        getCoordenadores();
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-professor/${id}`); // Redireciona para a tela de edição do professor
+        navigate(`/edit-coordenador/${id}`); // Redireciona para a tela de edição
     };
 
     const handleDelete = async (id) => {
-        if (window.confirm("Tem certeza que deseja deletar este professor?")) {
+        if (window.confirm("Tem certeza que deseja deletar este coordenador?")) {
             try {
-                await deleteProfessor(id);
+                await deleteCoordenador(id);
                 setData(data.filter(item => item.id !== id));
             } catch (err) {
                 setError(err.message);
@@ -41,23 +42,22 @@ const ProfessorDisplay = () => {
     };
 
     const handleRedirect = () => {
-        navigate('/cadastroProfessor'); // Redireciona para a página de cadastro de professor
+        navigate('/cadastro-coordenador'); // Redireciona para a página de cadastro de coordenador
     };
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
     return (
-        <div className="data-display">
-            <h1>Lista de Professores</h1>
+        <div className="coordenadores-display">
+            <h1>Coordenadores</h1>
             <ul className="data-list">
                 {data.map(item => (
                     <li key={item.id} className="data-item">
                         <div className="data-info">
                             <h3>{item.nome}</h3>
                             <p>Email: {item.email}</p>
-                            <p>Senha: {item.senha}</p>
-                            <p>Tipo de Usuário: {item.tipo_usuario}</p>
+                            <p>Tipo de Usuario: {item.tipo_usuario}</p>
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />
@@ -66,9 +66,9 @@ const ProfessorDisplay = () => {
                     </li>
                 ))}
             </ul>
-            <button onClick={handleRedirect}>Cadastrar Professor</button>
+            <button onClick={handleRedirect}>Cadastrar Coordenador</button>
         </div>
     );
 };
 
-export default ProfessorDisplay;
+export default CoordenadoresDisplay;

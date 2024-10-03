@@ -1,6 +1,6 @@
-import { FaUserGraduate, FaChalkboardTeacher, FaUserTie, FaBullhorn, FaListAlt, FaSchool } from 'react-icons/fa'; // Importando o novo ícone
 import { Link } from 'react-router-dom';
-import './Home.css'; // Importando o CSS
+import { FaUserGraduate, FaChalkboardTeacher, FaUserTie, FaBullhorn, FaListAlt, FaSchool, FaUsers, FaBookOpen, FaClipboardList, FaClipboardCheck } from 'react-icons/fa';
+import './Home.css'; // Certifique-se de incluir o CSS criado acima
 
 const Home = () => {
     return (
@@ -23,17 +23,29 @@ const Home = () => {
                     <FaBullhorn size={48} />
                     <h2>Cadastrar Disciplina</h2>
                 </Link>
-                <Link to="/alunos" className="card"> {/* Novo link para ver alunos cadastrados */}
+                <Link to="/alunos" className="card">
                     <FaListAlt size={48} />
-                    <h2>Ver Alunos Cadastrados</h2>
+                    <h2>Alunos Cadastrados</h2>
                 </Link>
-                <Link to="/cadastroTurma" className="card"> {/* Novo link para ver alunos cadastrados */}
+                <Link to="/cadastroTurma" className="card">
                     <FaSchool size={48} />
                     <h2>Cadastrar Novas Turmas</h2>
                 </Link>
-                <Link to="/" className="card"> {/* Novo link para ver alunos cadastrados */}
-                    <FaSchool size={48} />
-                    <h2>Ver Professores Cadastrados</h2>
+                <Link to="/professores" className="card">
+                    <FaUsers size={48} /> {/* Ícone alterado */}
+                    <h2>Professores Cadastrados</h2>
+                </Link>
+                <Link to="/coordenadores" className="card"> {/* Atualizei o link e o ícone */}
+                    <FaBookOpen size={48} /> {/* Ícone alterado */}
+                    <h2>Coordenadores Cadastrados</h2>
+                </Link>
+                <Link to="/turmas" className="card"> {/* Atualizei o link e o ícone */}
+                    <FaClipboardList size={48} /> {/* Ícone alterado */}
+                    <h2>Turmas Cadastradas</h2>
+                </Link>
+                <Link to="/materias" className="card"> {/* Atualizei o link e o ícone */}
+                    <FaClipboardCheck size={48} /> {/* Ícone alterado */}
+                    <h2>Matérias Cadastradas</h2>
                 </Link>
             </div>
         </div>

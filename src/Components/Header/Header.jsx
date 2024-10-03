@@ -48,7 +48,7 @@ const Header = () => {
         <ul ref={menuRef} className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li><Link to="/home">Home</Link></li>
           <li><Link to="/homeProf">Turmas</Link></li>
-          <li><Link to="/turma">Equipe</Link></li>
+          <li><Link to="/professor">Equipe</Link></li>
           <li><Link to="/alunos">Alunos</Link></li>
         </ul>
       </nav>

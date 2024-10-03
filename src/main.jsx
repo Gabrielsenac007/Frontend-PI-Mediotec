@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         element:<TurmasDisplay/>
       },
       {
-        path: 'professor',
+        path: 'professores',
         element:<ProfessorDisplay/>
       }
       

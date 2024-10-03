@@ -7,8 +7,8 @@
 
 .card-container {
     display: flex;
-    justify-content: space-around; /* Espaça os cards */
-    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha se não houver espaço suficiente */
+    justify-content: center; /* Alinha os cards no início */
+    flex-wrap: wrap; /* Permite que os cards se movam para a próxima linha */
     margin-top: 30px; /* Aumentar a margem superior */
 }
 
@@ -18,28 +18,49 @@
     border-radius: 10px;
     padding: 30px; /* Aumentar o preenchimento interno dos cards */
     text-decoration: none; /* Remove o sublinhado */
-    width: 250px; /* Largura do card */
+    width: calc(18% - 40px); /* Largura para 5 cards por linha, reduzida */
     height: 150px; /* Altura do card */
     transition: transform 0.3s; /* Animação de transformação */
-    margin: 20px; /* Aumentar a margem ao redor de cada card */
+    margin: 25px; /* Margem menor para acomodar 5 cards por linha */
     text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar os cards */ 
 }
-
-
 
 .card:hover {
     transform: scale(1.05); /* Efeito de aumento no hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra mais intensa no hover */
 }
 
 .card h2 {
-    margin: 0; /* Remove margem padrão */
-    font-size: 22px; /* Tamanho da fonte */
+    margin: 10px 0 0 0; /* Remove margem superior e adiciona um pequeno espaçamento acima */
+    font-size: 18px; /* Tamanho da fonte */
 }
 
-@media (max-width: 768px) {
 
-    .home-container{
+/* Responsividade para telas médias */
+@media (max-width: 1199px) and (min-width: 768px) {
+    .card {
+        width: calc(30% - 40px); /* 3 cards por linha */
+    }
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 767px) {
+    .card {
+        width: calc(45% - 40px); /* 2 cards por linha */
+    }
+}
+
+/* Responsividade para telas muito pequenas */
+@media (max-width: 480px) {
+    .card {
+        width: calc(100% - 40px); /* 1 card por linha */
+    }
+}
+
+/* Ajuste adicional para a home-container em telas pequenas */
+@media (max-width: 768px) {
+    .home-container {
         margin-top: 50px;
     }
-
 }

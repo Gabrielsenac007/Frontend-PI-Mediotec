@@ -1,31 +1,31 @@
-import { FaRegFileAlt, FaRegClipboard, FaPaperPlane, FaUsers } from 'react-icons/fa'; // Importando os novos ícones
+import { FaRegFileAlt, FaRegClipboard, FaPaperPlane, FaUsers } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import './Home.css'; // Importando o CSS
+import './ProfHome.css'; // Importando o novo CSS
 
-const Home = () => {
+const HomeProfessores = () => {
     return (
-        <div className="home-container">
-            <h1>Bem-vindo ao Sistema de Gestão</h1>
-            <div className="card-container">
-                <Link to="/notas" className="card">
-                    <FaRegFileAlt size={48} /> {/* Ícone de Gerenciar Notas */}
+        <div className="home-prof-container">
+            <h1>Bem-vindo ao Sistema de Gestão - Professores</h1>
+            <div className="card-prof-container">
+                <Link to="/notas" className="card-prof">
+                    <FaRegFileAlt size={48} />
                     <h2>Gerenciar Notas</h2>
                 </Link>
-                <Link to="/presencas" className="card">
-                    <FaRegClipboard size={48} /> {/* Ícone de Gerenciar Presenças */}
+                <Link to="/presencas" className="card-prof">
+                    <FaRegClipboard size={48} />
                     <h2>Gerenciar Presenças</h2>
                 </Link>
-                <Link to="/comunicados" className="card">
-                    <FaPaperPlane size={48} /> {/* Ícone de Enviar Comunicado */}
+                <Link to="/comunicados" className="card-prof">
+                    <FaPaperPlane size={48} />
                     <h2>Enviar Comunicado</h2>
                 </Link>
-                <Link to="/alunos" className="card"> {/* Novo link para ver alunos cadastrados */}
-                    <FaUsers size={48} /> {/* Ícone de Ver Alunos Cadastrados */}
-                    <h2>Ver Alunos Cadastrados</h2>
+                <Link to="/alunos" className="card-prof">
+                    <FaUsers size={48} />
+                    <h2>Alunos Cadastrados</h2>
                 </Link>
             </div>
         </div>
     );
 };
 
-export default Home;
+export default HomeProfessores;
