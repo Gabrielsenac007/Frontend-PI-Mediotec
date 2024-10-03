@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api';
-const API_URL_PROF = ''; // Defina a URL da API para professores aqui
 
 // Cria uma instância do Axios
 const api = axios.create({
@@ -30,6 +29,17 @@ export const fetchAlunos = async () => {
     }
 };
 
+// Função para buscar todos os professores
+export const fetchProfessores = async () => {
+    try {
+        const response = await api.get('/users/allTeachers'); // Usa a instância do Axios e o endpoint correto
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
 // Função para buscar um aluno específico pelo ID
 export const fetchUsuario = async (id) => {
     try {   
@@ -56,16 +66,6 @@ export const cadastrarAluno = async (alunoData) => {
 };
 
 
-// Cadastrar Professor
-export const cadastrarProfessor = async (alunoData) => {
-    try {
-        const response = await api.post(API_URL_PROF, alunoData); // Usa a instância do Axios
-        return response.data;
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};
-
 // Função para editar um aluno
 export const editarUsuario = async (id, newName) => {
     try {
@@ -79,7 +79,7 @@ export const editarUsuario = async (id, newName) => {
 // Função para deletar um aluno
 export const deleteAluno = async (id) => {
     try {
-        await api.delete(`/${id}`); // Usa a instância do Axios
+        await api.delete(`http://localhost:8080/api/users/delete/student/${id}`); // Usa a instância do Axios
     } catch (error) {
         throw new Error(error.message);
     }

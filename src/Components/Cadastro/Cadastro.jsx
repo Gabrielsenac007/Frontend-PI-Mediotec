@@ -25,7 +25,7 @@ const Cadastro = () => {
         try {
             await cadastrarAluno(usuarioData); // Enviar dados para a API
             alert('Cadastro realizado com sucesso!');
-            navigate('/usuarios'); // Redireciona para a página de usuários
+            navigate('/alunos'); // Redireciona para a página de usuários
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);
         }

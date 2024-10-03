@@ -25,11 +25,15 @@ const Home = () => {
                 </Link>
                 <Link to="/alunos" className="card"> {/* Novo link para ver alunos cadastrados */}
                     <FaListAlt size={48} />
-                    <h2>Ver Usuários Cadastrados</h2>
+                    <h2>Ver Alunos Cadastrados</h2>
                 </Link>
                 <Link to="/cadastroTurma" className="card"> {/* Novo link para ver alunos cadastrados */}
                     <FaSchool size={48} />
                     <h2>Cadastrar Novas Turmas</h2>
+                </Link>
+                <Link to="/" className="card"> {/* Novo link para ver alunos cadastrados */}
+                    <FaSchool size={48} />
+                    <h2>Ver Professores Cadastrados</h2>
                 </Link>
             </div>
         </div>

@@ -23,7 +23,7 @@ const CadastroDisciplina = () => {
             // Envia os dados para a API e realiza o cadastro
             await cadastrarDisciplina(disciplinaData);
             alert('Disciplina cadastrada com sucesso!');
-            navigate('/disciplinas'); // Redireciona para a lista de disciplinas ou outra página desejada
+            navigate('/home'); // Redireciona para a lista de disciplinas ou outra página desejada
         } catch (error) {
             setError('Erro ao cadastrar a disciplina: ' + error.message);
         }
