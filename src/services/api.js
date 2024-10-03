@@ -125,6 +125,61 @@ export const cadastrarCoordenador = async (dados) => {
 };
 
 
+
+// Função para buscar coordenadores
+export const fetchCoordenadores = async () => {
+    try {
+        const response = await fetch('http://localhost:8080/api/users/allCoordenador', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Se você estiver usando autenticação com token
+            },
+        });
+
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar coordenadores: ${response.statusText}`);
+        }
+
+        const data = await response.json(); // Converte a resposta para JSON
+        return data; // Retorna os dados
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        throw error; // Propaga o erro para ser tratado onde a função é chamada
+    }
+};
+
+
+
+// Função para deletar um coordenador
+export const deleteCoordenador = async (id) => {
+    try {
+        const response = await fetch(`${API_URL}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Se você estiver usando autenticação com token
+            },
+        });
+
+        // Verifica se a resposta foi bem-sucedida
+        if (!response.ok) {
+            throw new Error(`Erro ao deletar coordenador: ${response.statusText}`);
+        }
+
+        const data = await response.json(); // Se o backend retornar algum dado, você pode usá-lo
+        console.log('Coordenador deletado com sucesso:', data);
+        return data; // Retorna os dados, se necessário
+    } catch (error) {
+        console.error('Erro na requisição:', error);
+        throw error; // Propaga o erro para ser tratado onde a função é chamada
+    }
+};
+
+
+
+
 // Função para cadastrar disciplina
 export const cadastrarDisciplina = async (disciplinaData) => {
     const token = localStorage.getItem('authToken'); // Obter o token do localStorage
@@ -151,7 +206,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
     }
 
     // Retorna a resposta convertida em JSON
-    return await response.json(); // Retorna diretamente o JSON da resposta
+    return await response.text(); // Retorna diretamente o JSON da resposta
 };
 
 

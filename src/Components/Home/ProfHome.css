@@ -55,6 +55,7 @@
     }
     .card-prof {
         width: calc(45% - 20px); /* 2 cards por linha */
+        font-size: 10px;
     }
 }
 

@@ -1,3 +1,4 @@
+// src/Components/Login/Login.jsx
 import { FaUser, FaLock } from 'react-icons/fa';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -30,14 +31,11 @@ const Login = () => {
         const data = await response.json();
         console.log('Login bem-sucedido:', data);
 
-        // Armazena o token no localStorage (ou sessionStorage)
+        // Armazena o token e o nome do usuário no localStorage
         localStorage.setItem('authToken', data.token);
+        localStorage.setItem('userName', data.nome); // Armazena o nome do usuário
 
-        // Recupera o token armazenado e exibe o valor
-        const token = localStorage.getItem('authToken');
-        alert(token);
-
-        // Navega para a rota '/alunos' após login bem-sucedido
+        // Navega para a rota '/home' após login bem-sucedido
         navigate('/home');
       } else {
         // Lida com falhas na autenticação
@@ -50,7 +48,6 @@ const Login = () => {
   };
 
   return (
-    
     <div className="container">
       <form onSubmit={handleSubmit}>
         <h1>Acesse o Sistema</h1>
@@ -84,7 +81,6 @@ const Login = () => {
         {/* Botão de submissão do formulário */}
         <button type="submit">Entrar</button>
       </form>
-
     </div>
   );
 };

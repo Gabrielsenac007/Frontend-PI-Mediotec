@@ -41,6 +41,7 @@
 @media (max-width: 1199px) and (min-width: 768px) {
     .card {
         width: calc(30% - 40px); /* 3 cards por linha */
+        font-size: 10px;
     }
 }
 
@@ -62,5 +63,6 @@
 @media (max-width: 768px) {
     .home-container {
         margin-top: 50px;
+        
     }
 }

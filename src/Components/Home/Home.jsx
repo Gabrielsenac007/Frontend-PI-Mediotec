@@ -23,13 +23,13 @@ const Home = () => {
                     <FaBullhorn size={48} />
                     <h2>Cadastrar Disciplina</h2>
                 </Link>
+                <Link to="/cadastroTurma" className="card">
+                    <FaSchool size={48} />
+                    <h2>Cadastrar Turmas</h2>
+                </Link>
                 <Link to="/alunos" className="card">
                     <FaListAlt size={48} />
                     <h2>Alunos Cadastrados</h2>
-                </Link>
-                <Link to="/cadastroTurma" className="card">
-                    <FaSchool size={48} />
-                    <h2>Cadastrar Novas Turmas</h2>
                 </Link>
                 <Link to="/professores" className="card">
                     <FaUsers size={48} /> {/* Ícone alterado */}
@@ -45,7 +45,7 @@ const Home = () => {
                 </Link>
                 <Link to="/materias" className="card"> {/* Atualizei o link e o ícone */}
                     <FaClipboardCheck size={48} /> {/* Ícone alterado */}
-                    <h2>Matérias Cadastradas</h2>
+                    <h2>Associar Turma à Disciplina</h2>
                 </Link>
             </div>
         </div>

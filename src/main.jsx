@@ -17,6 +17,8 @@ import CadastroDisciplina from './Components/Cadastro/CadastroMateria.jsx';
 import CadastroTurma from './Components/Cadastro/CadastroTurma.jsx';
 import TurmasDisplay from './Components/Usuarios/Turmas.jsx';
 import ProfessorDisplay from './Components/Usuarios/Professores.jsx';
+import CoordenadoresDisplay from './Components/Usuarios/Coordenadores.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -72,14 +74,17 @@ const router = createBrowserRouter([
         element:<CadastroTurma/>
       },
       {
-        path: 'turma',
+        path: 'turmas',
         element:<TurmasDisplay/>
       },
       {
         path: 'professores',
         element:<ProfessorDisplay/>
+      },
+      {
+        path: 'coordenadores',
+        element:<CoordenadoresDisplay/>
       }
-      
     ]
   }
 ]);

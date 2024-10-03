@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchCoordenadores, deleteCoordenador } from '../../services/api'; // Supondo que você tenha essas funções
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import './Coordenadores.css'; // Estilos específicos para a tela de coordenadores
+import './Alunos.css'; // Estilos específicos para a tela de coordenadores
 
 const CoordenadoresDisplay = () => {
     const navigate = useNavigate(); // Hook para navegação
@@ -42,14 +42,14 @@ const CoordenadoresDisplay = () => {
     };
 
     const handleRedirect = () => {
-        navigate('/cadastro-coordenador'); // Redireciona para a página de cadastro de coordenador
+        navigate('/cadastroCoordenador'); // Redireciona para a página de cadastro de coordenador
     };
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
     return (
-        <div className="coordenadores-display">
+        <div className="data-display"> {/* Adicione a classe para aplicar estilos */}
             <h1>Coordenadores</h1>
             <ul className="data-list">
                 {data.map(item => (

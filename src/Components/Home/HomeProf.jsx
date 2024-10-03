@@ -5,7 +5,7 @@ import './ProfHome.css'; // Importando o novo CSS
 const HomeProfessores = () => {
     return (
         <div className="home-prof-container">
-            <h1>Bem-vindo ao Sistema de Gestão - Professores</h1>
+            <h1>Bem-vindo ao Sistema de Gestão</h1>
             <div className="card-prof-container">
                 <Link to="/notas" className="card-prof">
                     <FaRegFileAlt size={48} />

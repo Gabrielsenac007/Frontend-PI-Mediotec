@@ -6,6 +6,7 @@ import './Header.css'; // Certifique-se de importar o CSS
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar a visibilidade do menu
+  const [userName, setUserName] = useState(''); // Estado para armazenar o nome do usuário
   const menuRef = useRef(null); // Cria uma referência para o contêiner do menu
 
   // Função para alternar a visibilidade do menu
@@ -35,11 +36,19 @@ const Header = () => {
     };
   }, [menuOpen]);
 
+  // useEffect para recuperar o nome do usuário do localStorage
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('authData'));
+    if (userData) {
+      setUserName(userData.name); // Armazena o nome do usuário no estado
+    }
+  }, []);
+
   return (
     <header className="header">
       <div className="logo">
         <FaUser className="login-icon" />
-        <h1>Nome do Usuário</h1>
+        <h1>{userName || 'Nome do Usuário'}</h1> {/* Exibe o nome do usuário */}
       </div>
       <nav>
         <IoMenu className='mobile-menu' onClick={toggleMenu} />
