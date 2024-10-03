@@ -162,11 +162,16 @@ export const cadastrarTurma = async (turmaData) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(turmaData),
     });
+
     if (!response.ok) {
         throw new Error('Erro ao cadastrar a turma');
     }
-    return response.json();
+
+    // Captura a resposta como texto ao invés de JSON
+    const resultText = await response.text(); 
+    return resultText; // Retorna a string capturada
 };
+
 
 export function deleteTurma(id) {
     return api.delete(`/turmas/${id}`);
