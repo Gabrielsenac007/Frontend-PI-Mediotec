@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { fetchProfessores, deleteProfessor } from '../../services/api';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import './Alumo.css'; // Certifique-se de que o arquivo CSS está nomeado corretamente
+import './Alunos.css'; // Certifique-se de que o arquivo CSS está nomeado corretamente
 
 const ProfessorDisplay = () => {
     const navigate = useNavigate(); // Hook para navegação

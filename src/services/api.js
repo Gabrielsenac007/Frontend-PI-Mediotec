@@ -39,6 +39,16 @@ export const fetchProfessores = async () => {
     }
 };
 
+// Função para deletar um professor
+export const deleteProfessor = async (id) => {
+    try {
+        await api.delete(`/users/professor/${id}`);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+
 
 // Função para buscar um aluno específico pelo ID
 export const fetchUsuario = async (id) => {
