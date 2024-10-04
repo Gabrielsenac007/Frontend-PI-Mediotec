@@ -29,6 +29,15 @@ export const fetchAlunos = async () => {
     }
 };
 
+// Função para deletar um aluno
+export const deleteAluno = async (id) => {
+    try {
+        await api.delete(`http://localhost:8080/api/users/delete/student/${id}`); // Usa a instância do Axios
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
 // Função para buscar todos os professores
 export const fetchProfessores = async () => {
     try {
@@ -42,13 +51,11 @@ export const fetchProfessores = async () => {
 // Função para deletar um professor
 export const deleteProfessor = async (id) => {
     try {
-        await api.delete(`/users/professor/${id}`);
+        await api.delete(`http://localhost:8080/api/users/delete/professor/${id}`);
     } catch (error) {
         throw new Error(error.message);
     }
 };
-
-
 
 // Função para buscar um aluno específico pelo ID
 export const fetchUsuario = async (id) => {
@@ -86,14 +93,7 @@ export const editarUsuario = async (id, newName) => {
     }
 };
 
-// Função para deletar um aluno
-export const deleteAluno = async (id) => {
-    try {
-        await api.delete(`http://localhost:8080/api/users/delete/student/${id}`); // Usa a instância do Axios
-    } catch (error) {
-        throw new Error(error.message);
-    }
-};
+
 
 // Função para autenticar usuário
 export const autenticarUsuario = async (cpf, password) => {
@@ -232,9 +232,20 @@ export function deleteTurma(id) {
     return api.delete(`/turmas/${id}`);
 }
 
-export function fetchTurmas() {
-    return api.get('/turmas');
-}
+
+// Função para buscar todas as turmas
+export const fetchTurmas = async () => {
+    try {
+        // Requisição GET para buscar todas as turmas no endpoint `/turmas`
+        const response = await api.get('http://localhost:8080/api/classes/getAllClasses');
+        return response.data; // Retorna os dados das turmas
+    } catch (error) {
+        console.error('Erro ao buscar turmas:', error);
+        throw error;
+    }
+};
+
+
 
 export default api; // Exporte a instância do Axios para uso em outros arquivos
 

@@ -1,39 +1,59 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa';
+import { confirmAlert } from 'react-confirm-alert'; // Importe o confirmAlert
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Importe o estilo padrão
 import './Cadastro.css';
-import { cadastrarAluno } from '../../services/api'; // Importe sua função de cadastro
+import { cadastrarAluno } from '../../services/api'; // Importe a função de cadastro
 
 const Cadastro = () => {
     const [cpf, setCpf] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState(""); // Mantenha 'password'
+    const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const navigate = useNavigate(); // Para redirecionar após o cadastro
+    const navigate = useNavigate();
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
+    const handleSubmit = async () => {
         const usuarioData = {
             cpf,
             name,
             email,
-            password // Utilize 'password'
+            password
         };
 
         try {
-            await cadastrarAluno(usuarioData); // Enviar dados para a API
+            await cadastrarAluno(usuarioData); // Envia os dados para a API
             alert('Cadastro realizado com sucesso!');
-            navigate('/alunos'); // Redireciona para a página de usuários
+            navigate('/alunos'); // Redireciona para a página de alunos
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);
         }
     };
 
+    // Função que mostra o pop-up de confirmação
+    const handleConfirm = (event) => {
+        event.preventDefault();
+
+        confirmAlert({
+            title: 'Confirmação de Cadastro',
+            message: 'Tem certeza que deseja cadastrar este aluno?',
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: () => handleSubmit()
+                },
+                {
+                    label: 'Não',
+                    onClick: () => {} // Não faz nada, apenas fecha o pop-up
+                }
+            ]
+        });
+    };
+
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleConfirm}> {/* Alterado para chamar handleConfirm */}
                 <h1>Cadastro de Aluno</h1>
                 {error && <p className="error">{error}</p>}
                 <div className='input-field'>
@@ -44,7 +64,7 @@ const Cadastro = () => {
                         onChange={(e) => setCpf(e.target.value)}
                         required
                     />
-                    <FaIdCard className='icon' /> 
+                    <FaIdCard className='icon' />
                 </div>
                 <div className='input-field'>
                     <input
@@ -76,7 +96,7 @@ const Cadastro = () => {
                     />
                     <FaLock className='icon' />
                 </div>
-                <button type="submit">Cadastrar</button>
+                <button type="submit">Cadastrar</button> {/* O botão de submissão */}
             </form>
         </div>
     );

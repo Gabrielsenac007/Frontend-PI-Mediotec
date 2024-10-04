@@ -1,26 +1,24 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa'; // Adicionado FaIdCard para CPF
+import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa'; // Ícones para os campos de input
+import { confirmAlert } from 'react-confirm-alert'; // Importe o confirmAlert
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Importe o estilo padrão
 import './Cadastro.css';
-import { cadastrarCoordenador } from '../../services/api'; // Importação da função de cadastro de coordenador
+import { cadastrarCoordenador } from '../../services/api'; // Importe a função de cadastro de coordenador
 
 const CadastroCoordenador = () => {
-    // Estados para os campos de cadastro
-    const [cpf, setCpf] = useState(""); // Novo campo CPF
-    const [nome, setNome] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setSenha] = useState("");
-    const [error, setError] = useState(""); // Estado para gerenciar erros
-    const navigate = useNavigate(); // Hook de navegação para redirecionamento
+    const [cpf, setCpf] = useState(""); // Campo CPF
+    const [nome, setNome] = useState(""); // Campo Nome
+    const [email, setEmail] = useState(""); // Campo Email
+    const [password, setSenha] = useState(""); // Campo Senha
+    const [error, setError] = useState(""); // Gerenciamento de erros
+    const navigate = useNavigate(); // Hook de navegação
 
-    // Função de envio do formulário
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        // Dados do coordenador a serem enviados
+    // Função de envio do formulário após confirmação
+    const handleSubmit = async () => {
         const coordenadorData = {
-            cpf,   // CPF do coordenador
-            name : nome ,
+            cpf,
+            name: nome,
             email,
             password,
         };
@@ -28,18 +26,38 @@ const CadastroCoordenador = () => {
         try {
             await cadastrarCoordenador(coordenadorData); // Enviar dados para a API
             alert('Cadastro realizado com sucesso!');
-            navigate('/coordenadores'); // Redireciona para a página de coordenadores cadastrados
+            navigate('/coordenadores'); // Redireciona para a página de coordenadores
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);
         }
     };
 
+    // Função para exibir o pop-up de confirmação
+    const handleConfirm = (event) => {
+        event.preventDefault();
+
+        confirmAlert({
+            title: 'Confirmação de Cadastro',
+            message: 'Tem certeza que deseja cadastrar este coordenador?',
+            buttons: [
+                {
+                    label: 'Sim',
+                    onClick: () => handleSubmit() // Chama handleSubmit se confirmado
+                },
+                {
+                    label: 'Não',
+                    onClick: () => {} // Não faz nada, apenas fecha o pop-up
+                }
+            ]
+        });
+    };
+
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleConfirm}> {/* Substitui handleSubmit por handleConfirm */}
                 <h1>Cadastro de Coordenador</h1>
-                {error && <p className="error">{error}</p>}
-                
+                {error && <p className="error">{error}</p>} {/* Mensagem de erro, se houver */}
+
                 {/* Campo de CPF */}
                 <div className='input-field'>
                     <input
@@ -51,7 +69,7 @@ const CadastroCoordenador = () => {
                     />
                     <FaIdCard className='icon' />
                 </div>
-                
+
                 {/* Campo de Nome */}
                 <div className='input-field'>
                     <input
@@ -63,7 +81,7 @@ const CadastroCoordenador = () => {
                     />
                     <FaUser className='icon' />
                 </div>
-                
+
                 {/* Campo de Email */}
                 <div className='input-field'>
                     <input
@@ -75,7 +93,7 @@ const CadastroCoordenador = () => {
                     />
                     <FaEnvelope className='icon' />
                 </div>
-                
+
                 {/* Campo de Senha */}
                 <div className='input-field'>
                     <input
@@ -89,7 +107,7 @@ const CadastroCoordenador = () => {
                 </div>
 
                 {/* Botão de Cadastro */}
-                <button type="submit" className='cadastro-bnt'>Cadastrar</button>
+                <button type="submit" className='cadastro-bnt'>Cadastrar</button> {/* O botão agora chama handleConfirm */}
             </form>
         </div>
     );
