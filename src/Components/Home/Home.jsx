@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaUserGraduate, FaChalkboardTeacher, FaUserTie, FaBullhorn, FaListAlt, FaSchool, FaUsers, FaBookOpen, FaClipboardList, FaClipboardCheck } from 'react-icons/fa';
-import './Home.css'; // Certifique-se de incluir o CSS criado acima
+import './Home.css'; 
 
 const Home = () => {
     return (
@@ -32,19 +32,19 @@ const Home = () => {
                     <h2>Alunos Cadastrados</h2>
                 </Link>
                 <Link to="/professores" className="card">
-                    <FaUsers size={48} /> {/* Ícone alterado */}
+                    <FaUsers size={48} /> 
                     <h2>Professores Cadastrados</h2>
                 </Link>
-                <Link to="/coordenadores" className="card"> {/* Atualizei o link e o ícone */}
-                    <FaBookOpen size={48} /> {/* Ícone alterado */}
+                <Link to="/coordenadores" className="card"> 
+                    <FaBookOpen size={48} /> 
                     <h2>Coordenadores Cadastrados</h2>
                 </Link>
-                <Link to="/turmas" className="card"> {/* Atualizei o link e o ícone */}
-                    <FaClipboardList size={48} /> {/* Ícone alterado */}
+                <Link to="/turmas" className="card"> 
+                    <FaClipboardList size={48} /> 
                     <h2>Turmas Cadastradas</h2>
                 </Link>
-                <Link to="/materias" className="card"> {/* Atualizei o link e o ícone */}
-                    <FaClipboardCheck size={48} /> {/* Ícone alterado */}
+                <Link to="/materias" className="card"> 
+                    <FaClipboardCheck size={48} /> 
                     <h2>Associar Turma à Disciplina</h2>
                 </Link>
             </div>

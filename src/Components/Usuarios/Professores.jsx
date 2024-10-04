@@ -54,10 +54,9 @@ const ProfessorDisplay = () => {
                 {data.map(item => (
                     <li key={item.id} className="data-item">
                         <div className="data-info">
-                            <h3>{item.nome}</h3>
+                            <h3>Nome: {item.name}</h3>
                             <p>Email: {item.email}</p>
-                            <p>Senha: {item.senha}</p>
-                            <p>Tipo de Usuário: {item.tipo_usuario}</p>
+                            
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />
