@@ -63,7 +63,7 @@ const Cadastro = () => {
             }
 
             alert('Cadastro realizado com sucesso!');
-            navigate('/home'); // Navega para a lista de usuários após o cadastro
+            navigate('/professores'); // Navega para a lista de usuários após o cadastro
 
         } catch (error) {
             setError('Erro ao cadastrar: ' + error.message);

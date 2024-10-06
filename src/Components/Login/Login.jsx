@@ -1,4 +1,3 @@
-// src/Components/Login/Login.jsx
 import { FaUser, FaLock } from 'react-icons/fa';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -35,8 +34,18 @@ const Login = () => {
         localStorage.setItem('authToken', data.token);
         localStorage.setItem('userName', data.nome); // Armazena o nome do usuário
 
-        // Navega para a rota '/home' após login bem-sucedido
-        navigate('/home');
+        // Exibe um alerta com a role do usuário
+        alert('Role do usuário: ' + data.role);
+
+        // Verifica o papel do usuário (role) para redirecionamento
+        if (data.role === 'PROFESSOR') {
+          navigate('/homeProf'); // Redireciona para a home do professor
+        } else if (data.role === 'gestor') {
+          navigate('/home'); // Redireciona para a home do gestor
+        } else {
+          // Se o role não for reconhecido, redireciona para uma página padrão
+          navigate('/home');
+        }
       } else {
         // Lida com falhas na autenticação
         throw new Error('Falha na autenticação: ' + response.statusText);
