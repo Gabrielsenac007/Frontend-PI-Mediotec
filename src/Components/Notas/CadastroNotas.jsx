@@ -14,6 +14,7 @@ const CadastroNotas = () => {
   const [atributo2, setAtributo2] = useState('');
   const [situacao, setSituacao] = useState('');
   const [error, setError] = useState(''); // Estado para armazenar erros
+  const [loading, setLoading] = useState(true); // Estado de carregamento
 
   // Função para buscar disciplinas
   const fetchDisciplinas = async () => {
@@ -54,6 +55,8 @@ const CadastroNotas = () => {
       setAlunos(data); // Atualiza o estado com os dados recebidos
     } catch (error) {
       setError('Erro ao carregar alunos: ' + error.message);
+    } finally {
+      setLoading(false); // Define loading como false ao final da operação
     }
   };
 
@@ -66,6 +69,11 @@ const CadastroNotas = () => {
   // Função para lidar com o envio do formulário
   const handleSubmit = (event) => {
     event.preventDefault(); // Evita o recarregamento da página
+    if (!selectedDisciplina || !selectedUnidade || !selectedTurma || !selectedAluno) {
+      setError('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
     const dados = {
       disciplina: selectedDisciplina,
       unidade: selectedUnidade,
@@ -84,126 +92,130 @@ const CadastroNotas = () => {
     <div className="notas-container">
       <h1>Cadastro de Notas</h1>
       {error && <div className="error">{error}</div>} {/* Exibe mensagem de erro */}
-      <form onSubmit={handleSubmit}>
-        {/* Linha superior com Disciplina e Unidade */}
-        <div className="top-row">
-          <div className="form-group">
-            <label htmlFor="disciplina">Disciplina:</label>
-            <select
-              id="disciplina"
-              name="disciplina"
-              value={selectedDisciplina}
-              onChange={(e) => setSelectedDisciplina(e.target.value)}
-            >
-              <option value="">Selecione a Disciplina</option>
-              {disciplinas.map((disciplina) => (
-                <option key={disciplina.id} value={disciplina.id}>
-                  {disciplina.nome} {/* Ajuste conforme a estrutura dos dados */}
-                </option>
-              ))}
-            </select>
+      {loading ? (
+        <div>Carregando...</div> // Mensagem de carregamento
+      ) : (
+        <form onSubmit={handleSubmit}>
+          {/* Linha superior com Disciplina e Unidade */}
+          <div className="top-row">
+            <div className="form-group">
+              <label htmlFor="disciplina">Disciplina:</label>
+              <select
+                id="disciplina"
+                name="disciplina"
+                value={selectedDisciplina}
+                onChange={(e) => setSelectedDisciplina(e.target.value)}
+              >
+                <option value="">Selecione a Disciplina</option>
+                {disciplinas.map((disciplina) => (
+                  <option key={disciplina.id} value={disciplina.id}>
+                    {disciplina.disciplineName} {/* Usando disciplineName para exibir o nome */}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="unidade">Unidade:</label>
+              <select
+                id="unidade"
+                name="unidade"
+                value={selectedUnidade}
+                onChange={(e) => setSelectedUnidade(e.target.value)}
+              >
+                <option value="">Selecione a Unidade</option>
+                <option value="ud1">UD1</option>
+                <option value="ud2">UD2</option>
+              </select>
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="unidade">Unidade:</label>
-            <select
-              id="unidade"
-              name="unidade"
-              value={selectedUnidade}
-              onChange={(e) => setSelectedUnidade(e.target.value)}
-            >
-              <option value="">Selecione a Unidade</option>
-              <option value="ud1">UD1</option>
-              <option value="ud2">UD2</option>
-            </select>
-          </div>
-        </div>
+          {/* Linha inferior com Turma, Aluno, Atributos e Situação */}
+          <div className="bottom-row">
+            <div className="form-group">
+              <label htmlFor="turma">Turma:</label>
+              <select
+                id="turma"
+                name="turma"
+                value={selectedTurma}
+                onChange={(e) => setSelectedTurma(e.target.value)}
+              >
+                <option value="">Selecione a Turma</option>
+                {turmas.map((turma) => (
+                  <option key={turma.id} value={turma.id}> {/* Ajuste conforme a estrutura dos dados */}
+                    {turma.nome} {/* Ajuste conforme a estrutura dos dados */}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Linha inferior com Turma, Aluno, Atributos e Situação */}
-        <div className="bottom-row">
-          <div className="form-group">
-            <label htmlFor="turma">Turma:</label>
-            <select
-              id="turma"
-              name="turma"
-              value={selectedTurma}
-              onChange={(e) => setSelectedTurma(e.target.value)}
-            >
-              <option value="">Selecione a Turma</option>
-              {turmas.map((turma) => (
-                <option key={turma.id} value={turma.id}> {/* Ajuste conforme a estrutura dos dados */}
-                  {turma.nome} {/* Ajuste conforme a estrutura dos dados */}
-                </option>
-              ))}
-            </select>
+            <div className="form-group">
+              <label htmlFor="aluno">Aluno:</label>
+              <select
+                id="aluno"
+                name="aluno"
+                value={selectedAluno}
+                onChange={(e) => setSelectedAluno(e.target.value)}
+              >
+                <option value="">Selecione o Aluno</option>
+                {alunos.map((aluno) => (
+                  <option key={aluno.id} value={aluno.id}> {/* Ajuste conforme a estrutura dos dados */}
+                    {aluno.nome} {/* Ajuste conforme a estrutura dos dados */}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="atributo1">AV1:</label>
+              <select
+                id="atributo1"
+                name="atributo1"
+                value={atributo1}
+                onChange={(e) => setAtributo1(e.target.value)}
+              >
+                <option value="">Selecione o Atributo</option>
+                <option value="a">A</option>
+                <option value="pa">PA</option>
+                <option value="na">NA</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="atributo2">AV2:</label>
+              <select
+                id="atributo2"
+                name="atributo2"
+                value={atributo2}
+                onChange={(e) => setAtributo2(e.target.value)}
+              >
+                <option value="">Selecione o Atributo</option>
+                <option value="a">A</option>
+                <option value="pa">PA</option>
+                <option value="na">NA</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="situacao">Situação:</label>
+              <select
+                id="situacao"
+                name="situacao"
+                value={situacao}
+                onChange={(e) => setSituacao(e.target.value)}
+              >
+                <option value="">Selecione a Situação</option>
+                <option value="d">D</option>
+                <option value="nd">ND</option>
+              </select>
+            </div>
           </div>
 
-          <div className="form-group">
-            <label htmlFor="aluno">Aluno:</label>
-            <select
-              id="aluno"
-              name="aluno"
-              value={selectedAluno}
-              onChange={(e) => setSelectedAluno(e.target.value)}
-            >
-              <option value="">Selecione o Aluno</option>
-              {alunos.map((aluno) => (
-                <option key={aluno.id} value={aluno.id}> {/* Ajuste conforme a estrutura dos dados */}
-                  {aluno.nome} {/* Ajuste conforme a estrutura dos dados */}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="atributo1">Atributo 1:</label>
-            <select
-              id="atributo1"
-              name="atributo1"
-              value={atributo1}
-              onChange={(e) => setAtributo1(e.target.value)}
-            >
-              <option value="">Selecione o Atributo</option>
-              <option value="a">A</option>
-              <option value="pa">PA</option>
-              <option value="na">NA</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="atributo2">Atributo 2:</label>
-            <select
-              id="atributo2"
-              name="atributo2"
-              value={atributo2}
-              onChange={(e) => setAtributo2(e.target.value)}
-            >
-              <option value="">Selecione o Atributo</option>
-              <option value="a">A</option>
-              <option value="pa">PA</option>
-              <option value="na">NA</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="situacao">Situação:</label>
-            <select
-              id="situacao"
-              name="situacao"
-              value={situacao}
-              onChange={(e) => setSituacao(e.target.value)}
-            >
-              <option value="">Selecione a Situação</option>
-              <option value="d">D</option>
-              <option value="nd">ND</option>
-            </select>
-          </div>
-        </div>
-
-        <button type="submit" className="cadastro-button">
-          Cadastrar Notas
-        </button>
-      </form>
+          <button type="submit" className="cadastro-button">
+            Cadastrar Notas
+          </button>
+        </form>
+      )}
     </div>
   );
 };

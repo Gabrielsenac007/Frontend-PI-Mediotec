@@ -42,6 +42,10 @@
     justify-content: space-between;
     margin-bottom: 30px;
   }
+
+  .discipline{
+    background-color: #0056b3;
+  }
   
   /* Linha inferior com Turma, Aluno, Atributos e Situação */
   .bottom-row {
