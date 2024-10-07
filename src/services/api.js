@@ -66,16 +66,15 @@ export const fetchUsuario = async (id) => {
         throw new Error(error.message);
     }
 };
-
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
-        const response = await api.post('http://localhost:8080/api/users/register/student', alunoData, { // Adicione a vírgula aqui
+        const response = await api.post('http://localhost:8080/api/users/register/student', alunoData, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
-        }); // Usa a instância do Axios
+        });
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -241,6 +240,17 @@ export const fetchTurmas = async () => {
         return response.data; // Retorna os dados das turmas
     } catch (error) {
         console.error('Erro ao buscar turmas:', error);
+        throw error;
+    }
+};
+
+// Função para listar todas as turmas
+export const listarTurmas = async () => {
+    try {
+        const response = await api.get('/classes/getAllClasses'); // Use o endpoint correto
+        return response.data; // Retorna os dados das turmas
+    } catch (error) {
+        console.error('Erro ao listar turmas:', error);
         throw error;
     }
 };

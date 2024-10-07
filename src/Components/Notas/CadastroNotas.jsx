@@ -126,6 +126,7 @@ const CadastroNotas = () => {
                 <option value="">Selecione a Unidade</option>
                 <option value="ud1">UD1</option>
                 <option value="ud2">UD2</option>
+                <option value="ud3">UD3</option>
               </select>
             </div>
           </div>
@@ -143,7 +144,7 @@ const CadastroNotas = () => {
                 <option value="">Selecione a Turma</option>
                 {turmas.map((turma) => (
                   <option key={turma.id} value={turma.id}> {/* Ajuste conforme a estrutura dos dados */}
-                    {turma.nome} {/* Ajuste conforme a estrutura dos dados */}
+                    {turma.nameClass} {/* Exibindo apenas o nameClass */}
                   </option>
                 ))}
               </select>

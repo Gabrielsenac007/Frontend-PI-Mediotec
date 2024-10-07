@@ -1,37 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa';
-import { confirmAlert } from 'react-confirm-alert'; // Importe o confirmAlert
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Importe o estilo padrão
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import './Cadastro.css';
-import { cadastrarAluno } from '../../services/api'; // Importe a função de cadastro
+import { cadastrarAluno, listarTurmas } from '../../services/api';
 
 const Cadastro = () => {
     const [cpf, setCpf] = useState("");
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [turmas, setTurmas] = useState([]);
+    const [selectedTurma, setSelectedTurma] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchTurmas = async () => {
+            try {
+                const response = await listarTurmas();
+                setTurmas(response);
+            } catch (error) {
+                setError('Erro ao carregar turmas: ' + error.message);
+            }
+        };
+        fetchTurmas();
+    }, []);
+
     const handleSubmit = async () => {
+        // Formato de envio atualizado
         const usuarioData = {
             cpf,
             name,
             email,
-            password
+            password,
+            classeId: selectedTurma, // Alterado para o nome correto: 'classeId'
         };
 
+        console.log('Dados do usuário:', usuarioData); // Log dos dados do usuário
+
         try {
-            await cadastrarAluno(usuarioData); // Envia os dados para a API
+            const response = await cadastrarAluno(usuarioData);
+            console.log('Resposta do servidor:', response); // Log da resposta do servidor
             alert('Cadastro realizado com sucesso!');
-            navigate('/alunos'); // Redireciona para a página de alunos
+            navigate('/alunos');
         } catch (error) {
+            console.error('Erro ao cadastrar:', error); // Log detalhado do erro
             setError('Erro ao cadastrar: ' + error.message);
         }
     };
 
-    // Função que mostra o pop-up de confirmação
     const handleConfirm = (event) => {
         event.preventDefault();
 
@@ -45,7 +64,7 @@ const Cadastro = () => {
                 },
                 {
                     label: 'Não',
-                    onClick: () => {} // Não faz nada, apenas fecha o pop-up
+                    onClick: () => {}
                 }
             ]
         });
@@ -53,7 +72,7 @@ const Cadastro = () => {
 
     return (
         <div className="container">
-            <form onSubmit={handleConfirm}> {/* Alterado para chamar handleConfirm */}
+            <form onSubmit={handleConfirm}>
                 <h1>Cadastro de Aluno</h1>
                 {error && <p className="error">{error}</p>}
                 <div className='input-field'>
@@ -96,7 +115,21 @@ const Cadastro = () => {
                     />
                     <FaLock className='icon' />
                 </div>
-                <button type="submit">Cadastrar</button> {/* O botão de submissão */}
+                <div className='input-field'>
+                    <label htmlFor="turma">Selecione a turma:</label>
+                    <select
+                        id="turma"
+                        value={selectedTurma}
+                        onChange={(e) => setSelectedTurma(e.target.value)}
+                        required
+                    >
+                        <option value="">Selecione uma turma</option>
+                        {turmas.map((turma) => (
+                            <option key={turma.id} value={turma.id}>{turma.nameClass}</option>
+                        ))}
+                    </select>
+                </div>
+                <button type="submit">Cadastrar</button>
             </form>
         </div>
     );
