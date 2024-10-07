@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import './CadastroNotas.css';
 
 const CadastroNotas = () => {
-  // Estados para armazenar as disciplinas, turmas, alunos e dados
   const [disciplinas, setDisciplinas] = useState([]);
-  const [turmas, setTurmas] = useState([]); // Estado para turmas
-  const [alunos, setAlunos] = useState([]); // Estado para alunos
+  const [turmas, setTurmas] = useState([]);
+  const [alunos, setAlunos] = useState([]);
+  const [filteredAlunos, setFilteredAlunos] = useState([]);
   const [selectedDisciplina, setSelectedDisciplina] = useState('');
   const [selectedUnidade, setSelectedUnidade] = useState('');
   const [selectedTurma, setSelectedTurma] = useState('');
@@ -13,10 +13,9 @@ const CadastroNotas = () => {
   const [atributo1, setAtributo1] = useState('');
   const [atributo2, setAtributo2] = useState('');
   const [situacao, setSituacao] = useState('');
-  const [error, setError] = useState(''); // Estado para armazenar erros
-  const [loading, setLoading] = useState(true); // Estado de carregamento
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true);
 
-  // Função para buscar disciplinas
   const fetchDisciplinas = async () => {
     try {
       const response = await fetch('http://localhost:8080/api/disciplines/getAll');
@@ -24,39 +23,37 @@ const CadastroNotas = () => {
         throw new Error('Erro ao carregar disciplinas');
       }
       const data = await response.json();
-      setDisciplinas(data); // Atualiza o estado com os dados recebidos
+      setDisciplinas(data);
     } catch (error) {
       setError('Erro ao carregar disciplinas: ' + error.message);
     }
   };
 
-  // Função para buscar turmas
   const fetchTurmas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/classes/getAllClasses'); // URL da API para turmas
+      const response = await fetch('http://localhost:8080/api/classes/getAllClasses');
       if (!response.ok) {
         throw new Error('Erro ao carregar turmas');
       }
       const data = await response.json();
-      setTurmas(data); // Atualiza o estado com os dados recebidos
+      setTurmas(data);
     } catch (error) {
       setError('Erro ao carregar turmas: ' + error.message);
     }
   };
 
-  // Função para buscar alunos
   const fetchAlunos = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/users/allStudents'); // URL da API para alunos
+      const response = await fetch('http://localhost:8080/api/users/allStudents');
       if (!response.ok) {
         throw new Error('Erro ao carregar alunos');
       }
       const data = await response.json();
-      setAlunos(data); // Atualiza o estado com os dados recebidos
+      setAlunos(data);
     } catch (error) {
       setError('Erro ao carregar alunos: ' + error.message);
     } finally {
-      setLoading(false); // Define loading como false ao final da operação
+      setLoading(false);
     }
   };
 
@@ -66,9 +63,19 @@ const CadastroNotas = () => {
     fetchAlunos();
   }, []);
 
-  // Função para lidar com o envio do formulário
-  const handleSubmit = (event) => {
-    event.preventDefault(); // Evita o recarregamento da página
+  useEffect(() => {
+    if (selectedTurma) {
+      const alunosFiltrados = alunos.filter(aluno => aluno.studentClass?.id === selectedTurma);
+      setFilteredAlunos(alunosFiltrados);
+    } else {
+      setFilteredAlunos([]);
+    }
+  }, [selectedTurma, alunos]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+
     if (!selectedDisciplina || !selectedUnidade || !selectedTurma || !selectedAluno) {
       setError('Por favor, preencha todos os campos obrigatórios.');
       return;
@@ -84,19 +91,68 @@ const CadastroNotas = () => {
       situacao,
     };
 
-    console.log('Dados cadastrados:', dados);
-    // Aqui você pode implementar a lógica para enviar os dados para o servidor
+    let creationEndpoint = '';
+    let insertionEndpoint = '';
+
+    // Verifica a unidade selecionada e define os endpoints correspondentes
+    switch (selectedUnidade) {
+      case 'ud1':
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitOne';
+        break;
+      case 'ud2':
+        creationEndpoint = 'http://localhost:8080/api/concepts/creteConceptUnitTwo';
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitTwo';
+        break;
+      case 'ud3':
+        creationEndpoint = 'http://localhost:8080/api/concepts/creteConceptUnitThree';
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitThree';
+        break;
+      default:
+        setError('Unidade não suportada.');
+        return;
+    }
+
+    try {
+      // Requisição para criar o conceito (por exemplo, inicialização)
+      const creationResponse = await fetch(creationEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (!creationResponse.ok) {
+        throw new Error('Erro ao criar conceito');
+      }
+
+      // Requisição para inserir o conceito
+      const insertionResponse = await fetch(insertionEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(dados),
+      });
+
+      if (!insertionResponse.ok) {
+        throw new Error('Erro ao inserir conceito');
+      }
+
+      console.log('Dados cadastrados com sucesso:', dados);
+    } catch (error) {
+      setError('Erro ao cadastrar notas: ' + error.message);
+    }
   };
 
   return (
     <div className="notas-container">
       <h1>Cadastro de Notas</h1>
-      {error && <div className="error">{error}</div>} {/* Exibe mensagem de erro */}
+      {error && <div className="error">{error}</div>}
       {loading ? (
-        <div>Carregando...</div> // Mensagem de carregamento
+        <div>Carregando...</div>
       ) : (
         <form onSubmit={handleSubmit}>
-          {/* Linha superior com Disciplina e Unidade */}
           <div className="top-row">
             <div className="form-group">
               <label htmlFor="disciplina">Disciplina:</label>
@@ -109,7 +165,7 @@ const CadastroNotas = () => {
                 <option value="">Selecione a Disciplina</option>
                 {disciplinas.map((disciplina) => (
                   <option key={disciplina.id} value={disciplina.id}>
-                    {disciplina.disciplineName} {/* Usando disciplineName para exibir o nome */}
+                    {disciplina.disciplineName}
                   </option>
                 ))}
               </select>
@@ -131,7 +187,6 @@ const CadastroNotas = () => {
             </div>
           </div>
 
-          {/* Linha inferior com Turma, Aluno, Atributos e Situação */}
           <div className="bottom-row">
             <div className="form-group">
               <label htmlFor="turma">Turma:</label>
@@ -143,8 +198,8 @@ const CadastroNotas = () => {
               >
                 <option value="">Selecione a Turma</option>
                 {turmas.map((turma) => (
-                  <option key={turma.id} value={turma.id}> {/* Ajuste conforme a estrutura dos dados */}
-                    {turma.nameClass} {/* Exibindo apenas o nameClass */}
+                  <option key={turma.id} value={turma.id}>
+                    {turma.nameClass}
                   </option>
                 ))}
               </select>
@@ -157,11 +212,12 @@ const CadastroNotas = () => {
                 name="aluno"
                 value={selectedAluno}
                 onChange={(e) => setSelectedAluno(e.target.value)}
+                disabled={!selectedTurma}
               >
                 <option value="">Selecione o Aluno</option>
-                {alunos.map((aluno) => (
-                  <option key={aluno.id} value={aluno.id}> {/* Ajuste conforme a estrutura dos dados */}
-                    {aluno.nome} {/* Ajuste conforme a estrutura dos dados */}
+                {filteredAlunos.map((aluno) => (
+                  <option key={aluno.id} value={aluno.id}>
+                    {aluno.name}
                   </option>
                 ))}
               </select>
@@ -206,14 +262,14 @@ const CadastroNotas = () => {
                 onChange={(e) => setSituacao(e.target.value)}
               >
                 <option value="">Selecione a Situação</option>
-                <option value="d">D</option>
-                <option value="nd">ND</option>
+                <option value="aprovado">D</option>
+                <option value="reprovado">ND</option>
               </select>
             </div>
           </div>
 
-          <button type="submit" className="cadastro-button">
-            Cadastrar Notas
+          <button type="submit" className="btn-submit">
+            Cadastrar
           </button>
         </form>
       )}
