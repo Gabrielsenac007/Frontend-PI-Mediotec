@@ -3,10 +3,11 @@ import { FaUser } from 'react-icons/fa'; // Importando o ícone do usuário
 import { IoMenu } from "react-icons/io5"; // Importando o ícone do menu
 import { Link } from 'react-router-dom'; // Importando o componente Link
 import './Header.css'; // Certifique-se de importar o CSS
+import { jwtDecode } from 'jwt-decode';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar a visibilidade do menu
-  const [userName, setUserName] = useState(''); // Estado para armazenar o nome do usuário
+  // Estado para armazenar o nome do usuário
   const menuRef = useRef(null); // Cria uma referência para o contêiner do menu
 
   // Função para alternar a visibilidade do menu
@@ -36,19 +37,18 @@ const Header = () => {
     };
   }, [menuOpen]);
 
-  // useEffect para recuperar o nome do usuário do localStorage
-  useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem('authData'));
-    if (userData) {
-      setUserName(userData.name); // Armazena o nome do usuário no estado
-    }
-  }, []);
+  
+
+  const token = localStorage.getItem("token");
+  const decode = jwtDecode(token);
+
+  
 
   return (
     <header className="header">
       <div className="logo">
-        <FaUser className="login-icon" />
-        <h1>{userName || 'Nome do Usuário'}</h1> {/* Exibe o nome do usuário */}
+
+        <h1>{decode.name}</h1> {/* Exibe o nome do usuário */}
       </div>
       <nav>
         <IoMenu className='mobile-menu' onClick={toggleMenu} />

@@ -31,8 +31,7 @@ const Login = () => {
         console.log('Login bem-sucedido:', data);
 
         // Armazena o token e o nome do usuário no localStorage
-        localStorage.setItem('authToken', data.token);
-        localStorage.setItem('userName', data.nome); // Armazena o nome do usuário
+        localStorage.setItem('token', data.token); // Armazena o nome do usuário
 
         // Exibe um alerta com a role do usuário
         alert('Role do usuário: ' + data.role);

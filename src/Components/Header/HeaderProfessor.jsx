@@ -3,6 +3,7 @@ import { FaUser } from 'react-icons/fa'; // Importando o ícone do usuário
 import { IoMenu } from "react-icons/io5"; // Importando o ícone do menu
 import { Link } from 'react-router-dom'; // Importando o componente Link
 import './Header.css'; // Certifique-se de importar o CSS
+import { jwtDecode } from 'jwt-decode';
 
 const HeaderProfessor = () => {
   const [menuOpen, setMenuOpen] = useState(false); // Estado para controlar a visibilidade do menu
@@ -35,11 +36,14 @@ const HeaderProfessor = () => {
     };
   }, [menuOpen]);
 
+  const token = localStorage.getItem("token");
+  const decode = jwtDecode(token);
+
   return (
     <header className="header">
       <div className="logo">
-        <FaUser className="login-icon" />
-        <h1>Nome do Usuário</h1>
+      
+        <h1>{decode.name}</h1>
       </div>
       <nav>
         <IoMenu className='mobile-menu' onClick={toggleMenu} />
