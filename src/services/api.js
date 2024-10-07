@@ -256,6 +256,29 @@ export const listarTurmas = async () => {
 };
 
 
+export const listarAlunosPorTurmaEDisciplina = async (turmaId, disciplinaId) => {
+    try {
+        const response = await api.get(`/alunos/turma/${turmaId}/disciplina/${disciplinaId}`); // Ajuste a URL conforme seu endpoint
+        return response.data; // Retorna os dados
+    } catch (error) {
+        console.error('Erro ao listar alunos por turma e disciplina:', error);
+        throw new Error(error.message);
+    }
+};
+
+
+// Função para buscar todas as disciplinas
+export const listarDisciplinas = async () => {
+    try {
+        const response = await api.get('http://localhost:8080/api/concepts/getUnitOne'); // Ajuste o endpoint conforme necessário
+        return response.data;
+    } catch (error) {
+        console.error('Erro ao listar disciplinas:', error);
+        throw error; // Propaga o erro
+    }
+};
+
+
 
 export default api; // Exporte a instância do Axios para uso em outros arquivos
 

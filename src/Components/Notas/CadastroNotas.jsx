@@ -15,6 +15,7 @@ const CadastroNotas = () => {
   const [situacao, setSituacao] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
+  const [isSubmitted, setIsSubmitted] = useState(false); // Estado para controle de submissão
 
   const fetchDisciplinas = async () => {
     try {
@@ -82,30 +83,25 @@ const CadastroNotas = () => {
     }
 
     const dados = {
-      disciplina: selectedDisciplina,
-      unidade: selectedUnidade,
-      turma: selectedTurma,
-      aluno: selectedAluno,
-      atributo1,
-      atributo2,
-      situacao,
+      av1: atributo1,
+      av2: atributo2,
+      status: situacao,
+      nf: selectedUnidade,
+      alunoId: selectedAluno,
+      disciplineId: selectedDisciplina,
     };
 
-    let creationEndpoint = '';
     let insertionEndpoint = '';
 
-    // Verifica a unidade selecionada e define os endpoints correspondentes
     switch (selectedUnidade) {
       case 'ud1':
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitOne';
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitOne'; // POST
         break;
       case 'ud2':
-        creationEndpoint = 'http://localhost:8080/api/concepts/creteConceptUnitTwo';
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitTwo';
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitTwo'; // POST
         break;
       case 'ud3':
-        creationEndpoint = 'http://localhost:8080/api/concepts/creteConceptUnitThree';
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitThree';
+        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitThree'; // POST
         break;
       default:
         setError('Unidade não suportada.');
@@ -113,22 +109,8 @@ const CadastroNotas = () => {
     }
 
     try {
-      // Requisição para criar o conceito (por exemplo, inicialização)
-      const creationResponse = await fetch(creationEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(dados),
-      });
-
-      if (!creationResponse.ok) {
-        throw new Error('Erro ao criar conceito');
-      }
-
-      // Requisição para inserir o conceito
       const insertionResponse = await fetch(insertionEndpoint, {
-        method: 'POST',
+        method: 'POST', // Mudando de PUT para POST
         headers: {
           'Content-Type': 'application/json',
         },
@@ -140,10 +122,28 @@ const CadastroNotas = () => {
       }
 
       console.log('Dados cadastrados com sucesso:', dados);
+      setIsSubmitted(true); // Define isSubmitted como true para mostrar o pop-up
+
+      // Limpar os campos após a inserção bem-sucedida
+      setSelectedDisciplina('');
+      setSelectedUnidade('');
+      setSelectedTurma('');
+      setSelectedAluno('');
+      setAtributo1('');
+      setAtributo2('');
+      setSituacao('');
     } catch (error) {
       setError('Erro ao cadastrar notas: ' + error.message);
     }
   };
+
+  // Exibe o pop-up de confirmação se isSubmitted for true
+  useEffect(() => {
+    if (isSubmitted) {
+      alert('Notas cadastradas com sucesso!');
+      setIsSubmitted(false); // Reseta isSubmitted após o alerta
+    }
+  }, [isSubmitted]);
 
   return (
     <div className="notas-container">
@@ -232,9 +232,9 @@ const CadastroNotas = () => {
                 onChange={(e) => setAtributo1(e.target.value)}
               >
                 <option value="">Selecione o Atributo</option>
-                <option value="a">A</option>
-                <option value="pa">PA</option>
-                <option value="na">NA</option>
+                <option value="A">A</option>
+                <option value="PA">PA</option>
+                <option value="NA">NA</option>
               </select>
             </div>
 
@@ -247,11 +247,12 @@ const CadastroNotas = () => {
                 onChange={(e) => setAtributo2(e.target.value)}
               >
                 <option value="">Selecione o Atributo</option>
-                <option value="a">A</option>
-                <option value="pa">PA</option>
-                <option value="na">NA</option>
+                <option value="A">A</option>
+                <option value="PA">PA</option>
+                <option value="NA">NA</option>
               </select>
             </div>
+
 
             <div className="form-group">
               <label htmlFor="situacao">Situação:</label>
@@ -262,15 +263,13 @@ const CadastroNotas = () => {
                 onChange={(e) => setSituacao(e.target.value)}
               >
                 <option value="">Selecione a Situação</option>
-                <option value="aprovado">D</option>
-                <option value="reprovado">ND</option>
+                <option value="D">D</option>
+                <option value="ND">ND</option>
               </select>
             </div>
           </div>
 
-          <button type="submit" className="btn-submit">
-            Cadastrar
-          </button>
+          <button type="submit">Cadastrar Notas</button>
         </form>
       )}
     </div>
@@ -278,3 +277,6 @@ const CadastroNotas = () => {
 };
 
 export default CadastroNotas;
+
+
+

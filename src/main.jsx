@@ -19,6 +19,7 @@ import TurmasDisplay from './Components/Usuarios/Turmas.jsx';
 import ProfessorDisplay from './Components/Usuarios/Professores.jsx';
 import CoordenadoresDisplay from './Components/Usuarios/Coordenadores.jsx';
 import CadastroNotas from './Components/Notas/CadastroNotas.jsx'; 
+import NotasPorTurma from './Components/viewNotas/viewNotas.jsx';
 
 
 const router = createBrowserRouter([
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
       {
         path: 'notas',
         element:<CadastroNotas/>
+      },
+      {
+        path: 'view-notas',
+        element:<NotasPorTurma/>
       }
     ]
   }

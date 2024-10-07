@@ -11,9 +11,9 @@ const HomeProfessores = () => {
                     <FaRegFileAlt size={48} />
                     <h2>Gerenciar Notas</h2>
                 </Link>
-                <Link to="/presencas" className="card-prof">
+                <Link to="/view-notas" className="card-prof">
                     <FaRegClipboard size={48} />
-                    <h2>Gerenciar Presenças</h2>
+                    <h2>Notas Cadastradas</h2>
                 </Link>
                 <Link to="/comunicados" className="card-prof">
                     <FaPaperPlane size={48} />

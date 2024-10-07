@@ -1,94 +1,94 @@
 /* Estilos principais */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Helvetica, Arial, sans-serif;
-  }
-  
-  body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #f0f2f5;
-  }
-  
-  /* Container principal do formulário */
-  .notas-container {
-    background: #ffffff;
-    padding: 40px; /* Aumenta o padding interno */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    width: 100%; /* Aumenta a largura do contêiner */
-    max-width: 1200px; /* Limita a largura máxima */
-    min-width: 800px; /* Define uma largura mínima */
-    margin: auto; /* Centraliza o formulário horizontalmente */
-  }
-  
-  /* Título */
-  h1 {
-    margin-bottom: 30px;
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-  }
-  
-  /* Linha superior com Disciplina e Unidade */
-  .top-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica, Arial, sans-serif;
+}
 
-  .discipline{
-    background-color: #0056b3;
-  }
-  
-  /* Linha inferior com Turma, Aluno, Atributos e Situação */
-  .bottom-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Aumenta o espaçamento entre os elementos */
-    margin-bottom: 30px;
-  }
-  
-  /* Grupos de formulários */
-  .form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px; /* Aumenta o espaçamento entre os grupos */
-  }
-  
-  .form-group label {
-    margin-bottom: 10px; /* Aumenta o espaçamento entre o label e o select */
-    font-weight: bold;
-  }
-  
-  .form-group select {
-    padding: 12px; /* Aumenta o padding interno do select */
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  /* Estilo do botão de cadastro */
-  .cadastro-button {
-    width: 50%;
-    padding: 15px; /* Aumenta o tamanho do botão */
-    background-color: #0056b3;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 18px; /* Aumenta o tamanho do texto */
-    margin-left : 24%;
-  }
-  
-  .cadastro-button:hover {
-    background-color: #0056b3;
-  }
-  
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f2f5;
+}
+
+/* Container principal do formulário */
+.notas-container {
+  background: #ffffff;
+  padding: 40px; /* Aumenta o padding interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  width: 100%; /* Aumenta a largura do contêiner */
+  max-width: 1200px; /* Limita a largura máxima */
+  min-width: 800px; /* Define uma largura mínima */
+  margin: auto; /* Centraliza o formulário horizontalmente */
+}
+
+/* Título */
+h1 {
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+/* Linha superior com Disciplina e Unidade */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.discipline {
+  background-color: #0056b3;
+}
+
+/* Linha inferior com Turma, Aluno, Atributos e Situação */
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Aumenta o espaçamento entre os elementos */
+  margin-bottom: 30px;
+}
+
+/* Grupos de formulários */
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px; /* Aumenta o espaçamento entre os grupos */
+}
+
+.form-group label {
+  margin-bottom: 10px; /* Aumenta o espaçamento entre o label e o select */
+  font-weight: bold;
+}
+
+.form-group select {
+  padding: 12px; /* Aumenta o padding interno do select */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Estilo do botão de cadastro */
+.bnt-cadastro{
+  width: 30%; /* Diminuindo a largura do botão */
+  padding: 10px; /* Diminuindo o tamanho do botão */
+  background-color: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px; /* Mantém o tamanho do texto */
+  margin-left: 24%;
+}
+
+.cadastro-button:hover {
+  background-color: #004494; /* Alterado para um tom mais escuro no hover */
+}
+

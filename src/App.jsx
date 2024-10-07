@@ -34,6 +34,7 @@ function App() {
         <>
           {token === "PROFESSOR" && <HeaderProfessor />}
           {token === "COORDENADOR" && <Header />}
+          {token === "ADMIN" && <Header />}
         </>
       )}
       <main>
