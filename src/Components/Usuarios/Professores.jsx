@@ -28,7 +28,7 @@ const ProfessorDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-professor/${id}`); // Redireciona para a tela de edição do professor
+        navigate(`/editProf/${id}`); // Redireciona para a tela de edição do professor
     };
 
     const handleDelete = async (id) => {

@@ -66,6 +66,8 @@ export const fetchUsuario = async (id) => {
         throw new Error(error.message);
     }
 };
+
+
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
@@ -82,10 +84,20 @@ export const cadastrarAluno = async (alunoData) => {
 };
 
 
-// Função para editar um aluno
-export const editarUsuario = async (id, newName) => {
+// Função para atualizar um aluno
+export const atualizarAluno = async (id, updatedData) => {
     try {
-        const response = await api.put(`/users/update/student/${id}`, { nome: newName }); // Corrigido 'usuers' para 'users'
+        const response = await api.put(`http://localhost:8080/api/users/update/student/${id}`, updatedData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+// Função para obter um aluno pelo ID
+export const obterAluno = async (id) => {
+    try {
+        const response = await api.get(`http://localhost:8080/api/users/students/class/${id}`); // Ajuste o endpoint conforme necessário
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -115,11 +127,20 @@ export const cadastrarCoordenador = async (dados) => {
                 'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
-        }); 
-        return response.data;
+        });
+
+        // Verifique se a resposta é bem-sucedida
+        if (!response.ok) {
+            const errorText = await response.text(); // Obtenha o texto do erro
+            throw new Error(`Erro ao editar coordenador: ${errorText}`);
+        }
+
+        const responseData = await response.json(); // Use response.json() para obter o objeto
+        console.log('Resposta do servidor:', responseData); // Log da resposta do servidor
+        return responseData; // Retorna os dados da resposta
     } catch (error) {
-        console.error('Erro ao cadastrar coordenador:', error); // Log detalhado do erro
-        throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
+        console.error('Erro:', error.message);
+        throw error; // Propague o erro
     }
 };
 
@@ -150,6 +171,41 @@ export const fetchCoordenadores = async () => {
 };
 
 
+// Função para atualizar um coordenador
+export const editarCoordenador = async (id, coordenadorData) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/users/update/coordinator/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(coordenadorData),
+        });
+
+        // Captura a resposta como texto para verificar o conteúdo
+        const textResponse = await response.text();
+
+        // Se a resposta não for bem-sucedida, lança um erro com a mensagem apropriada
+        if (!response.ok) {
+            throw new Error(textResponse || 'Erro ao editar coordenador');
+        }
+
+        // Verifica se a resposta é JSON e a retorna como objeto
+        let jsonResponse;
+        try {
+            jsonResponse = JSON.parse(textResponse);
+        } catch {
+            // Se a resposta não for JSON, retorna o texto como está
+            console.warn('Resposta não está em formato JSON. Utilizando texto direto.');
+            jsonResponse = { message: textResponse };
+        }
+
+        return jsonResponse;
+    } catch (error) {
+        console.error('Erro ao editar coordenador:', error.message);
+        throw error;
+    }
+};
 
 // Função para deletar um coordenador
 export const deleteCoordenador = async (id) => {

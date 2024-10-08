@@ -2,13 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import App from './App.jsx'; // Importando o App
+import App from './App.jsx';
 import Login from './Components/Login/Login.jsx';
 import Equipe from './Components/Equipe/Equipe.jsx';
 import Cadastro from './Components/Cadastro/Cadastro.jsx';
 import CadastroProfessor from './Components/Cadastro/CadastroProfessor.jsx';
 import DataDisplay from './Components/Usuarios/Alunos.jsx'
-import EditUsuario from './Components/EditUser/EditUsuario.jsx';
+import EditUsuario from './Components/EditUser/EditAluno.jsx';
 import Home from './Components/Home/Home.jsx'
 import HomeProf from './Components/Home/HomeProf.jsx'
 import Comunicados from './Components/Comunicados/Comunicados.jsx';
@@ -20,6 +20,8 @@ import ProfessorDisplay from './Components/Usuarios/Professores.jsx';
 import CoordenadoresDisplay from './Components/Usuarios/Coordenadores.jsx';
 import CadastroNotas from './Components/Notas/CadastroNotas.jsx'; 
 import NotasPorTurma from './Components/viewNotas/viewNotas.jsx';
+import EditarProfessor from './Components/EditUser/EditProfessor.jsx';
+import EditarCoordenador from './Components/EditUser/EditCoordenador.jsx';
 
 
 const router = createBrowserRouter([
@@ -44,7 +46,7 @@ const router = createBrowserRouter([
         element:<DataDisplay/>
       },
       {
-        path: 'edit',
+        path: '/edit/:id',
         element:<EditUsuario/>
       },
       {
@@ -94,6 +96,14 @@ const router = createBrowserRouter([
       {
         path: 'view-notas',
         element:<NotasPorTurma/>
+      },
+      {
+        path: 'editProf/:id',
+        element:<EditarProfessor />
+      },
+      {
+        path: 'editCoord/:id',
+        element:<EditarCoordenador />
       }
     ]
   }

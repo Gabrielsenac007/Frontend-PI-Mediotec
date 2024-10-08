@@ -28,7 +28,7 @@ const AlunoDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-aluno/${id}`); // Redireciona para a tela de edição do aluno
+        navigate(`/edit/${id}`); // Redireciona para a tela de edição do aluno
     };
 
     const handleDelete = (id) => {

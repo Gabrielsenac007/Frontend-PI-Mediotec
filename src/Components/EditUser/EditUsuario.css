@@ -1,34 +1,121 @@
-.edit-usuario {
-    max-width: 500px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+/* Estilo da página de edição de aluno */
+.editar-aluno-wrapper {
+    width: 450px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    margin: 20px auto;
 }
 
-.input-field {
+.editar-aluno-form h1 {
+    text-align: center;
+    font-size: 30px;
+    color: #0A0A0A;
     margin-bottom: 20px;
 }
 
-.input-field input,
-.input-field select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+.error-message {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-button {
+.input-wrapper {
+    position: relative;
     width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
+    height: 50px;
+    margin: 30px 0;
+}
+
+.input-wrapper input {
+    width: 100%;
+    height: 100%;
+    background: rgba(240, 240, 240, 0.8);
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #0A0A0A;
+    padding: 10px 45px 10px 25px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.input-wrapper input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.input-wrapper input:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.input-wrapper .icon-cpf,
+.input-wrapper .icon-name,
+.input-wrapper .icon-email,
+.input-wrapper .icon-password {
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #0A0A0A;
+}
+
+.select-turma {
+    width: 100%;
+    height: 50px;
+    background: rgba(240, 240, 240, 0.8);
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #0A0A0A;
+    padding: 10px 45px 10px 25px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"%3E%3Cpath d="M7 10l5 5 5-5H7z" fill="%230A0A0A"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 20px;
+}
+
+.select-turma:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.button-save,
+.button-cancel {
+    width: 100%;
+    height: 45px;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color 0.4s ease;
+    margin-top: 20px;
+}
+
+.button-save {
+    background: #0056b3;
     color: white;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    outline: none;
 }
 
-button:hover {
-    background-color: #0056b3;
+.button-save:hover {
+    background: #ec8938;
+}
+
+.button-cancel {
+    background: transparent;
+    color: #0056b3;
+    border: none;
+}
+
+.button-cancel:hover {
+    color: #003d80;
 }
