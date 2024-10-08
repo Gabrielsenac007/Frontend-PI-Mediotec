@@ -4,7 +4,6 @@ import './ListarNotas.css'; // Renomeie o arquivo CSS se necessário
 const ListarNotas = () => {
   const [disciplinas, setDisciplinas] = useState([]);
   const [turmas, setTurmas] = useState([]);
-  const [alunos, setAlunos] = useState([]);
   const [notas, setNotas] = useState([]); // Estado para armazenar as notas
   const [selectedDisciplina, setSelectedDisciplina] = useState('');
   const [selectedTurma, setSelectedTurma] = useState('');
@@ -43,7 +42,7 @@ const ListarNotas = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/concepts/getNotes?disciplinaId=${selectedDisciplina}&turmaId=${selectedTurma}`);
+      const response = await fetch(`http://localhost:8080/api/concepts/class/${selectedTurma}/discipline/${selectedDisciplina}`);
       if (!response.ok) {
         throw new Error('Erro ao carregar notas');
       }
@@ -55,9 +54,12 @@ const ListarNotas = () => {
   };
 
   useEffect(() => {
-    fetchDisciplinas();
-    fetchTurmas();
-    setLoading(false); // Para simular o carregamento
+    const loadData = async () => {
+      await fetchDisciplinas();
+      await fetchTurmas();
+      setLoading(false); // Define loading como false após carregar disciplinas e turmas
+    };
+    loadData();
   }, []);
 
   useEffect(() => {
@@ -108,7 +110,7 @@ const ListarNotas = () => {
 
           <button onClick={fetchNotas}>Listar Notas</button>
 
-          {notas.length > 0 && (
+          {notas.length > 0 ? (
             <table>
               <thead>
                 <tr>
@@ -120,15 +122,17 @@ const ListarNotas = () => {
               </thead>
               <tbody>
                 {notas.map((nota) => (
-                  <tr key={nota.alunoId}>
-                    <td>{nota.nomeAluno}</td>
+                  <tr key={nota.id}> {/* Use o id da nota como chave */}
+                    <td>{nota.aluno.name}</td> {/* Acesse corretamente o nome do aluno */}
                     <td>{nota.av1}</td>
                     <td>{nota.av2}</td>
-                    <td>{nota.situacao}</td>
+                    <td>{nota.status}</td> {/* Acesse o status diretamente */}
                   </tr>
                 ))}
               </tbody>
             </table>
+          ) : (
+            <div className="no-notas">Nenhuma nota cadastrada.</div> // Mensagem quando não há notas
           )}
         </div>
       )}

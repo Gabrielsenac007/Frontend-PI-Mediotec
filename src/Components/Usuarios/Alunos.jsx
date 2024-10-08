@@ -71,6 +71,7 @@ const AlunoDisplay = () => {
                         <div className="data-info">
                             <h3>Nome: {item.name}</h3>
                             <p>Email: {item.email}</p>
+                            <p>Turma: {item.studentClass?.nameClass || 'N/A'}</p> {/* Adicionando a turma aqui */}
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />
