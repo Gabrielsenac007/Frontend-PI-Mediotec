@@ -71,6 +71,7 @@ const CadastroNotas = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
+    console.log('Aluno ID antes da inserção:', selectedAluno);
 
     if (!selectedDisciplina || !selectedUnidade || !selectedTurma || !selectedAluno) {
       setError('Por favor, preencha todos os campos obrigatórios.');
