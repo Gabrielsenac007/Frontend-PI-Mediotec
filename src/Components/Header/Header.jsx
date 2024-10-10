@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'; // Importa useState, useRef e useEffect
-import { FaUser } from 'react-icons/fa'; // Importando o ícone do usuário
+import {  } from 'react-icons/fa'; // Importando o ícone do usuário
 import { IoMenu } from "react-icons/io5"; // Importando o ícone do menu
 import { Link, useNavigate } from 'react-router-dom'; // Importando o componente Link
 import './Header.css'; // Certifique-se de importar o CSS
@@ -64,6 +64,8 @@ const Header = () => {
         {/* Adiciona a classe 'active' quando o menu está aberto */}
         <ul ref={menuRef} className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li><Link to="/home">Home</Link></li>
+          <li><Link to="/professores">Equipe</Link></li>
+          <li><Link to="/turmas">Turmas</Link></li>
           <li><Link to="/professores">Equipe</Link></li>
           <li><Link to="/alunos">Alunos</Link></li>
           <li style={{cursor: "pointer"}} onClick={removeToken}><IoExitOutline size={30}/></li>

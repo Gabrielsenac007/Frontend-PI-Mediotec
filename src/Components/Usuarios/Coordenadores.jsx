@@ -27,7 +27,7 @@ const CoordenadoresDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/edit-coordenador/${id}`); // Redireciona para a tela de edição
+        navigate(`/editCoord/${id}`); // Redireciona para a tela de edição
     };
 
     const handleDelete = async (id) => {

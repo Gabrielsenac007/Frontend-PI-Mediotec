@@ -66,6 +66,8 @@ export const fetchUsuario = async (id) => {
         throw new Error(error.message);
     }
 };
+
+
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
@@ -82,10 +84,20 @@ export const cadastrarAluno = async (alunoData) => {
 };
 
 
-// Função para editar um aluno
-export const editarUsuario = async (id, newName) => {
+// Função para atualizar um aluno
+export const atualizarAluno = async (id, updatedData) => {
     try {
-        const response = await api.put(`/users/update/student/${id}`, { nome: newName }); // Corrigido 'usuers' para 'users'
+        const response = await api.put(`http://localhost:8080/api/users/update/student/${id}`, updatedData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+// Função para obter um aluno pelo ID
+export const obterAluno = async (id) => {
+    try {
+        const response = await api.get(`http://localhost:8080/api/users/students/class/${id}`); // Ajuste o endpoint conforme necessário
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -107,6 +119,7 @@ export const autenticarUsuario = async (cpf, password) => {
     }
 };
 
+
 // Função para cadastrar coordenador
 export const cadastrarCoordenador = async (dados) => {
     try {
@@ -115,13 +128,23 @@ export const cadastrarCoordenador = async (dados) => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
-        }); 
-        return response.data;
+        });
+
+        // Axios sempre resolve a promessa em caso de resposta com erro, então não é necessário verificar response.ok
+        console.log('Resposta do servidor:', response.data); // Log da resposta do servidor
+        return response.data; // Retorna os dados da resposta
     } catch (error) {
-        console.error('Erro ao cadastrar coordenador:', error); // Log detalhado do erro
-        throw new Error('Erro ao cadastrar coordenador: ' + error.response?.data?.message || error.message);
+        // Para Axios, o erro contém a resposta no objeto error.response
+        if (error.response) {
+            console.error('Erro na resposta do servidor:', error.response.data);
+            throw new Error(`Erro ao cadastrar coordenador: ${error.response.data}`);
+        } else {
+            console.error('Erro:', error.message);
+            throw error; // Propague o erro
+        }
     }
 };
+
 
 
 
@@ -150,6 +173,41 @@ export const fetchCoordenadores = async () => {
 };
 
 
+// Função para atualizar um coordenador
+export const editarCoordenador = async (id, coordenadorData) => {
+    try {
+        const response = await fetch(`http://localhost:8080/api/users/update/coordinator/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(coordenadorData),
+        });
+
+        // Captura a resposta como texto para verificar o conteúdo
+        const textResponse = await response.text();
+
+        // Se a resposta não for bem-sucedida, lança um erro com a mensagem apropriada
+        if (!response.ok) {
+            throw new Error(textResponse || 'Erro ao editar coordenador');
+        }
+
+        // Verifica se a resposta é JSON e a retorna como objeto
+        let jsonResponse;
+        try {
+            jsonResponse = JSON.parse(textResponse);
+        } catch {
+            // Se a resposta não for JSON, retorna o texto como está
+            console.warn('Resposta não está em formato JSON. Utilizando texto direto.');
+            jsonResponse = { message: textResponse };
+        }
+
+        return jsonResponse;
+    } catch (error) {
+        console.error('Erro ao editar coordenador:', error.message);
+        throw error;
+    }
+};
 
 // Função para deletar um coordenador
 export const deleteCoordenador = async (id) => {
@@ -226,11 +284,14 @@ export const cadastrarTurma = async (turmaData) => {
     return resultText; // Retorna a string capturada
 };
 
-
-export function deleteTurma(id) {
-    return api.delete(`/turmas/${id}`);
+export async function deleteTurma(id) {
+    try {
+        const response = await api.delete(`/classes/delete/class/${id}`); // Atualize aqui
+        return response.data; // Retorne a resposta, se necessário
+    } catch (error) {
+        throw new Error(error.response ? error.response.data.message : 'Erro ao deletar a turma');
+    }
 }
-
 
 // Função para buscar todas as turmas
 export const fetchTurmas = async () => {
@@ -252,6 +313,16 @@ export const listarTurmas = async () => {
     } catch (error) {
         console.error('Erro ao listar turmas:', error);
         throw error;
+    }
+};
+
+// Função para atualizar uma turma
+export const atualizarTurma = async (id, turmaData) => {
+    try {
+        const response = await axios.put(`http://localhost:8080/api/classes/update/class/${id}`, turmaData);
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response ? error.response.data.message : error.message);
     }
 };
 

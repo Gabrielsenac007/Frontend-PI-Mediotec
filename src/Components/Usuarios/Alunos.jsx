@@ -28,7 +28,7 @@ const AlunoDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editar-aluno/${id}`); // Redireciona para a tela de edição do aluno
+        navigate(`/edit/${id}`); // Redireciona para a tela de edição do aluno
     };
 
     const handleDelete = (id) => {
@@ -71,6 +71,7 @@ const AlunoDisplay = () => {
                         <div className="data-info">
                             <h3>Nome: {item.name}</h3>
                             <p>Email: {item.email}</p>
+                            <p>Turma: {item.studentClass?.nameClass || 'N/A'}</p> {/* Adicionando a turma aqui */}
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />
