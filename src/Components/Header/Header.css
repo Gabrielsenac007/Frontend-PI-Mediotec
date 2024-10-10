@@ -28,6 +28,7 @@
 }
 
 .nav-links {
+    align-items: center;
     list-style: none;
     display: flex; /* Mantém as opções na horizontal */
     gap: 15px; /* Espaçamento entre os links */

@@ -20,12 +20,10 @@ function App() {
     if (getToken) {
       const decode = jwtDecode(getToken);
       setToken(decode.role);
+      
     }
   }, []); 
-
-
-
-
+ 
 
   return (
     <div className="App">

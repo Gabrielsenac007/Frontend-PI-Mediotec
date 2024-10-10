@@ -10,7 +10,7 @@ const api = axios.create({
 
 // Adiciona um interceptor para incluir o token em todas as requisições
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('authToken'); // Obtém o token do localStorage
+    const token = localStorage.getItem('token'); // Obtém o token do localStorage
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`; // Adiciona o token ao cabeçalho
     }
@@ -71,7 +71,7 @@ export const cadastrarAluno = async (alunoData) => {
     try {
         const response = await api.post('http://localhost:8080/api/users/register/student', alunoData, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
+                'Authorization': `Bearer ${localStorage.getItem('token')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
         });
@@ -112,7 +112,7 @@ export const cadastrarCoordenador = async (dados) => {
     try {
         const response = await api.post('http://localhost:8080/api/users/register/coordinator', dados, {
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}`, // Se aplicável
+                'Authorization': `Bearer ${localStorage.getItem('token')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
         }); 
@@ -132,7 +132,7 @@ export const fetchCoordenadores = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Se você estiver usando autenticação com token
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Se você estiver usando autenticação com token
             },
         });
 
@@ -158,7 +158,7 @@ export const deleteCoordenador = async (id) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('authToken')}` // Se você estiver usando autenticação com token
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Se você estiver usando autenticação com token
             },
         });
 
@@ -181,7 +181,7 @@ export const deleteCoordenador = async (id) => {
 
 // Função para cadastrar disciplina
 export const cadastrarDisciplina = async (disciplinaData) => {
-    const token = localStorage.getItem('authToken'); // Obter o token do localStorage
+    const token = localStorage.getItem('token'); // Obter o token do localStorage
 
     // Verifica se o token está presente
     if (!token) {
