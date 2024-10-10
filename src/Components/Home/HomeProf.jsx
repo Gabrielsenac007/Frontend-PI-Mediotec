@@ -21,7 +21,7 @@ const HomeProfessores = () => {
                 </Link>
                 <Link to="/alunos" className="card-prof">
                     <FaUsers size={48} />
-                    <h2>Alunos Cadastrados</h2>
+                    <h2>Ver Comunicados</h2>
                 </Link>
             </div>
         </div>

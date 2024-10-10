@@ -32,9 +32,10 @@ const Login = () => {
 
         // Armazena o token e o nome do usuário no localStorage
         localStorage.setItem('token', data.token); // Armazena o nome do usuário
+        localStorage.setItem('id', data.id); // Armazena o nome do usuário
 
         // Exibe um alerta com a role do usuário
-        alert('Role do usuário: ' + data.role);
+        // alert('Role do usuário: ' + data.role + data.id ) ;
 
         // Verifica o papel do usuário (role) para redirecionamento
         if (data.role === 'PROFESSOR') {

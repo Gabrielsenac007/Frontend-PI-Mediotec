@@ -21,20 +21,30 @@
 
 .notice-form {
     display: flex;
-    justify-content: space-between;
-    align-items: center; /* Alinha verticalmente o botão e o input */
+    flex-direction: column; /* Alinha os itens verticalmente */
     margin-bottom: 20px;
-    flex-wrap: wrap; /* Permite quebra de linha caso a tela seja menor */
 }
 
 .input-notice {
-    flex: 1;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-bottom: 15px; /* Espaçamento inferior para separar os campos */
     box-sizing: border-box; /* Evita problemas de largura */
+}
+
+.input-content {
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none; /* Remove o redimensionamento padrão do textarea */
+    height: 100px; /* Define uma altura inicial para o textarea */
+    margin-bottom: 15px; /* Espaçamento inferior para separar o botão */
+    box-sizing: border-box;
+    width: 100%; /* Faz com que o textarea ocupe toda a largura do container */
+    line-height: 1.5; /* Aumenta o espaçamento entre as linhas */
 }
 
 .btn-add-notice {
@@ -44,7 +54,8 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 20%;
+    width: 30%; /* Ajuste a largura conforme necessário */
+    align-self: center; /* Centraliza o botão dentro do form */
     transition: background-color 0.3s ease;
 }
 
@@ -67,6 +78,12 @@
     align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap; /* Permite que os elementos dentro do item quebrem linha */
+}
+
+.notice-item h3 {
+    margin: 0 0 10px 0; /* Espaçamento inferior */
+    font-size: 18px;
+    color: #333;
 }
 
 .notice-item p {
@@ -104,3 +121,27 @@
     font-size: 18px;
     padding: 20px 0;
 }
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .btn-close-popup {
+    margin-top: 10px;
+  }
+  
