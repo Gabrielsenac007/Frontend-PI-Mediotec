@@ -64,9 +64,6 @@ Configure as Variáveis de Ambiente
 
 Defina as variáveis de ambiente para a conexão com o banco de dados MySQL e a configuração do Auth0 JWT.
 Inicie o Servidor
-
-arduino
-Copiar código
 mvn spring-boot:run
 Considerações Finais
 Este sistema foi desenvolvido para fins acadêmicos, com o objetivo de aplicar conceitos de arquitetura de software, autenticação segura e boas práticas de desenvolvimento. Futuras melhorias incluem a implementação de um front-end em React.js e a adição de novas funcionalidades voltadas à comunicação e gestão de conteúdo escolar.
