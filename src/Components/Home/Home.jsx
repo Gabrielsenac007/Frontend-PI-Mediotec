@@ -43,7 +43,7 @@ const Home = () => {
                     <FaClipboardList size={48} /> 
                     <h2>Turmas Cadastradas</h2>
                 </Link>
-                <Link to="/materias" className="card"> 
+                <Link to="/associar" className="card"> 
                     <FaClipboardCheck size={48} /> 
                     <h2>Associar Turma à Disciplina</h2>
                 </Link>

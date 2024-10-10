@@ -29,7 +29,7 @@
   }
 
   /* Estilos para o botão */
-button {
+.bnt-ntsview {
   width: 50%;
   height: 45px;
   background: #0056b3; /* Cor de fundo azul */
@@ -48,7 +48,7 @@ button {
 }
 
 /* Efeito hover para o botão */
-button:hover {
+.bnt-ntsview:hover {
   background: #ec8938;
 }
 

@@ -21,7 +21,9 @@ import CoordenadoresDisplay from './Components/Usuarios/Coordenadores.jsx';
 import CadastroNotas from './Components/Notas/CadastroNotas.jsx'; 
 import NotasPorTurma from './Components/viewNotas/viewNotas.jsx';
 import EditarProfessor from './Components/EditUser/EditProfessor.jsx';
-import EditarCoordenador from './Components/EditUser/EditCoordenador.jsx';
+import EditarCoordenador from './Components/EditUser/EditCoordenador.jsx'; 
+import AssociarTurmaDisciplina from './Components/Associoar/AssociarTurmaDiscipli.jsx';
+import EditarTurma from './Components/EditUser/EditTurmas.jsx';
 
 
 const router = createBrowserRouter([
@@ -104,6 +106,14 @@ const router = createBrowserRouter([
       {
         path: 'editCoord/:id',
         element:<EditarCoordenador />
+      },
+      {
+        path: 'associar',
+        element:<AssociarTurmaDisciplina />
+      },
+      {
+        path: 'editTurma/:id',
+        element:<EditarTurma/>
       }
     ]
   }

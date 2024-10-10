@@ -27,7 +27,7 @@ const TurmasDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/edit/turma/${id}`);
+        navigate(`/editTurma/${id}`);
     };
 
     const handleDelete = async (id) => {

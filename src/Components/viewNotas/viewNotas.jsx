@@ -5,8 +5,14 @@ const ListarNotas = () => {
   const [disciplinas, setDisciplinas] = useState([]);
   const [turmas, setTurmas] = useState([]);
   const [notas, setNotas] = useState([]); // Estado para armazenar as notas
+  const [unidades] = useState([ // Definindo as unidades diretamente
+    { id: 'unidade1', nome: 'Unidade 1' },
+    { id: 'unidade2', nome: 'Unidade 2' },
+    { id: 'unidade3', nome: 'Unidade 3' },
+  ]);
   const [selectedDisciplina, setSelectedDisciplina] = useState('');
   const [selectedTurma, setSelectedTurma] = useState('');
+  const [selectedUnidade, setSelectedUnidade] = useState(''); // Novo estado para unidade
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -37,12 +43,28 @@ const ListarNotas = () => {
   };
 
   const fetchNotas = async () => {
-    if (!selectedDisciplina || !selectedTurma) {
-      return; // Não faz a requisição se não tiver disciplina ou turma selecionada
+    if (!selectedDisciplina || !selectedTurma || !selectedUnidade) {
+      return; // Não faz a requisição se não tiver disciplina, turma ou unidade selecionada
+    }
+
+    // Endpoint baseado na unidade selecionada
+    let endpoint;
+    switch (selectedUnidade) {
+      case 'unidade1':
+        endpoint = `http://localhost:8080/api/concepts/conceptsOne/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        break;
+      case 'unidade2':
+        endpoint = `http://localhost:8080/api/concepts/conceptsTwo/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        break;
+      case 'unidade3':
+        endpoint = `http://localhost:8080/api/concepts/conceptsThree/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        break;
+      default:
+        return; // Saia se a unidade não for válida
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/concepts/class/${selectedTurma}/discipline/${selectedDisciplina}`);
+      const response = await fetch(endpoint);
       if (!response.ok) {
         throw new Error('Erro ao carregar notas');
       }
@@ -63,8 +85,8 @@ const ListarNotas = () => {
   }, []);
 
   useEffect(() => {
-    fetchNotas(); // Busca as notas quando a disciplina ou turma é alterada
-  }, [selectedDisciplina, selectedTurma]);
+    fetchNotas(); // Busca as notas quando a disciplina, turma ou unidade é alterada
+  }, [selectedDisciplina, selectedTurma, selectedUnidade]);
 
   return (
     <div className="notas-container">
@@ -108,7 +130,24 @@ const ListarNotas = () => {
             </select>
           </div>
 
-          <button onClick={fetchNotas}>Listar Notas</button>
+          <div className="form-group">
+            <label htmlFor="unidade">Unidade:</label>
+            <select
+              id="unidade"
+              name="unidade"
+              value={selectedUnidade}
+              onChange={(e) => setSelectedUnidade(e.target.value)}
+            >
+              <option value="">Selecione a Unidade</option>
+              {unidades.map((unidade) => (
+                <option key={unidade.id} value={unidade.id}>
+                  {unidade.nome} {/* Substitua 'nome' pelo campo correto do seu objeto unidade */}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button className="bnt-ntsview" onClick={fetchNotas}>Listar Notas</button>
 
           {notas.length > 0 ? (
             <table>

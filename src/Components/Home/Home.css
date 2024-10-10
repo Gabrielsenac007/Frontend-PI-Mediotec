@@ -47,6 +47,10 @@
 
 /* Responsividade para telas pequenas */
 @media (max-width: 767px) {
+    .home-container {
+        margin-top: 90%;
+        
+    }
     .card {
         width: calc(45% - 40px); /* 2 cards por linha */
     }
@@ -60,9 +64,17 @@
 }
 
 /* Ajuste adicional para a home-container em telas pequenas */
-@media (max-width: 768px) {
+@media (max-width: 480px) and (min-width:401px) {
     .home-container {
-        margin-top: 50px;
+        margin-top: 325%;
+        
+    }
+}
+
+/* Ajuste adicional para a home-container em telas pequenas */
+@media (max-width: 400px) {
+    .home-container {
+        margin-top: 1800px;
         
     }
 }
