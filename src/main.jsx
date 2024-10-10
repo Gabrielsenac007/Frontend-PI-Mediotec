@@ -24,6 +24,7 @@ import EditarProfessor from './Components/EditUser/EditProfessor.jsx';
 import EditarCoordenador from './Components/EditUser/EditCoordenador.jsx'; 
 import AssociarTurmaDisciplina from './Components/Associoar/AssociarTurmaDiscipli.jsx';
 import EditarTurma from './Components/EditUser/EditTurmas.jsx';
+import ListaComunicados from './Components/Comunicados/ListaComunicados.jsx';
 
 
 const router = createBrowserRouter([
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: 'editTurma/:id',
         element:<EditarTurma/>
+      },
+      {
+        path: 'listaComunicados',
+        element:<ListaComunicados/>
       }
     ]
   }

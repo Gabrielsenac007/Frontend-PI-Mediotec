@@ -19,7 +19,7 @@ const HomeProfessores = () => {
                     <FaPaperPlane size={48} />
                     <h2>Enviar Comunicado</h2>
                 </Link>
-                <Link to="/alunos" className="card-prof">
+                <Link to="/listaComunicados" className="card-prof">
                     <FaUsers size={48} />
                     <h2>Ver Comunicados</h2>
                 </Link>

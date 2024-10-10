@@ -2,14 +2,17 @@
 .notices-container {
     width: 60%;
     margin: 0 auto; /* Centraliza horizontalmente */
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    top: 20%; /* Ajusta a distância do topo */
-    position: fixed; /* Define posição relativa para evitar sobreposição */
-    right: 20%;
+    background: #f9f9f9; /* Fundo claro */
+    border: 1px solid #ddd; /* Borda sutil */
+    border-radius: 10px; /* Bordas arredondadas */
+    padding: 30px; /* Espaçamento interno */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    position: absolute; /* Altera de fixed para absolute */
+    top: 50%; /* Posiciona 50% do topo da tela */
+    left: 50%; /* Posiciona 50% do lado esquerdo */
+    transform: translate(-50%, -50%); /* Centraliza a div */
+    max-width: 800px; /* Largura máxima da div */
+    z-index: 100; /* Garante que a div fique acima de outros elementos */
 }
 
 .notices-container h1 {
@@ -19,52 +22,30 @@
     color: #333;
 }
 
-.notice-form {
-    display: flex;
-    flex-direction: column; /* Alinha os itens verticalmente */
-    margin-bottom: 20px;
-}
-
-.input-notice {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-bottom: 15px; /* Espaçamento inferior para separar os campos */
-    box-sizing: border-box; /* Evita problemas de largura */
-}
-
-.input-content {
-    padding: 15px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    resize: none; /* Remove o redimensionamento padrão do textarea */
-    height: 100px; /* Define uma altura inicial para o textarea */
-    margin-bottom: 15px; /* Espaçamento inferior para separar o botão */
-    box-sizing: border-box;
-    width: 100%; /* Faz com que o textarea ocupe toda a largura do container */
-    line-height: 1.5; /* Aumenta o espaçamento entre as linhas */
-}
-
-.btn-add-notice {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 30%; /* Ajuste a largura conforme necessário */
-    align-self: center; /* Centraliza o botão dentro do form */
-    transition: background-color 0.3s ease;
-}
-
-.btn-add-notice:hover {
-    background-color: #0056b3;
-}
-
+/* Estilos para a tabela de comunicados */
 .notice-list {
     margin-top: 20px;
+}
+
+.notice-table {
+    width: 100%; /* A tabela ocupa toda a largura do container */
+    border-collapse: collapse; /* Remove o espaço entre as bordas das células */
+}
+
+.notice-table th,
+.notice-table td {
+    padding: 15px; /* Espaçamento interno das células */
+    text-align: left; /* Alinhamento do texto à esquerda */
+    border-bottom: 1px solid #ddd; /* Borda inferior nas células */
+}
+
+.notice-table th {
+    background-color: #007bff; /* Fundo azul para o cabeçalho */
+    color: white; /* Texto branco */
+}
+
+.notice-table tr:hover {
+    background-color: #f1f1f1; /* Fundo claro ao passar o mouse */
 }
 
 .notice-item {
@@ -73,30 +54,17 @@
     padding: 15px;
     border-radius: 5px;
     margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap; /* Permite que os elementos dentro do item quebrem linha */
 }
 
-.notice-item h3 {
-    margin: 0 0 10px 0; /* Espaçamento inferior */
-    font-size: 18px;
-    color: #333;
+.notice-content {
+    margin: 10px 0; /* Espaçamento superior e inferior */
 }
 
-.notice-item p {
-    margin: 0;
-    font-size: 16px;
-    color: #333;
-    flex: 1; /* Expande para ocupar mais espaço */
-}
-
-.notice-item span {
+.notice-creator,
+.notice-date {
     font-size: 14px;
-    color: #999;
-    margin-right: 10px; /* Espaçamento à direita */
+    color: #999; /* Cor mais suave para informações secundárias */
 }
 
 .btn-delete-notice {
@@ -107,8 +75,6 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    align-self: flex-end; /* Alinha no final do elemento */
-    width: 20%;
 }
 
 .btn-delete-notice:hover {
@@ -122,26 +88,22 @@
     padding: 20px 0;
 }
 
-.popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .popup-content {
-    background-color: white;
-    padding: 20px;
+.btn-add-notice {
+    margin-top: 20px;
+    text-align: center; /* Centraliza o botão de adicionar */
+}
+
+.btn-add-notice button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
-    text-align: center;
-  }
-  
-  .btn-close-popup {
-    margin-top: 10px;
-  }
-  
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-add-notice button:hover {
+    background-color: #0056b3;
+}
+
