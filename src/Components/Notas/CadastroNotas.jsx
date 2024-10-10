@@ -250,9 +250,8 @@ const CadastroNotas = () => {
                 onChange={(e) => setSituacao(e.target.value)}
               >
                 <option value="">Selecione a Situação</option>
-                <option value="A">A</option>
-                <option value="PA">PA</option>
-                <option value="NA">NA</option>
+                <option value="D">D</option>
+                <option value="ND">ND</option>
               </select>
             </div>
           </div>
