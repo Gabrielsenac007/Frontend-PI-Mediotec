@@ -297,6 +297,7 @@ export async function deleteTurma(id) {
 export const fetchTurmas = async () => {
     try {
         // Requisição GET para buscar todas as turmas no endpoint `/turmas`
+        console.log("ppegando turmas")
         const response = await api.get('http://localhost:8080/api/classes/getAllClasses');
         return response.data; // Retorna os dados das turmas
     } catch (error) {

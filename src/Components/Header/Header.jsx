@@ -64,7 +64,6 @@ const Header = () => {
         {/* Adiciona a classe 'active' quando o menu está aberto */}
         <ul ref={menuRef} className={`nav-links ${menuOpen ? 'active' : ''}`}>
           <li><Link to="/home">Home</Link></li>
-          <li><Link to="/professores">Equipe</Link></li>
           <li><Link to="/turmas">Turmas</Link></li>
           <li><Link to="/professores">Equipe</Link></li>
           <li><Link to="/alunos">Alunos</Link></li>
