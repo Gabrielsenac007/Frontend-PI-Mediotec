@@ -1,7 +1,9 @@
 Sistema de Gestão Escolar - Mediotec
+
 Este projeto foi desenvolvido como parte de um trabalho acadêmico para um sistema de gestão escolar voltado para o Mediotec, um programa de ensino médio profissionalizante oferecido pelo Senac na região metropolitana do Recife. O sistema tem como objetivo facilitar a administração acadêmica e a comunicação entre alunos, professores e coordenadores, com foco em usabilidade e eficiência.
 
 Funcionalidades
+
 1. Gerenciamento de Usuários
 O sistema permite o cadastro e a autenticação de três perfis principais: Alunos, Professores e Coordenadores.
 Utiliza autenticação baseada em JWT para proteger as rotas e garantir a segurança dos dados.
