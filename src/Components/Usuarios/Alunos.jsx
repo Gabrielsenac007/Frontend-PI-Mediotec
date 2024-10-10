@@ -97,7 +97,7 @@ const AlunoDisplay = () => {
                             <div className="data-info">
                                 <h3>Nome: {item.name}</h3>
                                 <p>Email: {item.email}</p>
-                                <p>Turma: {item.studentClass?.nameClass || 'N/A'}</p> {/* Verifica se a turma existe */}
+                                {/*<p>Turma: {item.studentClass?.nameClass || 'N/A'}</p>  Verifica se a turma existe */}
                             </div>
                             <div className="action-icons">
                                 <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />
