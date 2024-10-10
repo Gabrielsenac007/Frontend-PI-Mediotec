@@ -8,9 +8,10 @@ import './Alunos.css'; // Usar o CSS fornecido no arquivo Alunos.css, aplicando 
 
 const ProfessorDisplay = () => {
     const navigate = useNavigate(); // Hook para navegação
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [data, setData] = useState([]); // Dados dos professores
+    const [loading, setLoading] = useState(true); // Estado de carregamento
+    const [error, setError] = useState(null); // Estado de erro
+    const [filter, setFilter] = useState(''); // Estado do filtro de busca
 
     useEffect(() => {
         const getProfessores = async () => {
@@ -32,7 +33,6 @@ const ProfessorDisplay = () => {
     };
 
     const handleDelete = async (id) => {
-        // Substituindo o alert por um pop-up de confirmação
         confirmAlert({
             title: 'Confirmação',
             message: 'Tem certeza que deseja deletar este professor?',
@@ -60,18 +60,36 @@ const ProfessorDisplay = () => {
         navigate('/cadastroProfessor'); // Redireciona para a página de cadastro de professor
     };
 
+    // Filtra os professores com base no nome
+    const filteredProfessores = data.filter(professor =>
+        professor.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
     return (
         <div className="data-display">
             <h1>Lista de Professores</h1>
+            <input
+                type="text"
+                placeholder="Buscar por nome..."
+                value={filter}
+                onChange={(e) => setFilter(e.target.value)} // Atualiza o estado do filtro
+                className="search-input" // Classe CSS para o campo de busca
+            />
             <ul className="data-list">
-                {data.map(item => (
+                {filteredProfessores.map(item => (
                     <li key={item.id} className="data-item">
                         <div className="data-info">
                             <h3>Nome: {item.name}</h3>
                             <p>Email: {item.email}</p>
+                            {/* Exibir apenas o nome da disciplina associada ao professor */}
+                            {item.disciplines && item.disciplines.length > 0 && (
+                                <div>
+                                    <strong>Disciplina:</strong> {item.disciplines[0].disciplineName}
+                                </div>
+                            )}
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />

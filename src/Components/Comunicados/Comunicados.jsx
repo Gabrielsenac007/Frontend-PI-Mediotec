@@ -24,7 +24,7 @@ const Comunicados = () => {
     setLoading(true);
     try {
       const creatorId = localStorage.getItem('id');
-      const response = await axios.post('http://localhost:8080/api/statement/insertStatement', {
+      const response = await axios.post('https://sam-light-production.up.railway.app/api/statement/insertStatement', {
         title: title,
         content: content,
         creatorId: creatorId,

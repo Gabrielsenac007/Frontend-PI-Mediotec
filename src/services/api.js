@@ -1,7 +1,6 @@
-// api.js
 import axios from 'axios';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'https://sam-light-production.up.railway.app/api';
 
 // Cria uma instância do Axios
 const api = axios.create({
@@ -32,7 +31,7 @@ export const fetchAlunos = async () => {
 // Função para deletar um aluno
 export const deleteAluno = async (id) => {
     try {
-        await api.delete(`http://localhost:8080/api/users/delete/student/${id}`); // Usa a instância do Axios
+        await api.delete(`/users/delete/student/${id}`); // Usa a instância do Axios
     } catch (error) {
         throw new Error(error.message);
     }
@@ -41,7 +40,7 @@ export const deleteAluno = async (id) => {
 // Função para buscar todos os professores
 export const fetchProfessores = async () => {
     try {
-        const response = await api.get('http://localhost:8080/api/users/allProfessor'); // Usa a instância do Axios e o endpoint correto
+        const response = await api.get('/users/allProfessor'); // Usa a instância do Axios e o endpoint correto
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -51,7 +50,7 @@ export const fetchProfessores = async () => {
 // Função para deletar um professor
 export const deleteProfessor = async (id) => {
     try {
-        await api.delete(`http://localhost:8080/api/users/delete/professor/${id}`);
+        await api.delete(`/users/delete/professor/${id}`);
     } catch (error) {
         throw new Error(error.message);
     }
@@ -67,11 +66,10 @@ export const fetchUsuario = async (id) => {
     }
 };
 
-
 // Cadastrar aluno
 export const cadastrarAluno = async (alunoData) => {
     try {
-        const response = await api.post('http://localhost:8080/api/users/register/student', alunoData, {
+        const response = await api.post('/users/register/student', alunoData, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
@@ -83,11 +81,10 @@ export const cadastrarAluno = async (alunoData) => {
     }
 };
 
-
 // Função para atualizar um aluno
 export const atualizarAluno = async (id, updatedData) => {
     try {
-        const response = await api.put(`http://localhost:8080/api/users/update/student/${id}`, updatedData);
+        const response = await api.put(`/users/update/student/${id}`, updatedData);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
@@ -97,14 +94,12 @@ export const atualizarAluno = async (id, updatedData) => {
 // Função para obter um aluno pelo ID
 export const obterAluno = async (id) => {
     try {
-        const response = await api.get(`http://localhost:8080/api/users/students/class/${id}`); // Ajuste o endpoint conforme necessário
+        const response = await api.get(`/users/students/class/${id}`); // Ajuste o endpoint conforme necessário
         return response.data;
     } catch (error) {
         throw new Error(error.message);
     }
 };
-
-
 
 // Função para autenticar usuário
 export const autenticarUsuario = async (cpf, password) => {
@@ -119,22 +114,19 @@ export const autenticarUsuario = async (cpf, password) => {
     }
 };
 
-
 // Função para cadastrar coordenador
 export const cadastrarCoordenador = async (dados) => {
     try {
-        const response = await api.post('http://localhost:8080/api/users/register/coordinator', dados, {
+        const response = await api.post('/users/register/coordinator', dados, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`, // Se aplicável
                 'Content-Type': 'application/json' // Opcional
             }
         });
 
-        // Axios sempre resolve a promessa em caso de resposta com erro, então não é necessário verificar response.ok
         console.log('Resposta do servidor:', response.data); // Log da resposta do servidor
         return response.data; // Retorna os dados da resposta
     } catch (error) {
-        // Para Axios, o erro contém a resposta no objeto error.response
         if (error.response) {
             console.error('Erro na resposta do servidor:', error.response.data);
             throw new Error(`Erro ao cadastrar coordenador: ${error.response.data}`);
@@ -145,13 +137,10 @@ export const cadastrarCoordenador = async (dados) => {
     }
 };
 
-
-
-
 // Função para buscar coordenadores
 export const fetchCoordenadores = async () => {
     try {
-        const response = await fetch('http://localhost:8080/api/users/allCoordenador', {
+        const response = await fetch('https://sam-light-production.up.railway.app/api/users/allCoordenador', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -159,24 +148,22 @@ export const fetchCoordenadores = async () => {
             },
         });
 
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
             throw new Error(`Erro ao buscar coordenadores: ${response.statusText}`);
         }
 
-        const data = await response.json(); // Converte a resposta para JSON
-        return data; // Retorna os dados
+        const data = await response.json();
+        return data;
     } catch (error) {
         console.error('Erro na requisição:', error);
-        throw error; // Propaga o erro para ser tratado onde a função é chamada
+        throw error;
     }
 };
-
 
 // Função para atualizar um coordenador
 export const editarCoordenador = async (id, coordenadorData) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/users/update/coordinator/${id}`, {
+        const response = await fetch(`https://sam-light-production.up.railway.app/api/users/update/coordinator/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -184,20 +171,15 @@ export const editarCoordenador = async (id, coordenadorData) => {
             body: JSON.stringify(coordenadorData),
         });
 
-        // Captura a resposta como texto para verificar o conteúdo
         const textResponse = await response.text();
-
-        // Se a resposta não for bem-sucedida, lança um erro com a mensagem apropriada
         if (!response.ok) {
             throw new Error(textResponse || 'Erro ao editar coordenador');
         }
 
-        // Verifica se a resposta é JSON e a retorna como objeto
         let jsonResponse;
         try {
             jsonResponse = JSON.parse(textResponse);
         } catch {
-            // Se a resposta não for JSON, retorna o texto como está
             console.warn('Resposta não está em formato JSON. Utilizando texto direto.');
             jsonResponse = { message: textResponse };
         }
@@ -216,60 +198,50 @@ export const deleteCoordenador = async (id) => {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}` // Se você estiver usando autenticação com token
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
         });
 
-        // Verifica se a resposta foi bem-sucedida
         if (!response.ok) {
             throw new Error(`Erro ao deletar coordenador: ${response.statusText}`);
         }
 
-        const data = await response.json(); // Se o backend retornar algum dado, você pode usá-lo
+        const data = await response.json();
         console.log('Coordenador deletado com sucesso:', data);
-        return data; // Retorna os dados, se necessário
+        return data;
     } catch (error) {
         console.error('Erro na requisição:', error);
-        throw error; // Propaga o erro para ser tratado onde a função é chamada
+        throw error;
     }
 };
 
-
-
-
 // Função para cadastrar disciplina
 export const cadastrarDisciplina = async (disciplinaData) => {
-    const token = localStorage.getItem('token'); // Obter o token do localStorage
-
-    // Verifica se o token está presente
+    const token = localStorage.getItem('token');
     if (!token) {
         throw new Error('Token de autenticação não encontrado.');
     }
 
-    // Faz a requisição para cadastrar a disciplina
-    const response = await fetch('http://localhost:8080/api/disciplines/insertDiscipline', {
+    const response = await fetch('https://sam-light-production.up.railway.app/api/disciplines/insertDiscipline', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
-            'Authorization': `${localStorage.getItem('authToken')}` // Adiciona o token ao cabeçalho
+            'Authorization': `${localStorage.getItem('authToken')}`
         },
         body: JSON.stringify(disciplinaData),
     });
 
-    // Verifica se a resposta é bem-sucedida (status 200-299)
     if (!response.ok) {
-        const errorText = await response.text(); // Lê a resposta como texto
-        throw new Error('Erro ao cadastrar a disciplina: ' + errorText); // Lança o erro com a resposta
+        const errorText = await response.text();
+        throw new Error('Erro ao cadastrar a disciplina: ' + errorText);
     }
 
-    // Retorna a resposta convertida em JSON
-    return await response.text(); // Retorna diretamente o JSON da resposta
+    return await response.text();
 };
-
 
 // Função para cadastrar Turma
 export const cadastrarTurma = async (turmaData) => {
-    const response = await fetch('http://localhost:8080/api/classes/classRegister', {
+    const response = await fetch('https://sam-light-production.up.railway.app/api/classes/classRegister', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(turmaData),
@@ -279,15 +251,14 @@ export const cadastrarTurma = async (turmaData) => {
         throw new Error('Erro ao cadastrar a turma');
     }
 
-    // Captura a resposta como texto ao invés de JSON
     const resultText = await response.text(); 
-    return resultText; // Retorna a string capturada
+    return resultText;
 };
 
 export async function deleteTurma(id) {
     try {
-        const response = await api.delete(`/classes/delete/class/${id}`); // Atualize aqui
-        return response.data; // Retorne a resposta, se necessário
+        const response = await api.delete(`/classes/delete/class/${id}`);
+        return response.data;
     } catch (error) {
         throw new Error(error.response ? error.response.data.message : 'Erro ao deletar a turma');
     }
@@ -296,23 +267,11 @@ export async function deleteTurma(id) {
 // Função para buscar todas as turmas
 export const fetchTurmas = async () => {
     try {
-        // Requisição GET para buscar todas as turmas no endpoint `/turmas`
-        console.log("ppegando turmas")
-        const response = await api.get('http://localhost:8080/api/classes/getAllClasses');
-        return response.data; // Retorna os dados das turmas
+        console.log("pegando turmas");
+        const response = await api.get('/classes/getAllClasses');
+        return response.data;
     } catch (error) {
         console.error('Erro ao buscar turmas:', error);
-        throw error;
-    }
-};
-
-// Função para listar todas as turmas
-export const listarTurmas = async () => {
-    try {
-        const response = await api.get('/classes/getAllClasses'); // Use o endpoint correto
-        return response.data; // Retorna os dados das turmas
-    } catch (error) {
-        console.error('Erro ao listar turmas:', error);
         throw error;
     }
 };
@@ -320,36 +279,23 @@ export const listarTurmas = async () => {
 // Função para atualizar uma turma
 export const atualizarTurma = async (id, turmaData) => {
     try {
-        const response = await axios.put(`http://localhost:8080/api/classes/update/class/${id}`, turmaData);
+        const response = await axios.put(`https://sam-light-production.up.railway.app/api/classes/update/class/${id}`, turmaData);
         return response.data;
     } catch (error) {
         throw new Error(error.response ? error.response.data.message : error.message);
     }
 };
 
-
-export const listarAlunosPorTurmaEDisciplina = async (turmaId, disciplinaId) => {
+// Função para listar todas as turmas
+export const listarTurmas = async () => {
     try {
-        const response = await api.get(`/alunos/turma/${turmaId}/disciplina/${disciplinaId}`); // Ajuste a URL conforme seu endpoint
-        return response.data; // Retorna os dados
-    } catch (error) {
-        console.error('Erro ao listar alunos por turma e disciplina:', error);
-        throw new Error(error.message);
-    }
-};
-
-
-// Função para buscar todas as disciplinas
-export const listarDisciplinas = async () => {
-    try {
-        const response = await api.get('http://localhost:8080/api/concepts/getUnitOne'); // Ajuste o endpoint conforme necessário
+        const response = await api.get('/classes/getAllClasses');
         return response.data;
     } catch (error) {
-        console.error('Erro ao listar disciplinas:', error);
-        throw error; // Propaga o erro
+        console.error('Erro ao listar turmas:', error);
+        throw error;
     }
 };
-
 
 
 export default api; // Exporte a instância do Axios para uso em outros arquivos

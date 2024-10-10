@@ -17,7 +17,7 @@ const EditarProfessor = () => {
     // Função para buscar as disciplinas disponíveis
     const fetchDisciplinas = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/disciplines/getAll');
+            const response = await fetch('https://sam-light-production.up.railway.app/api/disciplines/getAll');
             const data = await response.json();
             setOpcoesMaterias(data);
         } catch (error) {
@@ -45,7 +45,7 @@ const EditarProfessor = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/api/users/update/professor/${id}`, {
+            const response = await fetch(`https://sam-light-production.up.railway.app/api/users/update/professor/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

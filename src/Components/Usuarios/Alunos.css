@@ -1,63 +1,57 @@
-/* Estilos para a exibição dos dados */
 .data-display {
-    padding: 30px; /* Aumentar o preenchimento */
-    max-width: 1200px; /* Aumentar a largura máxima */
-    max-height: 800px; /* Aumentar a altura máxima */
+    padding: 30px;
+    max-width: 1200px;
+    max-height: 800px;
     margin: 0 auto;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    font-family: 'Arial', sans-serif; /* Alterar a fonte */
+    font-family: 'Arial', sans-serif;
     position: fixed;
-    bottom: 100px; /* Ajustar a posição se necessário */
-    right: 0; /* Ajustar a posição se necessário */
-    left: 0; /* Permitir que o quadro ocupe mais espaço */
-    overflow: hidden; /* Evitar quebra de layout */
-    display: flex; /* Usar flexbox */
-    flex-direction: column; /* Organizar os itens em coluna */
-    align-items: center; /* Centralizar os itens horizontalmente */
+    bottom: 100px;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     top: 100px;
 }
 
-/* Estilo do título */
 .data-display h1 {
     text-align: center;
     color: #333;
-    font-size: 36px; /* Aumentar o tamanho do título */
+    font-size: 36px;
 }
 
-/* Estilos para o botão */
 .data-display button {
     width: 50%;
     height: 45px;
-    background: #0056b3; /* Cor de fundo azul */
+    background: #0056b3;
     border: none;
     outline: none;
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     font-size: 16px;
-    color: white; /* Texto branco no botão */
+    color: white;
     font-weight: 700;
     transition: background-color 0.4s ease;
-    margin-top: 20px; /* Espaçamento acima do botão */
+    margin-top: 20px;
 }
 
-/* Efeito hover para o botão */
 .data-display button:hover {
     background: #ec8938;
 }
 
-/* Estilos para a lista de dados */
 .data-list {
     list-style: none;
     padding: 0;
-    max-height: 600px; /* Limitar a altura da lista de dados */
-    overflow-y: auto; /* Adiciona a barra de rolagem vertical na lista */
-    width: 100%; /* Garantir que a lista ocupe toda a largura disponível */
+    max-height: 600px;
+    overflow-y: auto;
+    width: 100%;
 }
 
-/* Estilos para cada item da lista */
 .data-item {
     display: flex;
     justify-content: space-between;
@@ -68,40 +62,50 @@
     margin: 10px 0;
     background-color: #f9f9f9;
     transition: background-color 0.3s;
-    min-width: 0; /* Permite que o item se encolha adequadamente */
+    min-width: 0;
 }
 
-/* Efeito hover para itens da lista */
 .data-item:hover {
     background-color: #f1f1f1;
 }
 
-/* Estilos para informações dentro dos itens */
 .data-info {
-    flex-grow: 1; /* Permite que a informação cresça */
+    flex-grow: 1;
 }
 
-/* Estilos para ícones de ação */
 .action-icons {
     display: flex;
     gap: 10px;
 }
 
-/* Estilos para os ícones */
 .icon {
     cursor: pointer;
     font-size: 20px;
-    color: #007BFF; /* Cor do ícone */
+    color: #007BFF;
 }
 
-/* Efeito hover para ícones */
 .icon:hover {
     color: #0056b3;
 }
 
-/* Estilos para mensagens de carregamento ou erro */
 .loading, .error {
     text-align: center;
     font-size: 18px;
     color: #555;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }

@@ -4,7 +4,6 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx';
 import Login from './Components/Login/Login.jsx';
-import Equipe from './Components/Equipe/Equipe.jsx';
 import Cadastro from './Components/Cadastro/Cadastro.jsx';
 import CadastroProfessor from './Components/Cadastro/CadastroProfessor.jsx';
 import DataDisplay from './Components/Usuarios/Alunos.jsx'
@@ -35,10 +34,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Login /> // Login como rota padrão
-      },
-      {
-        path: 'equipe',
-        element: <Equipe />
       },
       {
         path: 'cadastro',

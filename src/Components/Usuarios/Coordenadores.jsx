@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { fetchCoordenadores, deleteCoordenador } from '../../services/api'; // Supondo que você tenha essas funções
+import { fetchCoordenadores, deleteCoordenador } from '../../services/api';
 import { FaEdit, FaTrash } from 'react-icons/fa';
-import './Alunos.css'; // Estilos específicos para a tela de coordenadores
+import './Alunos.css';
 
 const CoordenadoresDisplay = () => {
-    const navigate = useNavigate(); // Hook para navegação
-
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         const getCoordenadores = async () => {
@@ -27,7 +27,7 @@ const CoordenadoresDisplay = () => {
     }, []);
 
     const handleEdit = (id) => {
-        navigate(`/editCoord/${id}`); // Redireciona para a tela de edição
+        navigate(`/editCoord/${id}`);
     };
 
     const handleDelete = async (id) => {
@@ -42,22 +42,32 @@ const CoordenadoresDisplay = () => {
     };
 
     const handleRedirect = () => {
-        navigate('/cadastroCoordenador'); // Redireciona para a página de cadastro de coordenador
+        navigate('/cadastroCoordenador');
     };
+
+    const filteredData = data.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     if (loading) return <div className="loading">Loading...</div>;
     if (error) return <div className="error">Error: {error}</div>;
 
     return (
-        <div className="data-display"> {/* Adicione a classe para aplicar estilos */}
+        <div className="data-display">
             <h1>Coordenadores</h1>
+            <input
+                type="text"
+                placeholder="Buscar coordenador pelo nome"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="search-input"
+            />
             <ul className="data-list">
-                {data.map(item => (
+                {filteredData.map(item => (
                     <li key={item.id} className="data-item">
                         <div className="data-info">
                             <h3>Nome: {item.name}</h3>
                             <p>Email: {item.email}</p>
-                            
                         </div>
                         <div className="action-icons">
                             <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />

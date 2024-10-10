@@ -4,7 +4,7 @@ import './CadastroNotas.css';
 const CadastroNotas = () => {
   const [disciplinas, setDisciplinas] = useState([]);
   const [turmas, setTurmas] = useState([]);
-  const [alunos, setAlunos] = useState([]);
+  const [alunos, setAlunos] = useState([]); // Deve ser um array
   const [filteredAlunos, setFilteredAlunos] = useState([]);
   const [selectedDisciplina, setSelectedDisciplina] = useState('');
   const [selectedUnidade, setSelectedUnidade] = useState('');
@@ -15,53 +15,48 @@ const CadastroNotas = () => {
   const [situacao, setSituacao] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [isSubmitted, setIsSubmitted] = useState(false); // Estado para controle de submissão
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const fetchDisciplinas = async () => {
+  const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/disciplines/getAll');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar disciplinas');
+      const [disciplinasResponse, turmasResponse, alunosResponse] = await Promise.all([
+        fetch('https://sam-light-production.up.railway.app/api/disciplines/getAll'),
+        fetch('https://sam-light-production.up.railway.app/api/classes/getAllClasses'),
+        fetch('https://sam-light-production.up.railway.app/api/users/allStudents')
+      ]);
+  
+      if (!disciplinasResponse.ok) throw new Error('Erro ao carregar disciplinas');
+      if (!turmasResponse.ok) throw new Error('Erro ao carregar turmas');
+      if (!alunosResponse.ok) throw new Error('Erro ao carregar alunos');
+  
+      const disciplinasData = await disciplinasResponse.json();
+      const turmasData = await turmasResponse.json();
+      const alunosData = await alunosResponse.json();
+  
+      console.log('Disciplinas:', disciplinasData);
+      console.log('Turmas:', turmasData);
+      console.log('Alunos:', alunosData); // Log para verificar estrutura
+  
+      // Verifica a estrutura de alunosData
+      if (Array.isArray(alunosData.usersList)) {
+        setAlunos(alunosData.usersList); // Ajuste aqui para acessar usersList
+      } else {
+        console.error('Dados de alunos não são um array:', alunosData);
+        setAlunos([]); // Define como array vazio se não for um array
       }
-      const data = await response.json();
-      setDisciplinas(data);
+  
+      setDisciplinas(disciplinasData);
+      setTurmas(turmasData);
     } catch (error) {
-      setError('Erro ao carregar disciplinas: ' + error.message);
-    }
-  };
-
-  const fetchTurmas = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/classes/getAllClasses');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar turmas');
-      }
-      const data = await response.json();
-      setTurmas(data);
-    } catch (error) {
-      setError('Erro ao carregar turmas: ' + error.message);
-    }
-  };
-
-  const fetchAlunos = async () => {
-    try {
-      const response = await fetch('http://localhost:8080/api/users/allStudents');
-      if (!response.ok) {
-        throw new Error('Erro ao carregar alunos');
-      }
-      const data = await response.json();
-      setAlunos(data);
-    } catch (error) {
-      setError('Erro ao carregar alunos: ' + error.message);
+      setError('Erro ao carregar dados: ' + error.message);
     } finally {
       setLoading(false);
     }
   };
-
+  
+  
   useEffect(() => {
-    fetchDisciplinas();
-    fetchTurmas();
-    fetchAlunos();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -91,40 +86,34 @@ const CadastroNotas = () => {
       disciplineId: selectedDisciplina,
     };
 
-    let insertionEndpoint = '';
+    const insertionEndpoints = {
+      ud1: 'https://sam-light-production.up.railway.app/api/concepts/insertConceptUnitOne',
+      ud2: 'https://sam-light-production.up.railway.app/api/concepts/insertConceptUnitTwo',
+      ud3: 'https://sam-light-production.up.railway.app/api/concepts/insertConceptUnitThree',
+    };
 
-    switch (selectedUnidade) {
-      case 'ud1':
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitOne'; // POST
-        break;
-      case 'ud2':
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitTwo'; // POST
-        break;
-      case 'ud3':
-        insertionEndpoint = 'http://localhost:8080/api/concepts/insertConceptUnitThree'; // POST
-        break;
-      default:
-        setError('Unidade não suportada.');
-        return;
+    const insertionEndpoint = insertionEndpoints[selectedUnidade];
+
+    if (!insertionEndpoint) {
+      setError('Unidade não suportada.');
+      return;
     }
 
     try {
       const insertionResponse = await fetch(insertionEndpoint, {
-        method: 'POST', // Mudando de PUT para POST
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(dados),
       });
 
-      if (!insertionResponse.ok) {
-        throw new Error('Erro ao inserir conceito');
-      }
+      if (!insertionResponse.ok) throw new Error('Erro ao inserir conceito');
 
       console.log('Dados cadastrados com sucesso:', dados);
-      setIsSubmitted(true); // Define isSubmitted como true para mostrar o pop-up
+      setIsSubmitted(true); 
 
-      // Limpar os campos após a inserção bem-sucedida
+      // Resetar campos após a inserção
       setSelectedDisciplina('');
       setSelectedUnidade('');
       setSelectedTurma('');
@@ -137,11 +126,10 @@ const CadastroNotas = () => {
     }
   };
 
-  // Exibe o pop-up de confirmação se isSubmitted for true
   useEffect(() => {
     if (isSubmitted) {
       alert('Notas cadastradas com sucesso!');
-      setIsSubmitted(false); // Reseta isSubmitted após o alerta
+      setIsSubmitted(false);
     }
   }, [isSubmitted]);
 
@@ -217,7 +205,7 @@ const CadastroNotas = () => {
                 <option value="">Selecione o Aluno</option>
                 {filteredAlunos.map((aluno) => (
                   <option key={aluno.id} value={aluno.id}>
-                    {aluno.name}
+                    {aluno.name} - {aluno.studentClass?.nameClass || 'Sem turma'}
                   </option>
                 ))}
               </select>
@@ -253,7 +241,6 @@ const CadastroNotas = () => {
               </select>
             </div>
 
-
             <div className="form-group">
               <label htmlFor="situacao">Situação:</label>
               <select
@@ -263,13 +250,14 @@ const CadastroNotas = () => {
                 onChange={(e) => setSituacao(e.target.value)}
               >
                 <option value="">Selecione a Situação</option>
-                <option value="D">D</option>
-                <option value="ND">ND</option>
+                <option value="A">A</option>
+                <option value="PA">PA</option>
+                <option value="NA">NA</option>
               </select>
             </div>
           </div>
 
-          <button className= "bnt-cadastro"type="submit" >Cadastrar Notas</button>
+          <button type="submit">Cadastrar</button>
         </form>
       )}
     </div>
@@ -277,6 +265,3 @@ const CadastroNotas = () => {
 };
 
 export default CadastroNotas;
-
-
-

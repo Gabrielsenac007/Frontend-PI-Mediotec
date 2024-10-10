@@ -12,7 +12,7 @@ const AssociarTurmaDisciplina = () => {
   // Função para buscar as turmas
   const fetchTurmas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/classes/getAllClasses');
+      const response = await fetch('https://sam-light-production.up.railway.app/api/classes/getAllClasses');
       if (!response.ok) {
         throw new Error('Erro ao carregar turmas');
       }
@@ -26,7 +26,7 @@ const AssociarTurmaDisciplina = () => {
   // Função para buscar as disciplinas
   const fetchDisciplinas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/disciplines/getAll');
+      const response = await fetch('https://sam-light-production.up.railway.app/api/disciplines/getAll');
       if (!response.ok) {
         throw new Error('Erro ao carregar disciplinas');
       }
@@ -45,7 +45,7 @@ const AssociarTurmaDisciplina = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/classes/associateClassDiscipline', {
+      const response = await fetch('https://sam-light-production.up.railway.app/api/classes/associateClassDiscipline', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
