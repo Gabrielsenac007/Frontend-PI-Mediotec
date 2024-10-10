@@ -38,8 +38,8 @@ const CadastroNotas = () => {
       console.log('Alunos:', alunosData); // Log para verificar estrutura
   
       // Verifica a estrutura de alunosData
-      if (Array.isArray(alunosData.usersList)) {
-        setAlunos(alunosData.usersList); // Ajuste aqui para acessar usersList
+      if (Array.isArray(alunosData)) {
+        setAlunos(alunosData); // Ajuste aqui para acessar usersList
       } else {
         console.error('Dados de alunos não são um array:', alunosData);
         setAlunos([]); // Define como array vazio se não for um array
@@ -57,6 +57,7 @@ const CadastroNotas = () => {
   
   useEffect(() => {
     fetchData();
+    console.log(alunosFiltrados)
   }, []);
 
   useEffect(() => {
