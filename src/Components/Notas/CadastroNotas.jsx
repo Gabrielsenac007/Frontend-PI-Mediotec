@@ -57,7 +57,6 @@ const CadastroNotas = () => {
   
   useEffect(() => {
     fetchData();
-    console.log(alunosFiltrados)
   }, []);
 
   useEffect(() => {
