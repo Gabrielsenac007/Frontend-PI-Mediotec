@@ -5,8 +5,19 @@ import { confirmAlert } from 'react-confirm-alert'; // Importe o confirmAlert
 import 'react-confirm-alert/src/react-confirm-alert.css'; // Importe o estilo padrão
 import './Cadastro.css';
 import { cadastrarCoordenador } from '../../services/api'; // Importe a função de cadastro de coordenador
+import { useForm } from 'react-hook-form';
+import {z} from 'zod'
+
+const createUserFormSchema = z.object({})
+
 
 const CadastroCoordenador = () => {
+
+    const {register} = useForm({
+        resolver
+    });
+
+
     const [cpf, setCpf] = useState(""); // Campo CPF
     const [nome, setNome] = useState(""); // Campo Nome
     const [email, setEmail] = useState(""); // Campo Email
@@ -14,6 +25,10 @@ const CadastroCoordenador = () => {
     const [error, setError] = useState(""); // Gerenciamento de erros
     const navigate = useNavigate(); // Hook de navegação
 
+
+    function createUser(data){
+        console.log(data)
+    }
     // Função de envio do formulário após confirmação
     const handleSubmit = async () => {
         const coordenadorData = {
