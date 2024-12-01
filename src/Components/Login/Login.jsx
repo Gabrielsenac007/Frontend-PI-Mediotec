@@ -14,7 +14,7 @@ const Login = () => {
 
     try {
       // Faz uma requisição POST para o endpoint de login com CPF e senha no corpo
-      const response = await fetch('https://sam-light-production.up.railway.app/api/auth/login', {
+      const response = await fetch('http://localhost:8080/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

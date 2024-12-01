@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://sam-light-production.up.railway.app/api';
+const API_URL = 'http://localhost:8080/api';
 
 // Cria uma instância do Axios
 const api = axios.create({
@@ -140,7 +140,7 @@ export const cadastrarCoordenador = async (dados) => {
 // Função para buscar coordenadores
 export const fetchCoordenadores = async () => {
     try {
-        const response = await fetch('https://sam-light-production.up.railway.app/api/users/allCoordenador', {
+        const response = await fetch('http://localhost:8080/api/users/allCoordenador', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

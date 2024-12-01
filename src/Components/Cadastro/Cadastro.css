@@ -1,4 +1,9 @@
 .container {
+    width: 100%;
+    height: 100%;
+}
+
+.form{
     width: 450px;
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
@@ -7,6 +12,7 @@
     padding: 40px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     margin: 20px auto;
+
 }
 
 .container h1 {
@@ -18,8 +24,13 @@
 .container .input-field {
     position: relative;
     width: 100%;
-    height: 50px;
+    height: auto;
     margin: 30px 0;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
 }
 
 .input-field input {
@@ -35,6 +46,12 @@
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 
+.input-ico{
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
 .input-field input::placeholder {
     color: rgba(0, 0, 0, 0.5);
 }
@@ -46,7 +63,7 @@
 .input-field .icon {
     position: absolute;
     right: 25px;
-    top: 50%;
+    top: 10;
     transform: translateY(-50%);
     font-size: 16px;
     color: #0A0A0A;
@@ -131,4 +148,25 @@
 .login-link p a:hover {
     text-decoration: underline;
     color: #0056b3;
+}
+
+.error{
+    background-color: rgb(228, 146, 146);
+    font-size: 14px !important;
+    border-radius: 30px;
+    width: fit-content;
+    padding: 1px 20px;
+}
+
+.password-icon{
+    position: absolute;
+    right: 25px;
+    top: 20px;
+
+}
+
+.passwd-icon{
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #0A0A0A;
 }
