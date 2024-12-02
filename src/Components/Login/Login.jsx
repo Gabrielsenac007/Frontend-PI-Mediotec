@@ -2,8 +2,10 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import { useRole } from '../Contexts/RoleContext';
 
 const Login = () => {
+  const {setRole} = useRole();
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -33,6 +35,13 @@ const Login = () => {
         // Armazena o token e o nome do usuário no localStorage
         localStorage.setItem('token', data.token); // Armazena o nome do usuário
         localStorage.setItem('id', data.id); // Armazena o nome do usuário
+
+        
+        
+        //Seta a role com a role devolvida do back-end
+        setRole(data.role);
+
+
 
         // Exibe um alerta com a role do usuário
         // alert('Role do usuário: ' + data.role + data.id ) ;

@@ -24,12 +24,17 @@ import EditarCoordenador from './Components/EditUser/EditCoordenador.jsx';
 import AssociarTurmaDisciplina from './Components/Associoar/AssociarTurmaDiscipli.jsx';
 import EditarTurma from './Components/EditUser/EditTurmas.jsx';
 import ListaComunicados from './Components/Comunicados/ListaComunicados.jsx';
+import { RoleProvider } from './Components/Contexts/RoleContext.jsx';
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />, // Renderiza o App
+    element: 
+    <RoleProvider>
+      <App />
+    </RoleProvider>
+    , // Renderiza o App
     children: [
       {
         path: '/',
