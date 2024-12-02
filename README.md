@@ -1,10 +1,8 @@
-.
-
-📚 Projeto de Cadastro de Alunos
+# 📚 Projeto de Cadastro de Alunos
 Este é um projeto desenvolvido em React que permite o cadastro, listagem e gerenciamento de alunos, incluindo a associação de imagens de perfil e validações completas no front-end. Ele utiliza uma integração com APIs REST no backend para armazenar e processar os dados.
 
-🚀 Tecnologias Utilizadas
-Frontend:
+## 🚀 Tecnologias Utilizadas
+### **Frontend:**
 React
 React Hook Form + Zod (validação de formulários)
 Axios (requisições HTTP)
