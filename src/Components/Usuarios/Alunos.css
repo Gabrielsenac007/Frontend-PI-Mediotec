@@ -109,3 +109,15 @@
     border-color: #0056b3;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
+
+.first-info{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.foto{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}

@@ -18,15 +18,13 @@ const AlunoDisplay = () => {
             try {
                 const response = await fetchAlunos();
                 console.log("Resposta completa da API:", response);
-        
-                // Criar uma lista de alunos a partir da resposta da API
-                const alunosList = response.flatMap(aluno => aluno.studentClass.students);
-        
-                // Filtrar apenas os alunos habilitados
-                const filteredAlunos = alunosList.filter(aluno => aluno.enabled);
-        
-                console.log("Alunos habilitados:", filteredAlunos);
-                setData(filteredAlunos);
+    
+               
+                if (!Array.isArray(response)) {
+                    throw new Error("O formato da resposta da API não é um array.");
+                }
+
+                setData(response);
             } catch (error) {
                 console.error("Erro ao buscar alunos:", error.message);
                 setError(error.message);
@@ -34,9 +32,10 @@ const AlunoDisplay = () => {
                 setLoading(false);
             }
         };
-        
+    
         getAlunos();
     }, []);
+    
 
     const handleEdit = (id) => {
         navigate(`/edit/${id}`); // Caminho correto para navegação
@@ -94,10 +93,13 @@ const AlunoDisplay = () => {
                 {filteredData.length > 0 ? (
                     filteredData.map(item => (
                         <li key={item.id} className="data-item">
-                            <div className="data-info">
-                                <h3>Nome: {item.name}</h3>
-                                <p>Email: {item.email}</p>
-                                {/*<p>Turma: {item.studentClass?.nameClass || 'N/A'}</p>  Verifica se a turma existe */}
+                            <div className='first-info'>
+                                {item.imgProfile && <div className="img-profile"><img className='foto' src={item.imgProfile} alt="" /></div>}
+                                <div className="data-info">
+                                    <h3>Nome: {item.name}</h3>
+                                    <p>Email: {item.email}</p>
+                                    {/*<p>Turma: {item.studentClass?.nameClass || 'N/A'}</p>  Verifica se a turma existe */}
+                                </div>
                             </div>
                             <div className="action-icons">
                                 <FaEdit className="icon edit" onClick={() => handleEdit(item.id)} />

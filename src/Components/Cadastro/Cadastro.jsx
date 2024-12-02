@@ -8,12 +8,12 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import './Cadastro.css';
-import { cadastrarAluno, listarTurmas } from '../../services/api';
+import { listarTurmas } from '../../services/api';
+import axios from 'axios';
 
 // Função para validar CPF
 const isValidCPF = (cpf) => {
-  cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
-
+  cpf = cpf.replace(/\D/g, '');
   if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
   let soma = 0;
@@ -32,14 +32,10 @@ const isValidCPF = (cpf) => {
 
 // Schema de validação com Zod
 const cadastroAlunoSchema = z.object({
-  cpf: z
-    .string()
-    .min(1, 'CPF é obrigatório.')
-    .refine((value) => isValidCPF(value.replace(/\D/g, '')), { message: 'CPF inválido' }),
+  cpf: z.string().min(1, 'CPF é obrigatório.').refine((value) => isValidCPF(value.replace(/\D/g, '')), { message: 'CPF inválido' }),
   name: z.string().min(1, 'Nome é obrigatório'),
   email: z.string().email('Formato de email inválido'),
-  password: z
-    .string()
+  password: z.string()
     .min(6, 'A senha deve ter no mínimo 6 caracteres')
     .regex(/[A-Z]/, 'A senha deve conter pelo menos uma letra maiúscula')
     .regex(/[0-9]/, 'A senha deve conter pelo menos um número')
@@ -52,6 +48,7 @@ const Cadastro = () => {
   const [turmas, setTurmas] = useState([]);
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [imgProfile, setImgProfile] = useState(null); // Para armazenar o arquivo de imagem
 
   // React Hook Form + Zod
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -73,41 +70,28 @@ const Cadastro = () => {
 
   // Envio do formulário
   const createUser = async (data) => {
-    const alunoData = {
-      cpf: data.cpf.replace(/\D/g, ''), // Remove a máscara do CPF
-      name: data.name,
-      email: data.email,
-      password: data.password,
-      classeId: data.turmaId, // ID da turma
-    };
+    const formData = new FormData();
+    formData.append('cpf', data.cpf.replace(/\D/g, ''));
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('classeId', data.turmaId);
+    if (imgProfile) {
+      formData.append('imgProfile', imgProfile);
+    }
 
     try {
-      const response = await cadastrarAluno(alunoData);
+      const response = await axios.post('http://localhost:8080/api/users/register/student', formData, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Adicione seu token aqui
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('Cadastro realizado com sucesso!');
       navigate('/alunos');
     } catch (error) {
       setError('Erro ao cadastrar: ' + error.message);
     }
-  };
-
-  // Função para confirmar o cadastro
-  const handleConfirm = (event) => {
-    event.preventDefault();
-
-    confirmAlert({
-      title: 'Confirmação de Cadastro',
-      message: 'Tem certeza que deseja cadastrar este aluno?',
-      buttons: [
-        {
-          label: 'Sim',
-          onClick: () => handleSubmit(onSubmit)(),
-        },
-        {
-          label: 'Não',
-          onClick: () => {},
-        },
-      ],
-    });
   };
 
   return (
@@ -119,11 +103,7 @@ const Cadastro = () => {
         {/* Campo de CPF com máscara */}
         <div className="input-field">
           <div className="input-ico">
-            <InputMask
-              mask="999.999.999-99"
-              placeholder="CPF"
-              {...register('cpf')}
-            />
+            <InputMask mask="999.999.999-99" placeholder="CPF" {...register('cpf')} />
             <FaIdCard className="icon" />
           </div>
           {errors.cpf && <p className="error">{errors.cpf.message}</p>}
@@ -132,11 +112,7 @@ const Cadastro = () => {
         {/* Campo de Nome */}
         <div className="input-field">
           <div className="input-ico">
-            <input
-              type="text"
-              placeholder="Nome"
-              {...register('name')}
-            />
+            <input type="text" placeholder="Nome" {...register('name')} />
             <FaUser className="icon" />
           </div>
           {errors.name && <p className="error">{errors.name.message}</p>}
@@ -145,11 +121,7 @@ const Cadastro = () => {
         {/* Campo de Email */}
         <div className="input-field">
           <div className="input-ico">
-            <input
-              type="email"
-              placeholder="Email"
-              {...register('email')}
-            />
+            <input type="email" placeholder="Email" {...register('email')} />
             <FaEnvelope className="icon" />
           </div>
           {errors.email && <p className="error">{errors.email.message}</p>}
@@ -158,16 +130,8 @@ const Cadastro = () => {
         {/* Campo de Senha */}
         <div className="input-field">
           <div className="input-ico">
-            <input
-              type={showPassword ? "text" : "password"} // Altera entre "text" e "password"
-              placeholder="Senha"
-              {...register('password')}
-            />
-            <div
-              className="password-icon"
-              onClick={() => setShowPassword((prev) => !prev)} // Alterna o estado
-              style={{ cursor: 'pointer', marginLeft: '8px' }} // Garante espaçamento
-            >
+            <input type={showPassword ? "text" : "password"} placeholder="Senha" {...register('password')} />
+            <div className="password-icon" onClick={() => setShowPassword((prev) => !prev)} style={{ cursor: 'pointer', marginLeft: '8px' }}>
               {showPassword ? <FaEyeSlash className="icon" /> : <FaEye className="icon" />}
             </div>
           </div>
@@ -180,12 +144,21 @@ const Cadastro = () => {
           <select id="turma" {...register('turmaId')}>
             <option value="">Selecione uma turma</option>
             {turmas.map((turma) => (
-              <option key={turma.id} value={turma.id}>
-                {turma.nameClass}
-              </option>
+              <option key={turma.id} value={turma.id}>{turma.nameClass}</option>
             ))}
           </select>
           {errors.turmaId && <p className="error">{errors.turmaId.message}</p>}
+        </div>
+
+        {/* Campo de Upload de Imagem */}
+        <div className="input-field">
+          <label htmlFor="imgProfile">Imagem de Perfil:</label>
+          <input
+            type="file"
+            id="imgProfile"
+            accept="image/*"
+            onChange={(e) => setImgProfile(e.target.files[0])}
+          />
         </div>
 
         <button type="submit">Cadastrar</button>
