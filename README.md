@@ -1,71 +1,83 @@
-Sistema de Gestão Escolar - Mediotec
-
+# 📚 Sistema de Gestão Escolar - Mediotec
 Este projeto foi desenvolvido como parte de um trabalho acadêmico para um sistema de gestão escolar voltado para o Mediotec, um programa de ensino médio profissionalizante oferecido pelo Senac na região metropolitana do Recife. O sistema tem como objetivo facilitar a administração acadêmica e a comunicação entre alunos, professores e coordenadores, com foco em usabilidade e eficiência.
 
-Funcionalidades
+## 🚀 Tecnologias Utilizadas
 
-1. Gerenciamento de Usuários
-O sistema permite o cadastro e a autenticação de três perfis principais: Alunos, Professores e Coordenadores.
-Utiliza autenticação baseada em JWT para proteger as rotas e garantir a segurança dos dados.
-Cada perfil possui funções específicas e permissões personalizadas, gerenciadas pelo back-end.
-2. Cadastro e Atribuição de Disciplinas
-O coordenador pode cadastrar professores e associá-los a disciplinas diretamente pelo sistema.
-Para o cadastro de professores, as disciplinas são recuperadas via API e associadas utilizando os respectivos IDs.
-3. Gerenciamento de Turmas
-O sistema permite a criação de turmas e a atribuição de alunos a essas turmas.
-Cada aluno é relacionado a apenas uma turma, enquanto uma turma pode conter vários alunos.
-Professores são associados a disciplinas e turmas, permitindo a gestão de conteúdos e avaliações.
-4. Conceitos Acadêmicos
-A tabela de conceitos armazena as notas e avaliações dos alunos, associadas diretamente ao usuário (aluno), sem relação direta com turmas.
-As notas podem ser consultadas por classe e disciplina específicas, facilitando a análise de desempenho acadêmico.
-5. Comunicação Interna
-O sistema oferece uma funcionalidade de envio de comunicados, permitindo que coordenadores e professores compartilhem informações importantes com os alunos.
-6. Sistema de Autenticação
-Utilizamos o Auth0 JWT para geração e verificação de tokens JWT. O token contém o CPF do usuário como subject.
-A autenticação é central para proteger informações sensíveis e assegurar que somente usuários autenticados possam acessar determinadas funcionalidades.
-Tecnologias Utilizadas
-Backend: Spring Boot com Spring Data JPA e MySQL.
-Frontend: React.js (não implementado ainda, mas planejado).
-Autenticação: Auth0 JWT.
-Banco de Dados: MySQL com utilização de stored procedures para gerenciar atualizações e inserções.
-Integração com API: O sistema busca dados externos de disciplinas e gerencia os IDs no back-end.
-Estrutura de Tabelas
-Usuários (Users)
+### **Frontend:**
+- ⚛️ React com Hooks (`useState`, `useEffect`).
+- 🎨 CSS modular para estilização.
+- 🛠️ `react-hook-form` para manipulação de formulários.
+- ✅ Validação com `zod` e `@hookform/resolvers`.
 
-Armazena informações básicas como CPF, nome, email e senha.
-Utiliza enum para o papel dos usuários (Aluno, Professor, Coordenador).
-Turmas (Classes)
+### **Backend:**
+- ☕ Spring Boot.
+- 🌐 Integração com APIs RESTful.
+- 📂 Upload de imagens com Cloudinary.
 
-Armazena o nome da turma, ano letivo, turno e semestre.
-Disciplinas (Disciplines)
+### **Outras Tecnologias**
+- 🔐 Autenticação JWT.
+- 🗄️ Banco de dados relacional.
 
-Contém informações sobre cada disciplina, como nome e descrição.
-Turmas_Disciplinas
+---
 
-Tabela intermediária para associar turmas a disciplinas, permitindo o relacionamento de muitos para muitos.
-Conceitos
+## 📋 Pré-requisitos
+Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
+- Node.js (versão LTS recomendada).
+- NPM ou Yarn.
+- Backend configurado e funcionando **[veja as instruções do backend](https://github.com/matheusdesacarvalholimeira/PI.git)**
 
-Armazena notas e avaliações dos alunos por disciplina.
-Procedimentos Armazenados (Stored Procedures)
-associate_classes_and_disciplines: Procedimento para associar turmas e disciplinas.
-Utilização de IFNULL e NULLIF para garantir a atualização condicional de colunas durante modificações nos registros.
-Como Rodar o Projeto
-Clone o Repositório
+🔧 Instalação e Configuração
+1. Clone este repositório:
+```
+git clone https://github.com/eutonton/Frontend-PI-Mediotec.git
+```
 
-bash
-Copiar código
-git clone https://github.com/seu-usuario/sistema-escolar-mediotec.git
-Configure o Banco de Dados
+2. Acesse o diretório do projeto:
+ ```
+cd seu-repositorio
+```
 
-Crie o banco de dados MySQL utilizando o arquivo schema.sql fornecido.
-Instale as Dependências
+3. Instale as dependências:
+```
+npm install
+```
+# oo
+```
+yarn install
+```
 
-Copiar código
-mvn install
-Configure as Variáveis de Ambiente
+4. Configure as variáveis de ambiente:
+Crie um arquivo .env na raiz do projeto com as seguintes variáveis:
+```
+REACT_APP_API_BASE_URL=http://localhost:8080
+```
+Substitua http://localhost:8080 pela URL da sua API backend.
 
-Defina as variáveis de ambiente para a conexão com o banco de dados MySQL e a configuração do Auth0 JWT.
-Inicie o Servidor
-mvn spring-boot:run
-Considerações Finais
-Este sistema foi desenvolvido para fins acadêmicos, com o objetivo de aplicar conceitos de arquitetura de software, autenticação segura e boas práticas de desenvolvimento. Futuras melhorias incluem a implementação de um front-end em React.js e a adição de novas funcionalidades voltadas à comunicação e gestão de conteúdo escolar.
+5. Inicie o servidor de desenvolvimento:
+
+```
+npm start
+# ou
+yarn start
+```
+A aplicação será aberta no navegador no endereço http://localhost:3000.
+
+📦 Estrutura do Projeto
+Diretórios Principais
+* [src/components:] Componentes reutilizáveis da aplicação.
+* [src/pages:] Páginas principais, como o formulário de cadastro e listagem de alunos.
+* [src/services:] Configurações e chamadas de APIs.
+* [src/styles:] Arquivos de estilo global e específicos.
+
+
+🛠️ Funcionalidades Implementadas
+1. Cadastro de Aluno, Professores e Coordenadores
+2. Listagem de Alunos, Professores e Coordenadores
+3. Cadastro de turmas e disciplinas
+4. Edição dos usuários
+5. Cadastro e visualização de notas
+
+## 🛠️ Instruções do Backend
+### Certifique-se de que o backend está configurado e rodando corretamente.
+**[veja as instruções do backend](https://github.com/matheusdesacarvalholimeira/PI.git)**
+
