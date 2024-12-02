@@ -1,5 +1,5 @@
-# 📚 Projeto de Cadastro de Alunos
-Este é um projeto desenvolvido em React que permite o cadastro, listagem e gerenciamento de alunos, incluindo a associação de imagens de perfil e validações completas no front-end. Ele utiliza uma integração com APIs REST no backend para armazenar e processar os dados.
+# 📚 Sistema de Gestão Escolar - Mediotec
+Este projeto foi desenvolvido como parte de um trabalho acadêmico para um sistema de gestão escolar voltado para o Mediotec, um programa de ensino médio profissionalizante oferecido pelo Senac na região metropolitana do Recife. O sistema tem como objetivo facilitar a administração acadêmica e a comunicação entre alunos, professores e coordenadores, com foco em usabilidade e eficiência.
 
 ## 🚀 Tecnologias Utilizadas
 
