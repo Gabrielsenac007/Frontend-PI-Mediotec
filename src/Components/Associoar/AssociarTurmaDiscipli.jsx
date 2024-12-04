@@ -45,7 +45,7 @@ const AssociarTurmaDisciplina = () => {
     }
 
     try {
-      const response = await fetch('https://sam-light-production.up.railway.app/api/classes/associateClassDiscipline', {
+      const response = await fetch('https://sis-medio-production.up.railway.app/api/classes/associateClassDiscipline', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

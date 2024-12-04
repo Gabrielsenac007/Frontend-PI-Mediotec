@@ -2,7 +2,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 import { Toast } from '../Components/Swal';
 
-const API_URL = 'https://sis-medio-production.up.railway.app';
+const API_URL = 'https://sis-medio-production.up.railway.app/api';
 
 // Cria uma instância do Axios
 const api = axios.create({
