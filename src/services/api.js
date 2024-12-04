@@ -252,7 +252,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
         throw new Error('Token de autenticação não encontrado.');
     }
 
-    const response = await fetch('https://sam-light-production.up.railway.app/api/disciplines/insertDiscipline', {
+    const response = await fetch('https://sis-medio-production.up.railway.app/api/disciplines/insertDiscipline', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -271,7 +271,7 @@ export const cadastrarDisciplina = async (disciplinaData) => {
 
 // Função para cadastrar Turma
 export const cadastrarTurma = async (turmaData) => {
-    const response = await fetch('https://sam-light-production.up.railway.app/api/classes/classRegister', {
+    const response = await fetch('https://sis-medio-production.up.railway.app/api/classes/classRegister', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(turmaData),
@@ -309,7 +309,7 @@ export const fetchTurmas = async () => {
 // Função para atualizar uma turma
 export const atualizarTurma = async (id, turmaData) => {
     try {
-        const response = await axios.put(`https://sam-light-production.up.railway.app/api/classes/update/class/${id}`, turmaData);
+        const response = await axios.put(`https://sis-medio-production.up.railway.app/api/classes/update/class/${id}`, turmaData);
         return response.data;
     } catch (error) {
         throw new Error(error.response ? error.response.data.message : error.message);
