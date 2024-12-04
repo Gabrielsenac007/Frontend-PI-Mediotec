@@ -101,6 +101,19 @@ export const obterAluno = async (id) => {
     }
 };
 
+export const obterAlunoPorId = async (id) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/users/student/findById/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      return response.data; // Retorna os dados do aluno
+    } catch (error) {
+      throw new Error('Erro ao obter o aluno: ' + error.message);
+    }
+  };
+
 // Função para autenticar usuário
 export const autenticarUsuario = async (cpf, password) => {
     try {

@@ -132,7 +132,7 @@ const Cadastro = () => {
           <div className="input-ico">
             <input type={showPassword ? "text" : "password"} placeholder="Senha" {...register('password')} />
             <div className="password-icon" onClick={() => setShowPassword((prev) => !prev)} style={{ cursor: 'pointer', marginLeft: '8px' }}>
-              {showPassword ? <FaEyeSlash className="icon" /> : <FaEye className="icon" />}
+              {showPassword ? <FaEyeSlash className="passwd-icon" /> : <FaEye className="passwd-icon" />}
             </div>
           </div>
           {errors.password && <p className="error">{errors.password.message}</p>}

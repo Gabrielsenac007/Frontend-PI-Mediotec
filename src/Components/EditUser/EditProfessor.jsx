@@ -1,23 +1,64 @@
-import { useState, useEffect } from 'react'; 
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaPlus, FaIdCard } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaIdCard, FaTimes, FaPlus } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import './EditUsuario.css';
 
-const EditarProfessor = () => {
-    const { id } = useParams(); // Pega o ID do professor da URL
-    const [cpf, setCpf] = useState("");
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [materias, setMaterias] = useState([{ disciplinaId: "" }]);
-    const [opcoesMaterias, setOpcoesMaterias] = useState([]);
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
+// Validação com Zod
+const professorSchema = z.object({
+    cpf: z
+        .string()
+        .min(11, 'CPF deve ter no mínimo 11 caracteres.')
+        .max(14, 'CPF deve ter no máximo 14 caracteres.'),
+    name: z.string().min(3, 'Nome deve ter no mínimo 3 caracteres.'),
+    email: z.string().email('Formato de email inválido.'),
+    password: z.string().optional(), // Senha opcional
+});
 
-    // Função para buscar as disciplinas disponíveis
+const disciplinasSchema = z
+    .array(
+        z.object({
+            disciplinaId: z.string().min(1, 'Matéria é obrigatória.'),
+        })
+    )
+    .nonempty('Ao menos uma matéria é obrigatória.');
+
+const schema = z.object({
+    professor: professorSchema,
+    disciplina: disciplinasSchema,
+});
+
+const EditarProfessor = () => {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [opcoesMaterias, setOpcoesMaterias] = useState([]);
+    const [error, setError] = useState('');
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors },
+        watch,
+    } = useForm({
+        resolver: zodResolver(schema),
+        defaultValues: {
+            professor: {
+                cpf: '',
+                name: '',
+                email: '',
+                password: '',
+            },
+            disciplina: [{ disciplinaId: '' }],
+        },
+    });
+
+    // Carregar disciplinas
     const fetchDisciplinas = async () => {
         try {
-            const response = await fetch('https://sam-light-production.up.railway.app/api/disciplines/getAll');
+            const response = await fetch('http://localhost:8080/api/disciplines/getAll');
             const data = await response.json();
             setOpcoesMaterias(data);
         } catch (error) {
@@ -25,140 +66,170 @@ const EditarProfessor = () => {
         }
     };
 
+    // Carregar informações do professor
+    const fetchProfessor = async () => {
+        try {
+            // Carregar dados do professor
+            const response = await fetch(`http://localhost:8080/api/users/professor/findById/${id}`);
+            const data = await response.json();
+    
+            setValue('professor.cpf', data.cpf);
+            setValue('professor.name', data.name);
+            setValue('professor.email', data.email);
+            setValue('professor.password', data.password); // Se a senha for retornada
+    
+            // Carregar disciplinas associadas ao professor
+            const disciplinasResponse = await fetch(`http://localhost:8080/api/disciplines/${id}/getDisciplines`);
+            const disciplinasData = await disciplinasResponse.json();
+    
+            // Preencher as disciplinas no formulário
+            setValue(
+                'disciplina',
+                disciplinasData.map((d) => ({ disciplinaId: d.id }))
+            );
+        } catch (error) {
+            setError('Erro ao carregar dados do professor: ' + error.message);
+        }
+    };
+
     useEffect(() => {
         fetchDisciplinas();
+        fetchProfessor();
     }, []);
 
-    // Função para lidar com o envio do formulário de edição
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-
-        const professorData = {
-            cpf,
-            name,
-            email,
-            password, // A senha pode ser deixada vazia se não for necessária
-            disciplinas: materias.map((materia) => ({
-                disciplinaId: materia.disciplinaId,
-            })),
-        };
-
+    const onSubmit = async (data) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`https://sam-light-production.up.railway.app/api/users/update/professor/${id}`, {
+            const response = await fetch(`http://localhost:8080/api/users/update/professor/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(professorData),
+                body: JSON.stringify({
+                    professor: data.professor,
+                    disciplina: data.disciplina,
+                }),
             });
 
-            if (!response.ok) {
-                throw new Error('Erro ao atualizar o professor');
-            }
+            if (!response.ok) throw new Error('Erro ao atualizar o professor.');
 
             alert('Edição realizada com sucesso!');
-            navigate('/professores'); // Navega para a lista de professores após a edição
-
+            navigate('/professores');
         } catch (error) {
             setError('Erro ao editar: ' + error.message);
         }
     };
 
-    // Função para adicionar mais matérias no formulário
     const addMateria = () => {
-        setMaterias([...materias, { disciplinaId: "" }]);
+        setValue('disciplina', [...watch('disciplina'), { disciplinaId: '' }]);
+    };
+
+    const removeMateria = async (index) => {
+        const materias = watch('disciplina');
+        const disciplinaId = materias[index].disciplinaId; 
+        const professorId = id; 
+    
+        try {
+  
+            const token = localStorage.getItem('token');
+            const response = await fetch(`http://localhost:8080/api/disciplines/removeAssoci`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    professorId: professorId,
+                    disciplineId: disciplinaId,
+                }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Erro ao remover a disciplina.');
+            }
+    
+            // Após remover a disciplina, remova do estado local
+            setValue('disciplina', materias.filter((_, i) => i !== index));
+    
+            alert('Disciplina removida com sucesso!');
+        } catch (error) {
+            setError('Erro ao remover disciplina: ' + error.message);
+        }
     };
 
     return (
         <div className="container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <h1>Editar Professor</h1>
                 {error && <p className="error">{error}</p>}
 
-                {/* Campo de CPF */}
-                <div className='input-field'>
+                {/* CPF */}
+                <div className="input-field">
                     <input
                         type="text"
-                        placeholder='CPF'
-                        value={cpf}
-                        onChange={(e) => setCpf(e.target.value)}
-                        required
+                        placeholder="CPF"
+                        {...register('professor.cpf')}
                     />
-                    <FaIdCard className='icon' />
+                    <FaIdCard className="icon" />
+                    {errors.professor?.cpf && <p className="error">{errors.professor.cpf.message}</p>}
                 </div>
 
-                {/* Campo de Nome */}
-                <div className='input-field'>
+                {/* Nome */}
+                <div className="input-field">
                     <input
                         type="text"
-                        placeholder='Nome'
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
+                        placeholder="Nome"
+                        {...register('professor.name')}
                     />
-                    <FaUser className='icon' />
+                    <FaUser className="icon" />
+                    {errors.professor?.name && <p className="error">{errors.professor.name.message}</p>}
                 </div>
 
-                {/* Campo de Email */}
-                <div className='input-field'>
+                {/* Email */}
+                <div className="input-field">
                     <input
                         type="email"
-                        placeholder='Email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
+                        placeholder="Email"
+                        {...register('professor.email')}
                     />
-                    <FaEnvelope className='icon' />
+                    <FaEnvelope className="icon" />
+                    {errors.professor?.email && <p className="error">{errors.professor.email.message}</p>}
                 </div>
 
-                {/* Campo de Senha */}
-                <div className='input-field'>
+                {/* Senha */}
+                <div className="input-field">
                     <input
                         type="password"
-                        placeholder='Senha (opcional)'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Senha (opcional)"
+                        {...register('professor.password')}
                     />
-                    <FaLock className='icon' />
+                    <FaLock className="icon" />
+                    {errors.professor?.password && <p className="error">{errors.professor.password.message}</p>}
                 </div>
 
-                {/* Campo de Matérias */}
-                {materias.map((materia, index) => (
-                    <div className='input-field' key={index}>
+                {/* Matérias */}
+                {(watch('disciplina') || []).map((materia, index) => (
+                    <div className="input-field" key={index}>
                         <select
-                            value={materia.disciplinaId}
-                            onChange={(e) => {
-                                const newMaterias = [...materias];
-                                newMaterias[index].disciplinaId = e.target.value;
-                                setMaterias(newMaterias);
-                            }}
-                            required
+                            {...register(`disciplina.${index}.disciplinaId`)}
+                            defaultValue={materia.disciplinaId}  // Preencher o valor da disciplina associada
                         >
                             <option value="">Selecione uma matéria</option>
-                            {opcoesMaterias.map((disciplina) => (
-                                <option key={disciplina.id} value={disciplina.id}>
-                                    {disciplina.disciplineName}
+                            {opcoesMaterias.map((d) => (
+                                <option key={d.id} value={d.id}>
+                                    {d.disciplineName}
                                 </option>
                             ))}
                         </select>
-                        {index === materias.length - 1 && (
-                            <a
-                                href="#"
-                                className="add-materia-button"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    addMateria();
-                                }}
-                            >
-                                <FaPlus />
-                            </a>
-                        )}
+                        <FaTimes className="remove-icon" onClick={() => removeMateria(index)} />
                     </div>
                 ))}
+                <button type="button" onClick={addMateria} style={{ marginBottom: 20 }}>
+                    <FaPlus />
+                </button>
 
-                <button type="submit" className='cadastro-bnt'>Salvar</button>
+                <button type="submit">Salvar</button>
             </form>
         </div>
     );
