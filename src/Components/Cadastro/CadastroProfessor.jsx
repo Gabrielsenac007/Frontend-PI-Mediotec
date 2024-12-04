@@ -75,7 +75,7 @@ const Cadastro = () => {
 
   const fetchDisciplinas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/disciplines/getAll');
+      const response = await fetch('https://sis-medio-production.up.railway.app/api/disciplines/getAll');
       const data = await response.json();
       setOpcoesMaterias(data);
     } catch (error) {
@@ -101,7 +101,7 @@ const Cadastro = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const response = await fetch('http://localhost:8080/api/users/register/professor', {
+      const response = await fetch('https://sis-medio-production.up.railway.app/api/users/register/professor', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const ListarNotas = () => {
 
   const fetchDisciplinas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/disciplines/getAll');
+      const response = await fetch('https://sis-medio-production.up.railway.app/api/disciplines/getAll');
       if (!response.ok) {
         throw new Error('Erro ao carregar disciplinas');
       }
@@ -31,7 +31,7 @@ const ListarNotas = () => {
 
   const fetchTurmas = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/classes/getAllClasses');
+      const response = await fetch('https://sis-medio-production.up.railway.app/api/classes/getAllClasses');
       if (!response.ok) {
         throw new Error('Erro ao carregar turmas');
       }
@@ -51,13 +51,13 @@ const ListarNotas = () => {
     let endpoint;
     switch (selectedUnidade) {
       case 'unidade1':
-        endpoint = `http://localhost:8080/api/concepts/conceptsOne/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        endpoint = `https://sis-medio-production.up.railway.app/api/concepts/conceptsOne/class/${selectedTurma}/discipline/${selectedDisciplina}`;
         break;
       case 'unidade2':
-        endpoint = `http://localhost:8080/api/concepts/conceptsTwo/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        endpoint = `https://sis-medio-production.up.railway.app/api/concepts/conceptsTwo/class/${selectedTurma}/discipline/${selectedDisciplina}`;
         break;
       case 'unidade3':
-        endpoint = `http://localhost:8080/api/concepts/conceptsThree/class/${selectedTurma}/discipline/${selectedDisciplina}`;
+        endpoint = `https://sis-medio-production.up.railway.app/api/concepts/conceptsThree/class/${selectedTurma}/discipline/${selectedDisciplina}`;
         break;
       default:
         return; // Saia se a unidade não for válida

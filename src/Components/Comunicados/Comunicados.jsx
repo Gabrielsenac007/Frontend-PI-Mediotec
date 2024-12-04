@@ -37,7 +37,7 @@ const Comunicados = () => {
   useEffect(() => {
     const fetchTurmas = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/classes/getAllClasses'); // Substitua pela URL correta
+        const response = await axios.get('https://sis-medio-production.up.railway.app/api/classes/getAllClasses'); // Substitua pela URL correta
         setTurmas(response.data);
       } catch (err) {
         console.error('Erro ao carregar as turmas:', err);
@@ -51,7 +51,7 @@ const Comunicados = () => {
     setMessage('');
     try {
       const creatorId = localStorage.getItem('id');
-      await axios.post('http://localhost:8080/api/statement/insertStatement', {
+      await axios.post('https://sis-medio-production.up.railway.app/api/statement/insertStatement', {
         ...data,
         creatorId,
       });

@@ -2,7 +2,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 import { Toast } from '../Components/Swal';
 
-const API_URL = 'http://localhost:8080/api';
+const API_URL = 'https://sis-medio-production.up.railway.app';
 
 // Cria uma instância do Axios
 const api = axios.create({
@@ -105,7 +105,7 @@ export const obterAluno = async (id) => {
 
 export const obterAlunoPorId = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/users/student/findById/${id}`, {
+      const response = await axios.get(`https://sis-medio-production.up.railway.app/api/users/student/findById/${id}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
@@ -160,7 +160,7 @@ export const cadastrarCoordenador = async (dados) => {
 // Função para buscar coordenadores
 export const fetchCoordenadores = async () => {
     try {
-        const response = await fetch('http://localhost:8080/api/users/allCoordenador', {
+        const response = await fetch('https://sis-medio-production.up.railway.app/api/users/allCoordenador', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -183,7 +183,7 @@ export const fetchCoordenadores = async () => {
 // Função para atualizar um coordenador
 export const editarCoordenador = async (id, coordenadorData) => {
     try {
-        const response = await fetch(`http://localhost:8080/api/users/update/coordinator/${id}`, {
+        const response = await fetch(`https://sis-medio-production.up.railway.app/api/users/update/coordinator/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

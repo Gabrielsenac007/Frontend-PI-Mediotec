@@ -101,7 +101,7 @@ const EditarAluno = () => {
     }
   
     try {
-      await axios.put(`http://localhost:8080/api/users/update/student/${id}`, formData, {
+      await axios.put(`https://sis-medio-production.up.railway.app/api/users/update/student/${id}`, formData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data',  

@@ -87,7 +87,7 @@ const Cadastro = () => {
     }
 
     try {
-      await axios.post('http://localhost:8080/api/users/register/student', formData, {
+      await axios.post('https://sis-medio-production.up.railway.app/api/users/register/student', formData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Adicione seu token aqui
           'Content-Type': 'multipart/form-data',

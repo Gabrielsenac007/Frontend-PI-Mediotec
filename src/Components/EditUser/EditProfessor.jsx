@@ -58,7 +58,7 @@ const EditarProfessor = () => {
     // Carregar disciplinas
     const fetchDisciplinas = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/disciplines/getAll');
+            const response = await fetch('https://sis-medio-production.up.railway.app/api/disciplines/getAll');
             const data = await response.json();
             setOpcoesMaterias(data);
         } catch (error) {
@@ -70,7 +70,7 @@ const EditarProfessor = () => {
     const fetchProfessor = async () => {
         try {
             // Carregar dados do professor
-            const response = await fetch(`http://localhost:8080/api/users/professor/findById/${id}`);
+            const response = await fetch(`https://sis-medio-production.up.railway.app/api/users/professor/findById/${id}`);
             const data = await response.json();
     
             setValue('professor.cpf', data.cpf);
@@ -79,7 +79,7 @@ const EditarProfessor = () => {
             setValue('professor.password', data.password); // Se a senha for retornada
     
             // Carregar disciplinas associadas ao professor
-            const disciplinasResponse = await fetch(`http://localhost:8080/api/disciplines/${id}/getDisciplines`);
+            const disciplinasResponse = await fetch(`https://sis-medio-production.up.railway.app/api/disciplines/${id}/getDisciplines`);
             const disciplinasData = await disciplinasResponse.json();
     
             // Preencher as disciplinas no formulário
@@ -100,7 +100,7 @@ const EditarProfessor = () => {
     const onSubmit = async (data) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/api/users/update/professor/${id}`, {
+            const response = await fetch(`https://sis-medio-production.up.railway.app/api/users/update/professor/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const EditarProfessor = () => {
         try {
   
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:8080/api/disciplines/removeAssoci`, {
+            const response = await fetch(`https://sis-medio-production.up.railway.app/api/disciplines/removeAssoci`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

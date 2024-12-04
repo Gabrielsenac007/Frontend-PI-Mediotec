@@ -39,9 +39,9 @@ const CadastroNotas = () => {
   const fetchData = async () => {
     try {
       const [disciplinasResponse, turmasResponse, alunosResponse] = await Promise.all([
-        fetch('http://localhost:8080/api/disciplines/getAll'),
-        fetch('http://localhost:8080/api/classes/getAllClasses'),
-        fetch('http://localhost:8080/api/users/allStudents'),
+        fetch('https://sis-medio-production.up.railway.app/api/disciplines/getAll'),
+        fetch('https://sis-medio-production.up.railway.app/api/classes/getAllClasses'),
+        fetch('https://sis-medio-production.up.railway.app/api/users/allStudents'),
       ]);
 
       if (!disciplinasResponse.ok) throw new Error('Erro ao carregar disciplinas');
@@ -90,9 +90,9 @@ const CadastroNotas = () => {
     };
     console.log(dados)
     const insertionEndpoints = {
-      ud1: 'http://localhost:8080/api/concepts/insertConceptUnitOne',
-      ud2: 'http://localhost:8080/api/concepts/insertConceptUnitTwo',
-      ud3: 'http://localhost:8080/api/concepts/insertConceptUnitThree',
+      ud1: 'https://sis-medio-production.up.railway.app/api/concepts/insertConceptUnitOne',
+      ud2: 'https://sis-medio-production.up.railway.app/api/concepts/insertConceptUnitTwo',
+      ud3: 'https://sis-medio-production.up.railway.app/api/concepts/insertConceptUnitThree',
     };
 
     const insertionEndpoint = insertionEndpoints[unidade];

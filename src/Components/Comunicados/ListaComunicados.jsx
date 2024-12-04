@@ -11,7 +11,7 @@ const ListaComunicados = () => {
 
   const fetchComunicados = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/statement/getAllStatements');
+      const response = await axios.get('https://sis-medio-production.up.railway.app/api/statement/getAllStatements');
       setComunicados(response.data); // Assume que a resposta é uma lista de comunicados
     } catch (error) {
       console.error('Erro ao buscar os comunicados:', error);
