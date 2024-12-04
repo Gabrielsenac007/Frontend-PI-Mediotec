@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaIdCard } from 'react-icons/fa'; // Ícones para os campos de input
-import { confirmAlert } from 'react-confirm-alert'; // Importe o confirmAlert
-import 'react-confirm-alert/src/react-confirm-alert.css'; // Importe o estilo padrão
+import { FaUser, FaEnvelope, FaIdCard } from 'react-icons/fa';
 import './Cadastro.css';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

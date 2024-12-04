@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cadastro.css'; // Certifique-se de ter um arquivo CSS correspondente para o estilo
 import { cadastrarTurma } from '../../services/api'; // Importe a função de cadastro da sua API
+import Swal from 'sweetalert2'
+import { Toast } from '../Swal';
 
 const CadastroTurma = () => {
     // Estados para os campos da turma
@@ -9,7 +11,7 @@ const CadastroTurma = () => {
     const [schoolYear, setSchoolYear] = useState("");
     const [shift, setShift] = useState("");
     const [semester, setSemester] = useState("");
-    const [error, setError] = useState("");
+    const [error] = useState("");
     const navigate = useNavigate(); // Para redirecionar após o cadastro
 
     // Função para lidar com o envio do formulário
@@ -26,10 +28,21 @@ const CadastroTurma = () => {
         try {
             // Envia os dados para a API e realiza o cadastro
             await cadastrarTurma(turmaData);
-            alert('Turma cadastrada com sucesso!');
+            Swal.fire({
+                icon:'success',
+                title:'Cadastro realizado com sucesso!',
+                showConfirmButton: true,
+                confirmButtonText:'Entendido',
+                confirmButtonColor:'green'
+            })
             navigate('/turmas'); // Redireciona para a lista de turmas ou outra página desejada
         } catch (error) {
-            setError('Erro ao cadastrar a turma: ' + error.message);
+            console.error(error)
+            Toast.fire({
+                icon:'error',
+                text:'Algo deu errado no cadastro!'
+        
+              })
         }
     };
 

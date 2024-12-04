@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaPlus, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaPlus, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from 'react-input-mask';
 import './Cadastro.css';
+import Swal from 'sweetalert2'
+import { Toast } from '../Swal';
 
 // Função para validar CPF
 const isValidCPF = (cpf) => {
@@ -109,13 +111,29 @@ const Cadastro = () => {
       });
 
       if (!response.ok) {
+        Toast.fire({
+          icon:'error',
+          text:'Algo deu errado no cadastro!'
+
+        })
         throw new Error('Erro ao cadastrar o professor');
       }
 
-      alert('Cadastro realizado com sucesso!');
+      Swal.fire({
+        icon:'success',
+        title:'Cadastro realizado com sucesso!',
+        showConfirmButton: true,
+        confirmButtonText:'Entendido',
+        confirmButtonColor:'green'
+      })
       navigate('/professores');
     } catch (error) {
-      setError('Erro ao cadastrar: ' + error.message);
+      console.error(error)
+      Toast.fire({
+        icon:'error',
+        text:'Algo deu errado no cadastro!'
+
+      })
     }
   };
 

@@ -2,13 +2,18 @@ import { FaUser, FaLock } from 'react-icons/fa';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
+import '../../Swal.css'
 import { useRole } from '../Contexts/RoleContext';
+import { Toast } from '../Swal';
+import Swal from 'sweetalert2'
+import InputMask from 'react-input-mask';
 
 const Login = () => {
   const {setRole} = useRole();
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const [show, setShow] = useState(false);
 
   // Função para submeter o formulário e fazer a autenticação
   const handleSubmit = async (event) => {
@@ -22,29 +27,28 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          cpf: cpf,
+          cpf: cpf.replace(/\D/g, ''),
           password: password,
         }),
-      });
+      })
+      ;
 
       // Verifica se a resposta é bem-sucedida (status 200)
       if (response.ok) {
         const data = await response.json();
-        console.log('Login bem-sucedido:', data);
-
         // Armazena o token e o nome do usuário no localStorage
         localStorage.setItem('token', data.token); // Armazena o nome do usuário
         localStorage.setItem('id', data.id); // Armazena o nome do usuário
 
-        
-        
         //Seta a role com a role devolvida do back-end
         setRole(data.role);
 
-
-
-        // Exibe um alerta com a role do usuário
-        // alert('Role do usuário: ' + data.role + data.id ) ;
+        Swal.fire({
+          icon:'success',
+          title:'Sucesso!',
+          text:'Usuário autenticado com sucesso',
+          confirmButtonColor:'green'
+        })
 
         // Verifica o papel do usuário (role) para redirecionamento
         if (data.role === 'PROFESSOR') {
@@ -61,7 +65,10 @@ const Login = () => {
       }
     } catch (error) {
       console.error('Erro:', error);
-      alert('Erro ao autenticar: ' + error.message); // Alerta ao usuário em caso de erro
+        Toast.fire({
+          icon: 'error',
+          title: 'Nome ou senha incorretos!',
+        })
     }
   };
 
@@ -72,12 +79,12 @@ const Login = () => {
 
         {/* Campo de entrada para o CPF */}
         <div className="input-field">
-          <input
+          <InputMask
+            mask="999.999.999-99"
             type="text"
             placeholder="CPF"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
-            pattern="\d{11}"
             title="Digite um CPF válido com 11 números"
             required
           />
@@ -87,13 +94,13 @@ const Login = () => {
         {/* Campo de entrada para a senha */}
         <div className="input-field">
           <input
-            type="password"
+            type={show?"text":"password"}
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <FaLock className="icon" />
+          <FaLock className="icon" onClick={()=>setShow(prev=>!prev)} />
         </div>
 
         {/* Botão de submissão do formulário */}
