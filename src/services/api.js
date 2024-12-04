@@ -1,4 +1,6 @@
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import { Toast } from '../Components/Swal';
 
 const API_URL = 'http://localhost:8080/api';
 
@@ -137,16 +139,21 @@ export const cadastrarCoordenador = async (dados) => {
             }
         });
 
-        console.log('Resposta do servidor:', response.data); // Log da resposta do servidor
-        return response.data; // Retorna os dados da resposta
+        Swal.fire({
+            icon:'success',
+            title:'Cadastro realizado com sucesso!',
+            showConfirmButton: true,
+            confirmButtonText:'Entendido',
+            confirmButtonColor:'green'
+        })
+        return response.data; 
     } catch (error) {
-        if (error.response) {
-            console.error('Erro na resposta do servidor:', error.response.data);
-            throw new Error(`Erro ao cadastrar coordenador: ${error.response.data}`);
-        } else {
-            console.error('Erro:', error.message);
-            throw error; // Propague o erro
-        }
+        console.error(error)
+        Toast.fire({
+            icon:'error',
+            text:'Algo deu errado no cadastro!'
+    
+          })
     }
 };
 

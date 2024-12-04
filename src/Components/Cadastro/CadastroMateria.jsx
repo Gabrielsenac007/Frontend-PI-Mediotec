@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Cadastro.css'; // Certifique-se de ter um arquivo CSS correspondente para o estilo
 import { cadastrarDisciplina } from '../../services/api'; // Importe a função de cadastro da sua API
+import Swal from 'sweetalert2'
+import { Toast } from '../Swal';
 
 const CadastroDisciplina = () => {
     // Estados para os campos de disciplina
     const [disciplineName, setDisciplineName] = useState("");
     const [description, setDescription] = useState("");
-    const [error, setError] = useState("");
+    const [error] = useState("");
     const navigate = useNavigate(); // Para redirecionar após o cadastro
 
     // Função para lidar com o envio do formulário
@@ -22,10 +24,21 @@ const CadastroDisciplina = () => {
         try {
             // Envia os dados para a API e realiza o cadastro
             await cadastrarDisciplina(disciplinaData);
-            alert('Disciplina cadastrada com sucesso!');
+            Swal.fire({
+                icon:'success',
+                title:'Cadastro realizado com sucesso!',
+                showConfirmButton: true,
+                confirmButtonText:'Entendido',
+                confirmButtonColor:'green'
+            })
             navigate('/home'); // Redireciona para a lista de disciplinas ou outra página desejada
         } catch (error) {
-            setError('Erro ao cadastrar a disciplina: ' + error.message);
+            console.error(error)
+        Toast.fire({
+            icon:'error',
+            text:'Algo deu errado no cadastro!'
+    
+          })
         }
     };
 

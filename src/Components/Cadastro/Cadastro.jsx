@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUser, FaEnvelope, FaLock, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa';
-import { confirmAlert } from 'react-confirm-alert';
+import { FaUser, FaEnvelope, FaIdCard, FaEye, FaEyeSlash } from 'react-icons/fa';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -10,6 +9,8 @@ import InputMask from 'react-input-mask';
 import './Cadastro.css';
 import { listarTurmas } from '../../services/api';
 import axios from 'axios';
+import Swal from 'sweetalert2'
+import { Toast } from '../Swal';
 
 // Função para validar CPF
 const isValidCPF = (cpf) => {
@@ -46,7 +47,7 @@ const cadastroAlunoSchema = z.object({
 const Cadastro = () => {
   const navigate = useNavigate();
   const [turmas, setTurmas] = useState([]);
-  const [error, setError] = useState("");
+  const [error] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [imgProfile, setImgProfile] = useState(null); // Para armazenar o arquivo de imagem
 
@@ -62,7 +63,12 @@ const Cadastro = () => {
         const response = await listarTurmas();
         setTurmas(response);
       } catch (error) {
-        setError('Erro ao carregar turmas: ' + error.message);
+        console.error(`error: ${error}`)
+        Toast.fire({
+          icon:'error',
+          text:'Algo deu errado na listagem!'
+
+        })
       }
     };
     fetchTurmas();
@@ -81,16 +87,27 @@ const Cadastro = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8080/api/users/register/student', formData, {
+      await axios.post('http://localhost:8080/api/users/register/student', formData, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Adicione seu token aqui
           'Content-Type': 'multipart/form-data',
         },
       });
-      alert('Cadastro realizado com sucesso!');
+      Swal.fire({
+        icon:'success',
+        title:'Cadastro realizado com sucesso!',
+        showConfirmButton: true,
+        confirmButtonText:'Entendido',
+        confirmButtonColor:'green'
+      })
       navigate('/alunos');
     } catch (error) {
-      setError('Erro ao cadastrar: ' + error.message);
+      console.error(`error: ${error}`)
+      Toast.fire({
+        icon:'error',
+        text:'Algo deu errado no cadastro!'
+
+      })
     }
   };
 
