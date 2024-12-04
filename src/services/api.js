@@ -163,7 +163,7 @@ export const fetchCoordenadores = async () => {
 // Função para atualizar um coordenador
 export const editarCoordenador = async (id, coordenadorData) => {
     try {
-        const response = await fetch(`https://sam-light-production.up.railway.app/api/users/update/coordinator/${id}`, {
+        const response = await fetch(`http://localhost:8080/api/users/update/coordinator/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -190,6 +190,16 @@ export const editarCoordenador = async (id, coordenadorData) => {
         throw error;
     }
 };
+
+export const buscarCoordenadorPorId = async (id) => {
+    try {
+      const response = await api.get(`/users/coordenador/findById/${id}`); // Substitua pelo endpoint correto
+      console.log('teste',response.data)
+      return response.data;
+    } catch (error) {
+      throw new Error('Erro ao buscar coordenador: ' + error.message);
+    }
+  };
 
 // Função para deletar um coordenador
 export const deleteCoordenador = async (id) => {

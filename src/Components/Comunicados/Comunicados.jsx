@@ -1,76 +1,115 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import './Comunicados.css';
 
+// Esquema de validação com Zod
+const comunicadoSchema = z.object({
+  title: z.string().min(1, 'O título é obrigatório').max(100, 'O título não pode ultrapassar 100 caracteres'),
+  content: z.string().min(1, 'O conteúdo é obrigatório').max(500, 'O conteúdo não pode ultrapassar 500 caracteres'),
+  classId: z.string().uuid('Selecione uma turma válida'),
+});
+
 const Comunicados = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [turmas, setTurmas] = useState([]);
   const [message, setMessage] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false); // Estado para controle do pop-up
+  const [showPopup, setShowPopup] = useState(false);
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  // Configuração do react-hook-form
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: zodResolver(comunicadoSchema),
+    defaultValues: {
+      title: '',
+      content: '',
+      classId: '',
+    },
+  });
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+  // Carregar turmas da API
+  useEffect(() => {
+    const fetchTurmas = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/classes/getAllClasses'); // Substitua pela URL correta
+        setTurmas(response.data);
+      } catch (err) {
+        console.error('Erro ao carregar as turmas:', err);
+      }
+    };
+    fetchTurmas();
+  }, []);
 
-  const handleAddComunicado = async (e) => {
-    e.preventDefault();
-    if (!title.trim() || !content.trim()) return;
-
-    setLoading(true);
+  // Função para enviar o formulário
+  const onSubmit = async (data) => {
+    setMessage('');
     try {
       const creatorId = localStorage.getItem('id');
-      const response = await axios.post('https://sam-light-production.up.railway.app/api/statement/insertStatement', {
-        title: title,
-        content: content,
-        creatorId: creatorId,
+      await axios.post('http://localhost:8080/api/statement/insertStatement', {
+        ...data,
+        creatorId,
       });
 
-      // Exibe o pop-up com a mensagem de sucesso
-      setMessage(response.data.message); // Supondo que a resposta tenha um campo 'message'
-      setShowPopup(true); // Ativa o pop-up
-
-      // Limpa os campos após o envio
-      setTitle('');
-      setContent('');
-    } catch (error) {
-      console.error('Erro ao enviar o comunicado:', error);
-      setMessage('Erro ao enviar o comunicado');
-      setShowPopup(true); // Ativa o pop-up mesmo em caso de erro
-    } finally {
-      setLoading(false);
+      setMessage('Comunicado adicionado com sucesso!');
+      setShowPopup(true);
+      reset(); // Reseta os campos do formulário
+    } catch (err) {
+      console.error('Erro ao enviar o comunicado:', err);
+      setMessage('Erro ao enviar o comunicado. Tente novamente.');
+      setShowPopup(true);
     }
   };
 
-  // Função para fechar o pop-up
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
+  const handleClosePopup = () => setShowPopup(false);
 
   return (
     <div className="notices-container">
       <h1>Comunicados</h1>
-      <form className="notice-form" onSubmit={handleAddComunicado}>
-        <input
-          type="text"
-          className="input-notice"
-          placeholder="Digite o título do comunicado..."
-          value={title}
-          onChange={handleTitleChange}
-        />
-        <textarea
-          className="input-content"
-          placeholder="Digite o conteúdo do comunicado..."
-          value={content}
-          onChange={handleContentChange}
-          rows="4"
-        ></textarea>
-        <button type="submit" className="btn-add-notice" disabled={loading}>
-          {loading ? 'Adicionando...' : 'Adicionar Comunicado'}
+
+      <form className="notice-form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="form-group">
+          <input
+            type="text"
+            className={`input-notice ${errors.title ? 'input-error' : ''}`}
+            placeholder="Digite o título do comunicado..."
+            {...register('title')}
+          />
+          {errors.title && <span className="error-message">{errors.title.message}</span>}
+        </div>
+
+        <div className="form-group">
+          <textarea
+            className={`input-content ${errors.content ? 'input-error' : ''}`}
+            placeholder="Digite o conteúdo do comunicado..."
+            rows="4"
+            {...register('content')}
+          ></textarea>
+          {errors.content && <span className="error-message">{errors.content.message}</span>}
+        </div>
+
+        <div className="form-group">
+          <select
+            className={`input-select ${errors.classId ? 'input-error' : ''}`}
+            {...register('classId')}
+          >
+            <option value="">Selecione uma turma...</option>
+            {turmas.map((turma) => (
+              <option key={turma.id} value={turma.id}>
+                {turma.nameClass} - {turma.schoolYear} - {turma.shift}
+              </option>
+            ))}
+          </select>
+          {errors.classId && <span className="error-message">{errors.classId.message}</span>}
+        </div>
+
+        <button type="submit" className="btn-add-notice" disabled={isSubmitting}>
+          {isSubmitting ? 'Adicionando...' : 'Adicionar Comunicado'}
         </button>
       </form>
 
@@ -79,7 +118,9 @@ const Comunicados = () => {
         <div className="popup">
           <div className="popup-content">
             <span className="popup-message">{message}</span>
-            <button onClick={handleClosePopup} className="btn-close-popup">Fechar</button>
+            <button onClick={handleClosePopup} className="btn-close-popup">
+              Fechar
+            </button>
           </div>
         </div>
       )}
