@@ -3,6 +3,7 @@ import { useForm, Controller } from 'react-hook-form';
 import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import './CadastroNotas.css';
+import Swal from 'sweetalert2';
 
 // Definição do schema Zod para validação dos campos
 const schema = z.object({
@@ -122,7 +123,13 @@ const CadastroNotas = () => {
 
   useEffect(() => {
     if (isSubmitted) {
-      alert('Notas cadastradas com sucesso!');
+      Swal.fire({
+        icon:'success',
+        title:'Nota cadastrada com sucesso!',
+        showConfirmButton: true,
+        confirmButtonText:'Entendido',
+        confirmButtonColor:'green'
+      })
       setIsSubmitted(false);
     }
   }, [isSubmitted]);

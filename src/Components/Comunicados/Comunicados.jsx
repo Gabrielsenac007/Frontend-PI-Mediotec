@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import './Comunicados.css';
+import Swal from 'sweetalert2'
 
 // Esquema de validação com Zod
 const comunicadoSchema = z.object({
@@ -56,8 +57,13 @@ const Comunicados = () => {
         creatorId,
       });
 
-      setMessage('Comunicado adicionado com sucesso!');
-      setShowPopup(true);
+      Swal.fire({
+        icon:'success',
+        title:'Associação realizada com sucesso!',
+        showConfirmButton: true,
+        confirmButtonText:'Entendido',
+        confirmButtonColor:'green'
+      })
       reset(); // Reseta os campos do formulário
     } catch (err) {
       console.error('Erro ao enviar o comunicado:', err);
