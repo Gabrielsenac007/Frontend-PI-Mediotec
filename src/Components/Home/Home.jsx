@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { FaUserGraduate, FaChalkboardTeacher, FaUserTie, FaBullhorn, FaListAlt, FaSchool, FaUsers, FaBookOpen, FaClipboardList, FaClipboardCheck } from 'react-icons/fa';
+import { AiFillAlert } from "react-icons/ai";
 import './Home.css'; 
 
 const Home = () => {
@@ -46,6 +47,14 @@ const Home = () => {
                 <Link to="/associar" className="card"> 
                     <FaClipboardCheck size={48} /> 
                     <h2>Associar Turma à Disciplina</h2>
+                </Link>
+                <Link to="/comunicados" className="card">
+                    <FaBullhorn size={48} />
+                    <h2>Cadastrar Comunicados</h2>
+                </Link>
+                <Link to="/listaComunicados" className="card">
+                    <AiFillAlert size={48} />
+                    <h2>Ver Comunicados</h2>
                 </Link>
             </div>
         </div>
