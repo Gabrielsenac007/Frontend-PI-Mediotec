@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Comunicados.css';
+import { Link } from 'react-router-dom';
 
 const ListaComunicados = () => {
   const [comunicados, setComunicados] = useState([]);
@@ -43,7 +44,7 @@ const ListaComunicados = () => {
         )}
       </div>
       <div className="btn-add-notice">
-        <button>Adicionar Comunicado</button>
+        <Link to="/comunicados"><button>Adicionar Comunicado</button></Link>
       </div>
     </div>
   );
