@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import './AssociarTurmaDisciplina.css'; // Arquivo CSS para estilização
+import Swal from 'sweetalert2'
+import { Toast } from '../Swal';
 
 const AssociarTurmaDisciplina = () => {
   const [turmas, setTurmas] = useState([]);
@@ -68,12 +70,23 @@ const AssociarTurmaDisciplina = () => {
         message = result; // Se falhar, use a string original
       }
 
-      alert(`Associação realizada com sucesso: ${message}`);
+      Swal.fire({
+        icon:'success',
+        title:'Associação realizada com sucesso!',
+        showConfirmButton: true,
+        confirmButtonText:'Entendido',
+        confirmButtonColor:'green'
+      })
       // Limpar seleção
       setSelectedTurma('');
       setSelectedDisciplina('');
     } catch (error) {
-      setError('Erro ao associar: ' + error.message);
+      console.error(error)
+        Toast.fire({
+        icon:'error',
+        text:'Algo deu errado no cadastro!'
+
+      })
     }
 
     console.log('selectedTurma:', selectedTurma, 'selectedDisciplina:', selectedDisciplina);

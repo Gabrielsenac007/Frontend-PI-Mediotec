@@ -269,7 +269,7 @@ const CadastroNotas = () => {
             </div>
           </div>
 
-          <button type="submit">Cadastrar Notas</button>
+          <button type="submit" className='bnt-cadastro'>Cadastrar Notas</button>
         </form>
       )}
     </div>
